@@ -1,0 +1,215 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.7.15)  29 NOV 2020 18:12
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**/home/poetry/recovery/ML/ml.tex
+(/home/poetry/recovery/ML/ml.tex
+LaTeX2e <2020-02-02> patch level 2
+L3 programming layer <2020-02-14>
+(/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2019/12/20 v1.4l Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk12.clo
+File: bk12.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count167
+\c@chapter=\count168
+\c@section=\count169
+\c@subsection=\count170
+\c@subsubsection=\count171
+\c@paragraph=\count172
+\c@subparagraph=\count173
+\c@figure=\count174
+\c@table=\count175
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2020/01/20 v2.17e AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks14
+\ex@=\dimen135
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen136
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count176
+LaTeX Info: Redefining \frac on input line 227.
+\uproot@=\count177
+\leftroot@=\count178
+LaTeX Info: Redefining \overline on input line 389.
+\classnum@=\count179
+\DOTSCASE@=\count180
+LaTeX Info: Redefining \ldots on input line 486.
+LaTeX Info: Redefining \dots on input line 489.
+LaTeX Info: Redefining \cdots on input line 610.
+\Mathstrutbox@=\box45
+\strutbox@=\box46
+\big@size=\dimen137
+LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
+\macc@depth=\count181
+\c@MaxMatrixCols=\count182
+\dotsspace@=\muskip16
+\c@parentequation=\count183
+\dspbrk@lvl=\count184
+\tag@help=\toks15
+\row@=\count185
+\column@=\count186
+\maxfields@=\count187
+\andhelp@=\toks16
+\eqnshift@=\dimen138
+\alignsep@=\dimen139
+\tagshift@=\dimen140
+\tagwidth@=\dimen141
+\totwidth@=\dimen142
+\lineht@=\dimen143
+\@envbody=\toks17
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks18
+LaTeX Info: Redefining \[ on input line 2859.
+LaTeX Info: Redefining \] on input line 2860.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/index/index.sty
+Package: index 2004/01/20 v4.2beta Improved index support (dmj)
+\@indexbox=\insert199
+\indexproofstyle=\toks19
+
+
+LaTeX Warning: Command \markboth  has changed.
+               Check if current package is valid.
+
+
+LaTeX Warning: Command \markright  has changed.
+               Check if current package is valid.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/appendix/appendix.sty
+Package: appendix 2020/02/08 v1.2c extra appendix facilities
+\c@@pps=\count188
+\c@@ppsavesec=\count189
+\c@@ppsaveapp=\count190
+)
+\idxtitle@default=\toks20
+\tf@default=\write3
+\openout3 = `ml.idx'.
+
+Package index Info: Writing index file ml.idx on input line 6.
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count191
+\l__pdf_internal_box=\box47
+)
+
+LaTeX Warning: Unused global option(s):
+    [4apaper].
+
+(./ml.aux)
+\openout1 = `ml.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+ [1
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
+
+] (./ml.toc)
+\tf@toc=\write4
+\openout4 = `ml.toc'.
+
+ [1] [2
+
+] [3] [4
+
+]
+Chapter 1.
+
+Overfull \hbox (20.93074pt too wide) in paragraph at lines 46--47
+[]\OT1/cmr/m/n/12 cost func-tion is de-fined as the av-er-age of loss func-tion
+ $\OML/cmm/m/it/12 J\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w; b\OT1/cmr/m/n/12 ) = [
+] [][] \OML/cmm/m/it/12 L\OT1/cmr/m/n/12 ([]\OML/cmm/m/it/12 ; y\OT1/cmr/m/n/12
+ )$ 
+ []
+
+[5] [6]
+Chapter 2.
+
+Overfull \hbox (41.38196pt too wide) in paragraph at lines 76--77
+\OT1/cmr/m/n/12 s=['i', 'love', 'NLP', ',', 'there-fore', 'i', 'study', 'it'], 
+$\OML/cmm/m/it/12 X[] \OT1/cmr/m/n/12 = [1\OML/cmm/m/it/12 ; freqs[]; freqs[]\O
+T1/cmr/m/n/12 ]$. 
+ []
+
+[7
+
+] [8]
+Chapter 3.
+[9
+
+]
+Overfull \hbox (34.70059pt too wide) in paragraph at lines 98--99
+[]\OT1/cmr/m/n/12 Neural Net-work(NN): is a set of in-ter-con-nected lay-ers, $
+\OML/cmm/m/it/12 < X; L[]; L[]; :::; L[]; Y >$ 
+ []
+
+[10] [11
+
+
+] [12]
+Appendix A.
+[13
+
+] (./ml.aux) ) 
+Here is how much of TeX's memory you used:
+ 1228 strings out of 482663
+ 16383 string characters out of 5955139
+ 251894 words of memory out of 5000000
+ 16435 multiletter control sequences out of 15000+600000
+ 540240 words of font info for 51 fonts, out of 8000000 for 9000
+ 264 hyphenation exceptions out of 8191
+ 30i,8n,25p,745b,184s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </root/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm12
+00.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sy8.pfb>
+Output written on ml.pdf (15 pages, 145039 bytes).
+PDF statistics:
+ 106 PDF objects out of 1000 (max. 8388607)
+ 75 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
