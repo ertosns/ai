@@ -3,11 +3,47 @@
 \contentsline {chapter}{\numberline {1}Logistic Regression as a neural network}{v}%
 \contentsline {section}{\numberline {1.1}definitions}{v}%
 \contentsline {section}{\numberline {1.2}cost function}{v}%
-\contentsline {section}{\numberline {1.3}Gradient Descend}{vi}%
-\contentsline {chapter}{\numberline {2}Natural language processing}{vii}%
-\contentsline {section}{\numberline {2.1}Logistic regression classifier}{vii}%
-\contentsline {section}{\numberline {2.2}Naive Bayes classifier}{viii}%
-\contentsline {chapter}{\numberline {3}Neural Networks}{ix}%
-\contentsline {section}{\numberline {3.1}Lingua franca}{ix}%
-\contentsline {chapter}{Appendices}{xi}%
-\contentsline {chapter}{\numberline {A}Introduction to probabilities}{xiii}%
+\contentsline {section}{\numberline {1.3}Gradient Descent}{vi}%
+\contentsline {section}{\numberline {1.4}Model training}{vii}%
+\contentsline {section}{\numberline {1.5}Forward Propagation}{viii}%
+\contentsline {subsection}{\numberline {1.5.1}Activation Functions}{viii}%
+\contentsline {section}{\numberline {1.6}Backward Propagation}{viii}%
+\contentsline {section}{\numberline {1.7}Update parameters}{ix}%
+\contentsline {section}{\numberline {1.8}Summary}{ix}%
+\contentsline {section}{\numberline {1.9}Logistic Regression in Python}{ix}%
+\contentsline {section}{\numberline {1.10}References}{x}%
+\contentsline {chapter}{\numberline {2}Neural Networks}{xi}%
+\contentsline {section}{\numberline {2.1}Lingua franca}{xi}%
+\contentsline {section}{\numberline {2.2}Model training}{xii}%
+\contentsline {section}{\numberline {2.3}Parameter initialization}{xiii}%
+\contentsline {section}{\numberline {2.4}Forward Propagation}{xiv}%
+\contentsline {section}{\numberline {2.5}Backward Propagation}{xiv}%
+\contentsline {section}{\numberline {2.6}Summary}{xv}%
+\contentsline {section}{\numberline {2.7}Deep neural networks in Python}{xv}%
+\contentsline {chapter}{\numberline {3}Natural language processing}{xvii}%
+\contentsline {section}{\numberline {3.1}pre-processing}{xvii}%
+\contentsline {section}{\numberline {3.2}Example: positive, negative classifier}{xvii}%
+\contentsline {section}{\numberline {3.3}Logistic regression classifier}{xviii}%
+\contentsline {section}{\numberline {3.4}Naive Bayes classifier}{xix}%
+\contentsline {section}{\numberline {3.5}costine similaritis}{xxi}%
+\contentsline {subsection}{\numberline {3.5.1}Euclidean distance}{xxii}%
+\contentsline {section}{\numberline {3.6}Principle Component Analysis (PCA)}{xxii}%
+\contentsline {section}{\numberline {3.7}Machine Translation}{xxiii}%
+\contentsline {subsection}{\numberline {3.7.1}Loss function L}{xxiv}%
+\contentsline {subsection}{\numberline {3.7.2}gradient descent}{xxv}%
+\contentsline {subsection}{\numberline {3.7.3}fixed number of iterations}{xxvi}%
+\contentsline {subsection}{\numberline {3.7.4}k-Nearest neighbors algorithm}{xxvi}%
+\contentsline {subsection}{\numberline {3.7.5}Searching for the translation embedding}{xxvii}%
+\contentsline {subsection}{\numberline {3.7.6}LSH and document search}{xxvii}%
+\contentsline {subsection}{\numberline {3.7.7}Bag-of-words (BOW) document models}{xxviii}%
+\contentsline {subsection}{\numberline {3.7.8} Choosing the number of planes}{xxviii}%
+\contentsline {subsection}{\numberline {3.7.9} Getting the hash number for a vector}{xxix}%
+\contentsline {section}{\numberline {3.8}Probabilistic model of pronounciation and spelling}{xxx}%
+\contentsline {subsection}{\numberline {3.8.1}auto-correction}{xxx}%
+\contentsline {subsection}{\numberline {3.8.2}Bayesian inference model}{xxxi}%
+\contentsline {subsection}{\numberline {3.8.3}Minimum edit distance}{xxxii}%
+\contentsline {chapter}{Appendices}{xxxiii}%
+\contentsline {chapter}{\numberline {A}Introduction to probabilities}{xxxv}%
+\contentsline {section}{\numberline {A.1}Naive Bayes}{xxxv}%
+\contentsline {chapter}{\numberline {B}Covariance}{xxxvii}%
+\contentsline {chapter}{\numberline {C}Single Value Decomposition}{xxxix}%

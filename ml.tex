@@ -32,62 +32,116 @@
 
 \begin{description}
 \item we need an estimate function $\hat{y}$ for the input x, and weight prameters w$\in R^{n_x}, b\in R$.
-\item logstic function is $\hat{y}=b(y=1|x)$, and can be defined as follows: $\hat{y}=\sigma(w^Tx+b)$, where the sigma function is defined by $\sigma(z)=\frac{1}{1+e^{-z}}$, and notice when z $\to \infty, \sigma = 1, z \to -\infty, \sigma =0$.
+\item logstic function is $\hat{y}=p(y=1|x)$, and can be defined as follows: $\hat{y}=\sigma(w^Tx+b)$, where the sigma function is defined by $\sigma(z)=\frac{1}{1+e^{-z}}$, and notice when z $\to \infty, \sigma = 1, z \to -\infty, \sigma =0$.
 \item
 \end{description}
 
 \section{cost function}
 
 \begin{description}
-\item loss function is minimizing to the difference between estimation$\hat{y}$, y, can be defined as least squre $L(\hat{y}, y)=\frac{1}{2}(\hat{y} - y)$, but least squares leads to non-convex loss function(with multiple local minimums).
-\item loss function is defined as $L(\hat{y}, y)=-[ylog(\hat{y})+(1-y)log(1-\hat{y})]$, L$\in[0-1]$.
-\item loss function derivative:
-  \item add derivative here
-  \item cost function is defined as the average of loss function $J(w,b)=\frac{1}{m}\sum_{i=1}^{m}L(\hat{y^{(i)}}, y)$
+\item starting with a estimation linear forward model $\hat{y}$, we calculate the difference between our estimate, and the real value $y$, and through optimization we try to minimize the difference, or loss/cost through gradient descent, then we update our model's parameters.
+  \item loss function is minimizing the difference between estimation ${\hat{y}, y}$, and can be defined as least squre $L(\hat{y}, y)=\frac{1}{2}(\hat{y} - y)$, but least squares leads to non-convex loss function(with multiple local minimums).
+\item there are different loss functions, but the most efficient is that which maximize the difference. we can define $P(y|x^{(i)}, \theta) = h(x^{(i)},\theta)^{y^{(i)}}(1-h(x^{(i)},\theta)^{1-y^{(i)}}$, to increase the sensitivity to the training set we take the likelihood function, as the loss, $L(\theta)=\prod_{i=1}^mP(y|x^{(i)}, \theta)$ see $\mathbf{(AppendixA)}$.
+\item one final step in our model is that as m get larger L tend to go to zero, to solve this we define the average sum of log-likelihood, or loss function to be our Cost function.
+\item we multiply by -1 since the sum of the log-likelihood function is negative.
+\item the Cost function  $J(\theta)=\frac{1}{m}\sum_{i=1}^{m}log(h(x^{(i)},\theta)^{y^{(i)}}(1-h(x^{(i)},\theta)^{1-y^{(i)}})$
+
+\item loss function is defined as $L(\hat{y}, y)=-[ylog(\hat{y}) - (1-y)log(1-\hat{y})]$, L$\in[0-1]$.
+
+\item cost function is defined as the average of loss function $J(w,b)=\frac{1}{m}\sum_{i=1}^{m}L(\hat{y^{(i)}}, y)$
 \end{description}
 
-\section{Gradient Descend}
+\section{Gradient Descent}
 
 \begin{description}
-\item gradient descend is a way to tune the weighting parameters with respect to the cost function, the objective is the lean toward the fittest weights with respect to the least cost.
+
+\item gradient descent is a way to tune the weighting parameters, the objective is the lean toward the fittest weights with respect to the least cost.
 \item iterate through cost function $\mathbf{J}$ tuning with respect to weight parameters  $\mathbf{w}$, $\mathbf{b}$.
 \item iterate through: $w:=w-\alpha\frac{\partial{J}}{\partial{w}}$,  $b:=b-\alpha\frac{\partial{J}}{\partial{b}}$, for tuning w, b for the least $\mathbf{J}$ possible, such that $\alpha$ is the learning rate of GD.
 \item for simplicity $\partial{J}/\partial{w}$ replaced for $\partial{w}$, and similarly $\partial{J}/\partial{b}$ is replaced for $\partial{b}$.
-\item forward propagation, $\partial w = \frac{\partial{J}}{\partial{L}}\frac{\partial{L}}{\partial{\hat{y}}}\frac{\partial{\hat{y}}}{\partial{z}}\frac{\partial{z}}{\partial{w}}$, similarly $\partial b = \frac{\partial{J}}{\partial{L}}\frac{\partial{L}}{\partial{\hat{y}}}\frac{\partial{\hat{y}}}{\partial{z}}\frac{\partial{z}}{\partial{b}}$.
-\item $\partial{L}/\partial{\hat{y}}=\frac{-y}{\hat{y}} + \frac{(1-y)}{1-\hat{y}}$, $\partial{\hat{y}}/\partial{z}=\frac{-e^{-z}}{1+e^{-z}} = \hat{y}(1-\hat{y}).$
+\item forward propagation, $$\partial w = \frac{\partial{J}}{\partial{L}}\frac{\partial{L}}{\partial{\hat{y}}}\frac{\partial{\hat{y}}}{\partial{z}}\frac{\partial{z}}{\partial{w}}$$, similarly $$\partial b = \frac{\partial{J}}{\partial{L}}\frac{\partial{L}}{\partial{\hat{y}}}\frac{\partial{\hat{y}}}{\partial{z}}\frac{\partial{z}}{\partial{b}}$$.
+\item $$\partial{L}/\partial{\hat{y}}=\frac{-y}{\hat{y}} + \frac{(1-y)}{1-\hat{y}}$$, $$\partial{\hat{y}}/\partial{z}=\frac{-e^{-z}}{1+e^{-z}} = \hat{y}(1-\hat{y}).$$
 \item $\partial{L}/\partial{z}=\hat{y}-y$.
-\item then we can deduce that the final iteration gradient descend step after calculating sigma, loss, and cost functions can be  $w:=w-\frac{\alpha}{m}\sum_{i=1}^m\frac{\partial{L}}{\partial{b}}=\frac{\alpha}{m}X^T(\hat{y}-y)$, and $b:=b-\frac{\alpha}{m}\sum_{i=1}^{m}(\hat{y}-y).$
+\item then we can deduce that the final iteration gradient descent step after calculating sigma, loss, and cost functions can be  $$w:=w-\frac{\alpha}{m}\sum_{i=1}^m\frac{\partial{L}}{\partial{b}}=\frac{\alpha}{m}X^T(\hat{y}-y)$$, and $$b:=b-\frac{\alpha}{m}\sum_{i=1}^{m}(\hat{y}-y)$$.
 \end{description}
 
+\section {Model training}
+\begin {description}
+\item to train a logistic regression model given data set of \textbf{{X,y}} we divide it into 20\% for testing, and 80\% for training, such that the training set is used to train our model parameters, and testing set is a separate set to test our model's predictions.
 
-\chapter{Natural language processing}
-\section{Logistic regression classifier}
+\item we call $X=\{X_{training},X_{testing}\}, y=\{y_{training},y_{testing}\}$ the data set, and
+  $\{X_{training}, y_{training}\}$ the training set,and
+  $\{X_{testing}, y_{testing}\}$ the testing set.
+\item using $X_{training}, y_{training}$ (for the rest of the chapter, and the book i will refer to them by $X,y$ for simplicity) we start \textbf{Forward propagation} to estimate $\hat{y}$ calculate the difference between $y$, $\hat{y}$ through \textbf{Cost function} $J(y,\hat{y})$.
+\item going backward to W, b we implement \textbf{Backward propagation} through $\frac{\partial{J}}{\partial{\omega}}$, and $\frac{\partial{J}}{\partial{b}}$.
+\item finally we \textbf{update weight parameters} after sufficient iterations until we minimize our cost function completely.
+\end {description}
+
+\section{Forward Propagation}
 \begin{description}
-\item the problem here is how to extract features $\mathbf{X}$ from the a sentence.
-\item for example how to classify a sentence being positive, or negative, assigning 0 for negative, and 1 for positive, starting for a preprocessed sentence how to turn it into a feature set X.
-  \item but there are unnecessary punctuation, conjugation, and stops that need to be get rid of, so first we need to pre-process our dataset as follows:
-  \begin{enumerate}
-  \item iliminate handles and URLs
-  \item tokenize the string into words
-  \item remove stop words such as ``and, is, a, on, etc''
-  \item covert every word into it's stem form
-  \item lower case transformation
-  \end{enumerate}
-\item starting with sentence s=``i love NLP, therefore i study it'' how to classify s=['i', 'love', 'NLP', ',', 'therefore', 'i', 'study', 'it'], $X_m=[1, freqs_{pos}, freqs_{neg}]$.
-\item for a set of strings $S={s_1, s_2, .., s_n}$, matching each string against a vocabulary of all words to end up with two vectors of word frequency, we create positive frequency vector freqs(w,1), and negative frequency vector freqs(w,0) such that w stand for sentence word, and such that $X_m=[1, \sum_{w}freqs(w,1), \sum_{w}freqs(w,0)]$
-\item for example in training sets ${s_1, s_2}$, $s_1$=''i love NLP, therefore i study it'' labled as positive, and $s_2$=''society no longer in need for black magic, or superstition'' we can extract pos-neg features against vocabulary V=['i', 'love', 'NLP', ',', 'therefore', 'study', 'it', 'society', 'no', 'longer', 'in', 'need', 'for', 'black', 'magic', 'or', 'superstition'], pos-freqs = [2, 1, 1, 1, 1, 1, 1, 0, 0, 0, ..., 0], neg-freqs = [0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]. $X_m$=[1, 8, 11]. for m training sets, $X_{m}=\begin{vmatrix}1&x_1^{(1)}&x_2^{(1)}\\1&x_1^{(2)}&x_2^{(2)}\\1&x_1^{(3)}&x_2^{(3)}\\...\\1&x_1^{(m)}&x_2^{(m)}\end{vmatrix}$
-\item let's see how this fits inside the Gradient Descend algorithm, for $\sigma(X^i, \theta^i)=\frac{1}{1+e^{-z}}$, we add the bias b to the $X^i$ itself, and therefore $z=\theta^TX^i$.
-\item therefore for a positive z we get  $\sigma>0.5$, and inversely for negative z we have $\sigma<0.5$.
-\item now we ready for Gradient Descend, given initial parameters $\theta$, we predict, or evaluate the logistic:
-\item$\sigma(X^i, \theta_j)$, then loss function $L(\hat{y}, y)=-[\hat{y}log(\hat{y}) - (1-y)log(1-\hat{y})]$, gradient $\nabla=\partial{J}/\partial{\theta_j} = \frac{X^T}{m}(\hat{y} - y)$, updating $\theta_j := \theta_j - \alpha\nabla$. iterate through gradient descend k times.
+\item we begin by initializing our weight, and bias parameters
+  $\omega$, b randomly.
+  \subsection{Activation Functions}
+  \item what is activation function?
+\item sigmoid:
+\item relu:
+\item tanh:
 
+\item Starting with input training set \textbf{X} in our model. we estimate
+  $$z=\omega^TX + b$$. then $$\hat{y}=\sigma(z)$$.
+
+\item calculate cost function $$J(y,\hat{y})$$.
 \end{description}
 
-\section{Naive Bayes classifier}
+\section{Backward Propagation}
+\begin{description}
+\item after evaluating the cost function $J(y,\hat{y})$ we calculate it's derivative with respect to  $\{\omega,b\}$.
+
+\item $$\partial{\omega}= \frac{\partial{L}}{\partial{\omega}}=
+  \frac{\partial{L}}{\partial{\hat{y}}}
+  \frac{\partial{\hat{y}}}{\partial{z}}
+  \frac{\partial{z}}{\partial{\omega}}$$
+\item $$
+  \frac{\partial{L}}{\partial{\hat{y}}} = -
+  (\frac{y}{\hat{y}} - \frac{(1-y)}{(1-\hat{y}}) =
+  \frac{\hat{y}-y}{\hat{y}(1-\hat{y})}
+  $$
+
+\item $$e^{-z}=\frac{1}{\hat{y}} - 1=\frac{1-\hat{y}}{\hat{y}}$$
+\item $$
+  \frac{\partial{\hat{y}}}{\partial{z}} =
+  \frac{e^{-z}}{1+e^{-z}} = (\hat{y})^2e^{-z}
+  $$
+\item $$ \partial{\omega} = X^T(\hat{y} - y) $$
+\item $$ \partial{b} = \hat{y} - y $$
+\end{description}
+
+\section{Update parameters}
+\begin{description}
+  \item we implement the following algorithm with a fixed number of iteration that is customized per application, and tuned by the Engineer, such that each application would require different tuning parameters from which is the iteration number.
+\item we iterate the following: update the parameters $\omega$, b, in the back propagation step using $\partial{\omega}$, $\partial{b}$.
+\item $$\omega = \omega - \frac{\alpha}{m}X^T(y-\hat{y})$$
+\item $$b = b - \frac{\alpha}{m}(y-\hat{y})$$
+
+  \end{description}
+
+\section{Summary}
+\begin{description}
+  \item
+\end{description}
+
+\section{Logistic Regression in Python}
+\begin{description}
+  \item
+\end{description}
+
+\section{References}
+\begin{description}
+  \item
+\end{description}
 
 \chapter{Neural Networks}
 \section {Lingua franca}
-
 
 \begin{itemize}
 \item RELU Activation Function: It turns out that using the Tanh function in hidden layers is far more better. (Because of the zero mean of the function). Tanh activation function range is [-1,1] (Shifted version of sigmoid function). Sigmoid or Tanh function disadvantage is that if the input is too small or too high, the slope will be near zero which will cause us the gradient decent problem. RELU stands for rectified linear unit, it's a rectifier Activation function and can be defined as $f(x)=x^+=max(0,x)$ or $\begin{cases} 0 & x\leq 0 \\ x & x > 0 \end{cases}$ relu shows to be better replacement to sigmoid function $\sigma$ for the reason that it help in vanquishing gradient problem.
@@ -102,19 +156,385 @@
 \end{itemize}
 
 \begin{description}
-
 \item we discussed in previous chapter that $\frac{\partial{\hat{y}}}{\partial{z}}$, is actually for the logistic activation function $\sigma$ only, we need to calculate the same derivation for tanh, and RELU.
 \item for $tanh(z)=\frac{e^{z}-e^{-z}}{e^{z}+e^{-z}}$ is $\frac{\partial{\hat{y}}}{\partial{z}}=1-tanh(z)^2$
 \item for relu activation function $\frac{\partial{\hat{y}}}{\partial{z}}=\begin{cases}0 & z<0\\1 & z\ge0\end{cases}$
-
 \item in NN there are plenty of parameters to worry about, for example the weights need to be initialized randomly, with small values, and $b$ can be initialized as zero.
-
-
-
 \end {description}
+
+\section{Model training}
+\begin{description}
+\item Training a deep neural network is analogous to training a logistic regression network, as discussed in previous chapter, a logistic regression model can be considered a neural network with zero \textbf{hidden layers}.
+\item We follow the same algorithm, parameter initialization, but in this case we initialize the parameters for each layer, assume a network composed of 2 hidden layers $X \rightarrow L1 \rightarrow L2 \rightarrow Y$, layer $(L^{(i)}, L^{(i-1)})$ are interconnected with weight,bias parameters $\omega^{(1)},b^{(1)}$, such that $\omega^{(i)}$ is a matrix of shape $(length(L^{(i)}), length(L^{(i-1)})$, and $b$ is a vector of shape $(length(L^{(i)}, 1))$, so each node in the layer $L^{(i)}$ is connected with each node in previous layer $L^{(i-1)}$.
+\item W, b are ought to be randomly initialized, in the logistic regression discussed in previous chapter, W, b should be initialized with zero values, but in the case of the neural network zero initialization leads to $\hat{y}=0$, and all the nodes share the same weight which violates the purpose of the nodes in the first place which is to capture features from the data set as much as possible, so random initialization is necessary, and not to overshoot, initialization better in range $]0-1[$ weighted by small value around 0.01 to reduce the sensitivity, in order for the gradient descent to not take for ever.
+  \item forward and back propagation are executed in a similar way to logistic regression with minor differences.
+  \item calculation of forward propagation using inputs from the previous layer instead of input data set, activation function can be \textbf{sigmoid}, \textbf{relu}, or \textbf{tanh}, it has been tested that \textbf{relu} activation function in the first layers shows better results, and \textbf{sigmoid} activation in the last layer to fit perfectly with the output classification y-vector in the range $[0-1]$
+
+\end{description}
+
+\section{Parameter initialization}
+\begin{description}
+\item Iterating through each layer, such that $L^i$ layer of length $l_i$ nodes, and previous layer $L^{i-1}$ of $l_{i-1}$ nodes, the weight parameter at layer L is inter-connected with all nodes in the previous layer, meaning that nodes at layer $L^i$ ought to have weight matrix of shape $(l_i, l_{i-1})$, and bias of shape $(l_i,1)$.
+\item Unlike the logistic regression, in Neural network initialization step is crucial step, in logistic regression there is only a single activation node extracting a single feature such as price of a house for example, but we intend to employ neural networks to capture as many features as possible inside each node, and therefor initialization ought to be with random values, otherwise we end up with similar copies of each node forward, and backward propagation.
+\item and since we choose random $W^i$ we can choose $b^i$ to be zero.
+\end{description}
+
+\section{Forward Propagation}
+\begin{description}
+\item similar to logistic regression forward propagation, done for each layer, with little difference that instead of using sigmoid function $\sigma$ we replace it with \textbf{relu} function, which is shows better results, and activate the last layer with sigmoid function to distribute the output toward the extremes.
+\item the forward propagation step is done on the input $A^{i-1}$ from previous layer, with current layer $L^i$ parameters $\omega^i$, $b^i$.
+  \item we iterate through layers $L^i$ such that $i \in [0,L]$
+\item  $$z^i=(\omega^i)^TA^{(i-1)}+b^i$$.
+\item $$
+  A^i=\begin{cases}
+  \text{relu{($z^i$)} $\leftarrow$ if i $<$ L} \\
+  \text{$\sigma(z^i)$ $\leftarrow$ if i = L}
+  \end{cases}
+  $$
+
+\end{description}
+
+\section{Backward Propagation}
+\begin{description}
+\item $$
+  \frac{\partial{L^i}}{\partial{\omega^i}}=
+    \frac{\partial{L^i}}{\partial{A^{(i-1)}}}
+      \frac{\partial{A^{(i-1)}}}{\partial{z^i}}
+        \frac{\partial{z^i}}{\omega^i}
+        $$
+      \item $$\partial{A^{(i-1)}}=\partial{z^i}
+        (\frac{\partial{A^{(i-1)}}}{\partial{z^i}})^{-1}=
+        \partial{z^i}\frac{\partial{z^i}}{\partial{A^{(i-1)}}}
+        $$
+
+      \item since the last activation function is sigmoid, then $$\partial{z^L}=y^L-\hat{y^L}$$
+        \item the back propagation algorithm start with the following initialization step:.
+        \item $$ \partial{A^{(L)}} = \frac{(\hat{y}-y)}{\hat{y}(1-\hat{y})} $$
+        \item $$\partial{A^{(L-1)}} = (\omega^{(L)})^T(y^{(L)}-\hat{y^{(L)}})$$
+        \item $$ \frac{\partial{z^i}}{\partial{A^{(i-1)}}} = \omega^T $$
+        \item $$\partial{A^{(i-1)}}=\omega^T\partial{z^i}$$
+
+\end{description}
+
+\section{Summary}
+\begin{description}
+\item
+\end{description}
+
+\section{Deep neural networks in Python}
+\begin{description}
+\item
+\end{description}
+
+\chapter{Natural language processing}
+\section{pre-processing}
+\begin{description}
+\item the problem here is how to extract features $\mathbf{X}$ from the a sentence.
+\item for example how to classify a sentence being positive, or negative, assigning 0 for negative, and 1 for positive, starting for a preprocessed sentence how to turn it into a feature set X.
+  \item but there are unnecessary punctuation, conjugation, and stops that need to be get rid of, so first we need to pre-process our dataset as follows:
+  \begin{enumerate}
+  \item iliminate handles and URLs
+  \item tokenize the string into words
+  \item remove stop words such as ``and, is, a, on, etc''
+n  \item covert every word into it's stem form
+  \item lower case transformation
+  \end{enumerate}
+
+\end{description}
+\section{Example: positive, negative classifier}
+\begin{description}
+\item given sentence s=``i love NLP, therefore i study it'' how to classify s=['i', 'love', 'NLP', ',', 'therefore', 'i', 'study', 'it']  as positive or negative?.
+\item for a set of strings $S=\{s_1, s_2, .., s_n\}$, matching each string against a vocabulary of all words to end up with two vectors of word frequency, we create positive frequency vector freqs(w,1), and negative frequency vector freqs(w,0) such that w stand for sentence word, and such that $X_m=[1, \sum_{w}freqs(w,1), \sum_{w}freqs(w,0)]$
+\item given a set of sentences, each is labeled for training as either positive, or negative. we mark each word in a positive-labeled sentence as positive, even if the word is negative, and conversely the opposite with negative-labeled sentences, we mark every word as negative.
+\item first of all we create a set vocabulary $V$ that includes all sets, or sentences $S$, $V=\{words(s_i) | s_i \in{S}\}$.
+\item for example in training sets ${s_1, s_2}$, $s_1$=''i love NLP, therefore i study it'' labeled as positive, and $s_2$=''society no longer in need for black magic, or superstition'' labeled negative, we can extract pos-neg features against vocabulary V=['i', 'love', 'NLP', ',', 'therefore', 'study', 'it', 'society', 'no', 'longer', 'in', 'need', 'for', 'black', 'magic', 'or', 'superstition'], pos-freqs = [2, 1, 1, 1, 1, 1, 1, 0, 0, 0, ..., 0], neg-freqs = [0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]. $X_m$=[1, 8, 11]. for m training sets, $X_{m}=\begin{vmatrix}1&x_1^{(1)}&x_2^{(1)}\\1&x_1^{(2)}&x_2^{(2)}\\1&x_1^{(3)}&x_2^{(3)}\\...\\1&x_1^{(m)}&x_2^{(m)}\end{vmatrix}$
+  \end{description}
+\section{Logistic regression classifier}
+\begin{description}
+\item let's see how this fits inside the Gradient Descent algorithm, for $\sigma(X^i, \theta^i)=\frac{1}{1+e^{-z}}$, we add the bias b to the $X^i$ itself, and therefore $z=\theta^TX^i$.
+\item therefore for a positive z we get  $\sigma>0.5$, and inversely for negative z we have $\sigma<0.5$.
+\item now we ready for Gradient Descent, given initial parameters $\theta$, we predict, or evaluate the logistic:
+\item$\sigma(X^i, \theta_j)$, then loss function $L(\hat{y}, y)=-[\hat{y}log(\hat{y}) + (1-y)log(1-\hat{y})]$, gradient $\nabla=\partial{J}/\partial{\theta_j} = \frac{X^T}{m}(\hat{y} - y)$, updating $\theta_j := \theta_j - \alpha\nabla$. iterate through gradient descent k times.
+\end{description}
+
+\section{Naive Bayes classifier}
+\begin{description}
+\item The prior probability represents the underlying probability in the target population that a tweet is positive versus negative.  In other words, if we had no specific information and blindly picked a tweet out of the population set, what is the probability that it will be positive versus that it will be negative? That is the "prior".
+
+\item The prior is the ratio of the probabilities $\frac{P(D_{pos})}{P(D_{neg})}$.
+\item We can take the log of the prior to rescale it, and we'll call this the logprior
+
+\item $$\text{logprior} = log \left( \frac{P(D_{pos})}{P(D_{neg})} \right) = log \left( \frac{D_{pos}}{D_{neg}} \right)$$.
+
+\item Note that $log(\frac{A}{B})$ is the same as $log(A) - log(B)$.  So the logprior can also be calculated as the difference between two logs:
+
+\item $\text{logprior} = \log (P(D_{pos})) - \log (P(D_{neg})) = \log (D_{pos}) - \log (D_{neg})$
+
+\item To compute the positive probability and the negative probability for a specific word in the vocabulary, we'll use the following inputs:
+
+\item $freq_{pos}$ and $freq_{neg}$ are the frequencies of that specific word in the positive or negative class. In other words, the positive frequency of a word is the number of times the word is counted with the label of 1.
+
+\item $N_{pos}$ and $N_{neg}$ are the total number of positive and negative words for all documents (for all tweets), respectively.
+- $V$ is the number of unique words in the entire set of documents, for all classes, whether positive or negative.
+
+\item We'll use these to compute the positive and negative probability for a specific word using this formula:
+
+\item $$ P(W_{pos}) = \frac{freq_{pos} + 1}{N_{pos} + V}$$
+\item $$ P(W_{neg}) = \frac{freq_{neg} + 1}{N_{neg} + V}$$
+
+\item Notice that we add the "+1" in the numerator for additive smoothing.
+
+\item To compute the loglikelihood of that very same word, we can implement the following equations:
+
+\item $$\text{loglikelihood} = \log \left(\frac{P(W_{pos})}{P(W_{neg})} \right)$$
+
+\item $$ p = logprior + \sum_i^N (loglikelihood_i)$$
+
+\item Some words have more positive counts than others, and can be considered "more positive".  Likewise, some words can be considered more negative than others.
+\item One way for us to define the level of positiveness or negativeness, without calculating the log likelihood, is to compare the positive to negative frequency of the word.
+\item Note that we can also use the log likelihood calculations to compare relative positivity or negativity of words.
+\item We can calculate the ratio of positive to negative frequencies of a word.
+\item Once we're able to calculate these ratios, we can also filter a subset of words that have a minimum ratio of positivity / negativity or higher.
+\item Similarly, we can also filter a subset of words that have a maximum ratio of positivity / negativity or lower (words that are at least as negative, or even more negative than a given threshold).
+
+\item $$ \text{ratio} = \frac{pos_{words} + 1}{neg_{words} + 1} $$
+
+\item In prevision section a Logistic regression classified, but we can quick solve the same problem in much simpler algorithm through the evaluation of the likelihood of a sentence being positive matched against given Vocabulary table $V$.
+\item Recall that conditional probability $p(w_i|pos) = \frac{p(w_i\cap{pos})}{p(pos)}$, $p(pos)=freq(pos)/total$, $p(w_i\cap{pos})=freq(w_i)/total$, then $p(w_i|pos)=freq(w_i)/freq(pos)$
+\item Likelihood of a positive is defined as $\prod_{i=1}^{m}{\frac{p(w_i|pos)}{p(w_i|neg)}}$, if likelihood $>$ 1 then sentence is positive, otherwise, it's negative.
+\item to reduce the sensitivity of each word, and avoid getting 0 $p(w_i|class)$, $class\in \{pos, neg\}$ we modify the conditional probabilistic frequency using the so-called 'laplacian smoothing': $p(w_i|class)=\frac{freq(w_i|class)+1}{freq(class)+unique(V)}$, freq(class) is defined as $N_{class}$, and unique(V) is defined as $N_V$, for example $p(w_i|pos)=\frac{freq(w_i|pos)+1}{N_{pos}+N_V}$.
+\item to keep the scale small as possible likelihood is replaced with log of likelihood coined with symbol $\lambda(w_i)=log(\frac{p(w_i|pos)}{p(w_i|neg)})$, and a prior=$log(\frac{p(pos)}{p(neg)})$, the classifier of a sentence $W$ is equivalent to prior + $\sum_{i=1}^{m}{\lambda{w_i}}$, and if $\lambda>0$ then it's positive, and negative otherwise.
+\end{description}
+\section {costine similaritis}
+\begin{description}
+
+\item The cosine similarity function is:
+
+\item $$\cos (\theta)=\frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\|\|\mathbf{B}\|}=\frac{\sum_{i=1}^{n} A_{i} B_{i}}{\sqrt{\sum_{i=1}^{n} A_{i}^{2}} \sqrt{\sum_{i=1}^{n} B_{i}^{2}}}$$
+
+\item $A$ and $B$ represent the word vectors and $A_i$ or $B_i$ represent index i of that vector.
+\item Note that if A and B are identical, you will get $cos(\theta) = 1$.
+\item Otherwise, if they are the total opposite, meaning, $A= -B$, then you would get $cos(\theta) = -1$.
+\item If you get $cos(\theta) =0$, that means that they are orthogonal (or perpendicular).
+\item Numbers between 0 and 1 indicate a similarity score.
+\item Numbers between -1-0 indicate a dissimilarity score.
+\end{description}
+\subsection {Euclidean distance}
+\begin{description}
+  \item You will now implement a function that computes the similarity between two vectors using the Euclidean distance.
+Euclidean distance is defined as:
+
+\item $$ \begin{aligned} d(\mathbf{A}, \mathbf{B})=d(\mathbf{B}, \mathbf{A}) &=\sqrt{\left(A_{1}-B_{1}\right)^{2}+\left(A_{2}-B_{2}\right)^{2}+\cdots+\left(A_{n}-B_{n}\right)^{2}} \\ &=\sqrt{\sum_{i=1}^{n}\left(A_{i}-B_{i}\right)^{2}} \end{aligned}$$
+
+\item $n$ is the number of elements in the vector
+\item $A$ and $B$ are the corresponding word vectors.
+\item The more similar the words, the more likely the Euclidean distance will be close to 0.
+\end{description}
+
+\section {Principle Component Analysis (PCA)}
+\begin{description}
+\item PCA is a method that projects our vectors in a space of reduced dimension, while keeping the maximum information about the original vectors in their reduced counterparts. In this case, by *maximum infomation* we mean that the Euclidean distance between the original vectors and their projected siblings is minimal. Hence vectors that were originally close in the embeddings dictionary, will produce lower dimensional vectors that are still close to each other.
+
+\item such that similar words will be clustered next to each other. For example, the words 'sad', 'happy', 'joyful' all describe emotion and are supposed to be near each other when plotted. The words: 'oil', 'gas', and 'petroleum' all describe natural resources. Words like 'city', 'village', 'town' could be seen as synonyms and describe a
+
+\item Before plotting the words, you need to first be able to reduce each word vector with PCA into 2 dimensions and then plot it. The steps to compute PCA are as follows:
+  \begin{itemize}
+  \item Mean normalize the data
+  \item Compute the covariance matrix of the data ($\Sigma$).
+  \item Compute the eigenvectors and the eigenvalues of your covariance matrix
+  \item Multiply the first K eigenvectors by the normalized data.
+\end{itemize}
+\end{description}
+
+\section {Machine Translation}
+\begin{description}
+
+\item Given dictionaries of English and French word embeddings you will create a transformation matrix `R`
+\item Given an English word embedding, $\mathbf{e}$, you can multiply $\mathbf{eR}$ to get a new word embedding $\mathbf{f}$.
+\item Both $\mathbf{e}$ and $\mathbf{f}$ are row vectors.
+\item we can then compute the nearest neighbors to `f` in the french embeddings and recommend the word that is most similar to the transformed word embedding.
+
+\item Find a matrix `R` that minimizes the following equation.
+
+\item $$\arg \min _{\mathbf{R}}\| \mathbf{X R} - \mathbf{Y}\|_{F} $$
+
+\item The Frobenius norm of a matrix $A$ (assuming it is of dimension $m,n$) is defined as the square root of the sum of the absolute squares of its elements:
+
+\item $$\|\mathbf{A}\|_{F} \equiv \sqrt{\sum_{i=1}^{m} \sum_{j=1}^{n}\left|a_{i j}\right|^{2}}$$
+
+
+\item In the real world applications, the Frobenius norm loss:
+
+\item $$\| \mathbf{XR} - \mathbf{Y}\|_{F}$$
+
+\item is often replaced by it's squared value divided by $m$:
+
+\item $$ \frac{1}{m} \|  \mathbf{X R} - \mathbf{Y} \|_{F}^{2}$$
+
+\item where $m$ is the number of examples (rows in $\mathbf{X}$).
+
+\item The same R is found when using this loss function versus the original Frobenius norm.
+\item The reason for taking the square is that it's easier to compute the gradient of the squared Frobenius.
+\item The reason for dividing by $m$ is that we're more interested in the average loss per embedding than the  loss for the entire training set.
+\item The loss for all training set increases with more words (training examples),
+\item so taking the average helps us to track the average loss regardless of the size of the training set.
+\end{description}
+\subsection {Loss function L}
+\begin{description}
+\item The loss function will be squared Frobenoius norm of the difference between
+\item matrix and its approximation, divided by the number of training examples $m$.
+\item  Its formula is:
+\item $$ L(X, Y, R)=\frac{1}{m}\sum_{i=1}^{m} \sum_{j=1}^{n}\left( a_{i j} \right)^{2}$$
+
+\item where $a_{i j}$ is value in $i$th row and $j$th column of the matrix $\mathbf{XR}-\mathbf{Y}$.
+
+\item The norm is always nonnegative (we're summing up absolute values), and so is the square.
+\item When we take the square of all non-negative (positive or zero) numbers, the order of the data is preserved.
+\item For example, if $3 > 2, 3^2 > 2^2$
+\item Using the norm or squared norm in gradient descent results in the same location of the minimum.
+\item  Squaring cancels the square root in the Frobenius norm formula. Because of the chain rule, we would have to do more calculations if we had a square root in our expression for summation.
+\item Dividing the function value by the positive number doesn't change the optimum of the function, for the same reason as described above.
+\item We're interested in transforming English embedding into the French. Thus, it is more important to measure average loss per embedding than the loss for the entire dictionary (which increases as the number of words in the dictionary increases).
+\end{description}
+\subsection {gradient descent}
+\begin{description}
+\item Calculate the gradient of the loss with respect to transform matrix `R`.
+\item The gradient is a matrix that encodes how much a small change in `R` affect the change in the loss function.
+\item The gradient gives us the direction in which we should decrease `R`
+\item to minimize the loss.
+\item $m$ is the number of training examples (number of rows in $X$).
+\item The formula for the gradient of the loss function $L(X,Y,R)$ is:
+\item $$\frac{d}{dR}L(X,Y,R)=\frac{d}{dR}\Big(\frac{1}{m}\| X R -Y\|_{F}^{2}\Big) = \frac{2}{m}X^{T} (X R - Y)$$
+
+\subsection{fixed number of iterations}
+\item You cannot rely on training loss getting low -- what you really want is the validation loss to go down, or validation accuracy to go up. And indeed - in some cases people train until validation accuracy reaches a threshold, or -- commonly known as "early stopping" -- until the validation accuracy starts to go down, which is a sign of over-fitting.
+\item Why not always do "early stopping"? Well, mostly because well-regularized models on larger data-sets never stop improving. Especially in NLP, you can often continue training for months and the model will continue getting slightly and slightly better. This is also the reason why it's hard to just stop at a threshold -- unless there's an external customer setting the threshold, why stop, where do you put the threshold?
+\item Stopping after a certain number of steps has the advantage that you know how long your training will take - so you can keep some sanity and not train for months. You can then try to get the best performance within this time budget. Another advantage is that you can fix your learning rate schedule -- e.g., lower the learning rate at 10% before finish, and then again more at 1% before finishing. Such learning rate schedules help a lot, but are harder to do if you don't know how long you're training.
+
+\item  Pseudocode:
+\item 1. Calculate gradient $g$ of the loss with respect to the matrix $R$.
+\item 2. Update $R$ with the formula:
+\item $$R_{\text{new}}= R_{\text{old}}-\alpha g$$
+\item Where $\alpha$ is the learning rate, which is a scalar.
+
+  \subsection {k-Nearest neighbors algorithm}
+\item k-NN is a method which takes a vector as input and finds the other vectors in the dataset that are closest to it.
+\item The 'k' is the number of "nearest neighbors" to find (e.g. k=2 finds the closest two neighbors).
+
+  \subsection{Searching for the translation embedding}
+
+\item Since we're approximating the translation function from English to French embeddings by a linear transformation matrix R
+, most of the time we won't get the exact embedding of a French word when we transform embedding e
+
+\item of some particular English word into the French embedding space.
+
+\item This is where k-NN becomes really useful! By using 1-NN with eR as input, we can search for an embedding f (as a row) in the matrix Y which is the closest to the transformed vector eR.
+
+\item  Note: Distance and similarity are pretty much opposite things.
+\item We can obtain distance metric from cosine similarity, but the cosine similarity can't be used directly as the distance metric.
+\item When the cosine similarity increases (towards $1$), the "distance" between the two vectors decreases (towards $0$).
+\item We can define the cosine distance between $u$ and $v$ as
+\item $$d_{\text{cos}}(u,v)=1-\cos(u,v)$$
+
+  \subsection{LSH and document search}
+\item In this part of the assignment, you will implement a more efficient version of k-nearest neighbors using locality sensitive hashing. You will then apply this to document search.
+
+\item Process the tweets and represent each tweet as a vector (represent a document with a vector embedding).
+\item Use locality sensitive hashing and k nearest neighbors to find tweets that are similar to a given tweet.
+\item we will now implement locality sensitive hashing (LSH) to identify the most similar tweet.
+\item Instead of looking at all 10,000 vectors, you can just search a subset to find its nearest neighbors
+\item we can divide the vector space into regions and search within one region for nearest neighbors of a given vector.
+
+\subsection{Bag-of-words (BOW) document models}
+\item Text documents are sequences of words.
+\item The ordering of words makes a difference. For example, sentences "Apple pie is
+\item better than pepperoni pizza." and "Pepperoni pizza is better than apple pie"
+\item have opposite meanings due to the word ordering.
+\item However, for some applications, ignoring the order of words can allow
+\item us to train an efficient and still effective model.
+\item This approach is called Bag-of-words document model.
+
+\item Document embedding is created by summing up the embeddings of all words
+in the document.
+\item If we don't know the embedding of some word, we can ignore that word.
+
+\subsection{ Choosing the number of planes}
+
+\item Each plane divides the space to $2$ parts.
+\item So $n$ planes divide the space into $2^{n}$ hash buckets.
+\item We want to organize 10,000 document vectors into buckets so that every bucket has about $~16$ vectors.
+\item For that we need $\frac{10000}{16}=625$ buckets.
+\item We're interested in $n$, number of planes, so that $2^{n}= 625$. Now, we can calculate $n=\log_{2}625 = 9.29 \approx 10$.
+
+\item  In $3$-dimensional vector space, the hyperplane is a regular plane. In $2$ dimensional vector space, the hyperplane is a line.
+\item Generally, the hyperplane is subspace which has dimension $1$ lower than the original vector space has.
+\item A hyperplane is uniquely defined by its normal vector.
+\item Normal vector $n$ of the plane $\pi$ is the vector to which all vectors in the plane $\pi$ are orthogonal (perpendicular in $3$ dimensional case).
+\subsection{ Getting the hash number for a vector}
+
+\item For each vector, we need to get a unique number associated to that vector in order to assign it to a "hash bucket".
+
+\item Using Hyperplanes to split the vector space:
+\item We can use a hyperplane to split the vector space into $2$ parts.
+\item  All vectors whose dot product with a plane's normal vector is positive are on one side of the plane.
+\item All vectors whose dot product with the plane's normal vector is negative are on the other side of the plane.
+
+\item Encoding hash buckets:
+\item For a vector, we can take its dot product with all the planes, then encode this information to assign the vector to a single hash bucket.
+\item When the vector is pointing to the opposite side of the hyperplane than normal, encode it by 0.
+\item Otherwise, if the vector is on the same side as the normal vector, encode it by 1.
+\item If you calculate the dot product with each plane in the same order for every vector, you've encoded each vector's unique hash ID as a binary number, like [0, 1, 1, ... 0].
+
+\item hash algorithm:
+
+\item We've initialized hash table `hashes` for you. It is list of $N_{universe}$ matrices, each describes its own hash table. Each matrix has $N_{dims}$ rows and $N_{planes}$ columns. Every column of that matrix is a $N_{dims}$ dimensional normal vector for each of $N_{planes}$ hyperplanes which are used for creating buckets of the particular hash table.
+
+\item  First multiply your vector `v`, with a corresponding plane. This will give you a vector of dimension $N_{planes}$.
+\item You will then convert every element in that vector to 0 or 1.
+\item You create a hash vector by doing the following: if the element is negative, it becomes a 0, otherwise you change it to a 1.
+\item You then compute the unique number for the vector by iterating over $N_{planes}$
+\item Then you multiply $2^i$ times the corresponding bit (0 or 1).
+\item You will then store that sum in the variable $hash_{value}$.
+\item $$ hash = \sum_{i=0}^{N-1} \left( 2^{i} \times h_{i} \right) $$
+
+\end{description}
+\section{Probabilistic model of pronounciation and spelling}
+\begin{description}
+  \subsection{auto-correction}
+\item the misspelling is quite common in writing, and to transduct a word from the misspelled form to dictionary closest word, most relevant to the context for spelling, and pronunciation we utilize \textbf{Bayes Rule}, and \textbf{the noisy channel model}, and this problem can be divided into two categories:
+\item 1. word error detection: in which the algorithm is run on the word in isolation.
+\item 2. context error detection: where correction take place in a specific context.
+\item 80\% of the misspelled words are caused by single-eror misspellings: can be divided into four categories:
+  \begin{itemize}
+  \item insertion: mistyping the as ther
+  \item deletion: mistyping the as th
+  \item substitution: mistyping the as thw
+  \item transposition mistyping the as hte
+  \end{itemize}
+  \subsection{Bayesian inference model}
+\item given a noisy word through noisy channel, \textbf{O} as our observation, we need to match it to the nearest word in the dictionary.
+\item we build a vocabulary \textbf{V}, and our model ought to map noisy \textbf{O} to \textbf{$\hat{w}$}.
+\item $$ \hat{w}=\underset{w \in V}{\operatorname{argmax}}P(w|O) $$
+\item $$ \hat{w}=\underset{w \in V}{\operatorname{argmax}}\frac{P(O|w)P(w)}{P(O)} $$
+\item since we iterate through the whole word set in the vocabulary \textbf{V} P(O) is fixed, and we can ignore it, then:
+\item $$ \hat{w}=\underset{w \in V}{\operatorname{argmax}} P(O|w)P(w) $$
+\item where P(w) is the \textbf{prior}, P(O|w) is the \textbf{likelihood} function.
+\item p(w) is the word frequency: $\frac{frequency(w)}{size of the corpus}$, to avoid getting zero frequency we use Laplacian smoothing:
+\item $$ p(w)=\frac{freq(w)+1}{N+V} $$ such that V is the size of vocabulary in this context, and N is the size of the corpus.
+\item there different algorithms for error correction, and processing, among those are \textbf{minimum edit distance}, \textbf{Viterbi} \textbf{forward}, \textbf{CYK}, \textbf{Earley}.
+  \subsection{Minimum edit distance}
+\item It's a metric value between different noise channels for the same word, or weight for insertion, deletion, and substitution, weighting each by 1, but substitution by 2 (insertion+substitution), known as \textbf{Levenshtein} distance.
+\item given two words target, and source, word distance can be calculated through Dynamic programming, laying out the target of length$\rightarrow{n}$ in the first column, and source of length $\rightarrow{m}$ in the first row, and creating matrix \textbf{distance} of size $\rightarrow{n}$ (n+1,m+1).
+\item looping through each column i from 0 $\rightarrow{n}$, and each row j from 0 $\rightarrow{m}$ :
+\item $$dstance[i,j] \leftarrow Min \begin{cases} \text{(distance[i-1,j] + inseration-cost($target_j$)}\\ \text{distance[i-1, j-1] + substraction-cost($source_j$,$target_i$)}\\ \text{distance[i,j-1] + inseration-cost($source_j$))}\end{cases}$$
+  \item
+\end{description}
 
 \begin{appendices}
   \chapter{Introduction to probabilities}
+  \section {Naive Bayes}
+  \chapter{Covariance}
+  \chapter{Single Value Decomposition}
 \end{appendices}
 
 \end{document}
