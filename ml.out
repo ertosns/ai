@@ -1,0 +1,62 @@
+\BOOKMARK [0][-]{chapter*.2}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.0.1}{notation}{chapter*.2}% 2
+\BOOKMARK [0][-]{chapter.1}{Logistic Regression as a neural network}{}% 3
+\BOOKMARK [1][-]{section.1.1}{definitions}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.2}{cost function}{chapter.1}% 5
+\BOOKMARK [1][-]{section.1.3}{Gradient Descent}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.4}{Model training}{chapter.1}% 7
+\BOOKMARK [1][-]{section.1.5}{Forward Propagation}{chapter.1}% 8
+\BOOKMARK [2][-]{subsection.1.5.1}{Activation Functions}{section.1.5}% 9
+\BOOKMARK [1][-]{section.1.6}{Backward Propagation}{chapter.1}% 10
+\BOOKMARK [1][-]{section.1.7}{Update parameters}{chapter.1}% 11
+\BOOKMARK [1][-]{section.1.8}{Summary}{chapter.1}% 12
+\BOOKMARK [1][-]{section.1.9}{Logistic Regression in Python}{chapter.1}% 13
+\BOOKMARK [1][-]{section.1.10}{References}{chapter.1}% 14
+\BOOKMARK [0][-]{chapter.2}{Neural Networks}{}% 15
+\BOOKMARK [1][-]{section.2.1}{Lingua franca}{chapter.2}% 16
+\BOOKMARK [1][-]{section.2.2}{Model training}{chapter.2}% 17
+\BOOKMARK [1][-]{section.2.3}{Parameter initialization}{chapter.2}% 18
+\BOOKMARK [1][-]{section.2.4}{Forward Propagation}{chapter.2}% 19
+\BOOKMARK [1][-]{section.2.5}{Backward Propagation}{chapter.2}% 20
+\BOOKMARK [1][-]{section.2.6}{Summary}{chapter.2}% 21
+\BOOKMARK [1][-]{section.2.7}{Deep neural networks in Python}{chapter.2}% 22
+\BOOKMARK [0][-]{chapter.3}{Neural Networks hyperparameters}{}% 23
+\BOOKMARK [1][-]{subsection.3.0.1}{training}{chapter.3}% 24
+\BOOKMARK [2][-]{subsection.3.0.2}{bias-variance trade-off}{subsection.3.0.1}% 25
+\BOOKMARK [2][-]{subsection.3.0.3}{recipes for high-bias, high-variance}{subsection.3.0.1}% 26
+\BOOKMARK [2][-]{subsection.3.0.4}{Regularization \(weight decay\)}{subsection.3.0.1}% 27
+\BOOKMARK [2][-]{subsection.3.0.5}{Inverted Dropout Regularization}{subsection.3.0.1}% 28
+\BOOKMARK [2][-]{subsection.3.0.6}{Input Normalization}{subsection.3.0.1}% 29
+\BOOKMARK [2][-]{subsection.3.0.7}{Vanishing/Exploding gradients}{subsection.3.0.1}% 30
+\BOOKMARK [0][-]{chapter.4}{Natural language processing}{}% 31
+\BOOKMARK [1][-]{section.4.1}{pre-processing}{chapter.4}% 32
+\BOOKMARK [1][-]{section.4.2}{Example: positive, negative classifier}{chapter.4}% 33
+\BOOKMARK [1][-]{section.4.3}{Logistic regression classifier}{chapter.4}% 34
+\BOOKMARK [1][-]{section.4.4}{Naive Bayes classifier}{chapter.4}% 35
+\BOOKMARK [1][-]{section.4.5}{costine similaritis}{chapter.4}% 36
+\BOOKMARK [2][-]{subsection.4.5.1}{Euclidean distance}{section.4.5}% 37
+\BOOKMARK [1][-]{section.4.6}{Principle Component Analysis \(PCA\)}{chapter.4}% 38
+\BOOKMARK [1][-]{section.4.7}{Machine Translation}{chapter.4}% 39
+\BOOKMARK [2][-]{subsection.4.7.1}{Loss function L}{section.4.7}% 40
+\BOOKMARK [2][-]{subsection.4.7.2}{gradient descent}{section.4.7}% 41
+\BOOKMARK [2][-]{subsection.4.7.3}{fixed number of iterations}{section.4.7}% 42
+\BOOKMARK [2][-]{subsection.4.7.4}{k-Nearest neighbors algorithm}{section.4.7}% 43
+\BOOKMARK [2][-]{subsection.4.7.5}{Searching for the translation embedding}{section.4.7}% 44
+\BOOKMARK [2][-]{subsection.4.7.6}{LSH and document search}{section.4.7}% 45
+\BOOKMARK [2][-]{subsection.4.7.7}{Bag-of-words \(BOW\) document models}{section.4.7}% 46
+\BOOKMARK [2][-]{subsection.4.7.8}{ Choosing the number of planes}{section.4.7}% 47
+\BOOKMARK [2][-]{subsection.4.7.9}{ Getting the hash number for a vector}{section.4.7}% 48
+\BOOKMARK [1][-]{section.4.8}{Probabilistic model of pronounciation and spelling}{chapter.4}% 49
+\BOOKMARK [2][-]{subsection.4.8.1}{auto-correction}{section.4.8}% 50
+\BOOKMARK [2][-]{subsection.4.8.2}{Bayesian inference model}{section.4.8}% 51
+\BOOKMARK [2][-]{subsection.4.8.3}{Minimum edit distance}{section.4.8}% 52
+\BOOKMARK [1][-]{section.4.9}{Grammar Weighted Automata}{chapter.4}% 53
+\BOOKMARK [2][-]{subsection.4.9.1}{Markov chain}{section.4.9}% 54
+\BOOKMARK [2][-]{subsection.4.9.2}{Hidden Markov Models HMMs}{section.4.9}% 55
+\BOOKMARK [2][-]{subsection.4.9.3}{Viterbi Algorithm}{section.4.9}% 56
+\BOOKMARK [2][-]{subsection.4.9.4}{Part of Speech tagging \(POS\)}{section.4.9}% 57
+\BOOKMARK [0][-]{section*.3}{Appendices}{}% 58
+\BOOKMARK [0][-]{appendix.a.A}{Introduction to probabilities}{}% 59
+\BOOKMARK [1][-]{section.a.A.1}{Naive Bayes}{appendix.a.A}% 60
+\BOOKMARK [0][-]{appendix.a.B}{Covariance}{}% 61
+\BOOKMARK [0][-]{appendix.a.C}{Single Value Decomposition}{}% 62

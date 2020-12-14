@@ -2,19 +2,19 @@
 \usepackage{amsmath}
 \usepackage{index}
 \usepackage[toc,page]{appendix}
-
+\usepackage{hyperref}
+\usepackage[semicolon,round,sort&compress,sectionbib]{natbib}
+\usepackage{chapterbib}
 \makeindex
 
 \begin{document}
 
-\title{machine learning mathematics}
+\title{AI and Machine Learning mathematics  with algorithmic implementation}
 \author{mohab metwally}
-\date{11/2020}
-
+\date{2020}
 
 \maketitle
 \tableofcontents
-\pagenumbering{roman}
 
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
@@ -166,7 +166,7 @@
 \begin{description}
 \item Training a deep neural network is analogous to training a logistic regression network, as discussed in previous chapter, a logistic regression model can be considered a neural network with zero \textbf{hidden layers}.
 \item We follow the same algorithm, parameter initialization, but in this case we initialize the parameters for each layer, assume a network composed of 2 hidden layers $X \rightarrow L1 \rightarrow L2 \rightarrow Y$, layer $(L^{(i)}, L^{(i-1)})$ are interconnected with weight,bias parameters $\omega^{(1)},b^{(1)}$, such that $\omega^{(i)}$ is a matrix of shape $(length(L^{(i)}), length(L^{(i-1)})$, and $b$ is a vector of shape $(length(L^{(i)}, 1))$, so each node in the layer $L^{(i)}$ is connected with each node in previous layer $L^{(i-1)}$.
-\item W, b are ought to be randomly initialized, in the logistic regression discussed in previous chapter, W, b should be initialized with zero values, but in the case of the neural network zero initialization leads to $\hat{y}=0$, and all the nodes share the same weight which violates the purpose of the nodes in the first place which is to capture features from the data set as much as possible, so random initialization is necessary, and not to overshoot, initialization better in range $]0-1[$ weighted by small value around 0.01 to reduce the sensitivity, in order for the gradient descent to not take for ever.
+\item W, b are ought to be randomly initialized, in the logistic regression discussed in previous chapter, W, b should be initialized with zero values, but in the case of the neural network zero initialization leads to $\hat{y}=0$, and all the nodes share the same weight which violates the purpose of the nodes in the first place which is to capture features from the data set as much as possible, so random initialization is necessary, and not to overshoot, initialization better in range $]0-1[$ weighted by small value around 0.01(this will be discussed in details in NN hyperparameters chapter) to reduce the sensitivity, in order for the gradient descent to not take for ever.
   \item forward and back propagation are executed in a similar way to logistic regression with minor differences.
   \item calculation of forward propagation using inputs from the previous layer instead of input data set, activation function can be \textbf{sigmoid}, \textbf{relu}, or \textbf{tanh}, it has been tested that \textbf{relu} activation function in the first layers shows better results, and \textbf{sigmoid} activation in the last layer to fit perfectly with the output classification y-vector in the range $[0-1]$
 
@@ -226,6 +226,59 @@
 \item
 \end{description}
 
+\chapter {Neural Networks hyperparameters}
+\begin{description}
+\item machine learning have a wide applications in ranging from Computer Vision, Natural Language Processing, Speech recognition, and structured data, in data-science, and the the parameterization varies greatly from one domain to another, it's domain specific.
+  \subsection{training}
+\item  given a data set, wide range of models, the data  data is divided into three categories, the \textbf{training}, \textbf{development}, and the \textbf{testing}.
+\item we train different models to evaluate the most fit model on the development(also called evaluation set), after choosing our model we test on the testing set.
+\item the partitioning ratio of the data-set varies with the size of the data set, for example in a small data set of size 1000, it's convenient to divide the data into 70\%, 30\% for training, and test respectively, or 60\%, 20\%, 20\% for training, evaluating, and testing respectively, but in the era of big data, of millions of entries, data set is conveniently divided into (98\%, 1\%, 1\%), (99.5\%, 0.4\%, 0.1\%) for training, evaluation, testing sets respectively, the ratio varies from one domain to another.
+\item for faster, and accurate training/testing the data-set ought to be for the same source of the same general range of features, on the other hand in the mismatched data-set, in the case of training set from specific source, and development/test set from different set, the development/testing process can be inefficient, so the division of the partitioned sets need to be taken randomly from the same source.
+  \subsection{bias-variance trade-off}
+\item In an n-dimensional training model, the bias-variance dimension indicates how far our model captures the data, and can be classified into under-fitting high-bias model where it hardly fit the data, on the other extreme, high-variance, over-fitting model, and in between just-right model.
+\item high-variance: in a classification problem where the training set error is 1\%, while the dev set error is 11\%, this gape indicate that the model is well trained in a very narrow data-set with limited range of features quite different from that of the development set, in this case the model is over-fitting, or hardly scaling to other data-sets, and therefore fails in application.
+\item high-bias: similarly in the same experiment if the training set error is around 15\% where the dev-set error is ~ 16\%, indicating that the model generalize much better than the previous case of high-variance over-fitting model, but with high error would indicate that the model is highly-biased, or well generalized.
+\item high-bias, high-variance: the worst model is that which do not generalize well, and doesn't fit our data, with high training error say 15\%, and 30\% development error.
+\item low-bias, low-variance: the perfect model is that of low bias, low-variance, that which fits the training set, and generalizes well.
+  \subsection{recipes for high-bias, high-variance}
+\item high-bias solution: getting a high bias means that our model doesn't capture sufficient features, and this can be due to  our network is short, or narrow, or the gradient descend need to be run for longer time, or through using optimization, or change the neural network architecture.
+\item high-variance solution: high variance indicate the lack of generalization, and is reduced through training on wider data-set, regularization, and changing the NN-architecture.
+
+  \subsection {Regularization (weight decay)}
+\item in the case of high-variance, we need our model be more generalized over the data-set, one way to do so is through regularization, or changing the sensitivity of the weight parameters, this sensitivity is measured in the back-propagation step through $\partial{J}/\partial{w}$, we can vary the sensitivity by regularization parameter $\lambda$ added to the cost function  as follows:
+  $$ J(w^1,w^2...,w^L,b^L,b^L...,b^L) = \frac{\alpha}{m}\sum_{i=1}^{m}{L(w^1,w^2...,w^L,b^1,b^2...,b^L)} + \frac{\lambda}{2m} \sum_{l=1}^{L} {\left\Vert w^{i} \right\Vert^2}  + \frac{\lambda}{2m}b^L $$
+
+\item but usually the last term is quite ineffective in regularization, and ignored, so it's cuts down to the following:
+\item $$ J(w^1,w^2...,w^L,b^L,b^L...,b^L) = \frac{\alpha}{m}\sum_{i=1}^{m}{L(w^1,w^2...,w^L,b^1,b^2...,b^L)}  + \frac{\lambda}{2m}  \sum_{l=1}^{L} {\left\Vert w^{i} \right\Vert^2} $$
+
+\item where the last norm is frobenius norm:
+  $$ \sum_{i=1}^{n^{(l)}} \sum_{j=1}^{n^{(l-1)}} (w_{i,j}^{(l)})^2 $$
+
+\item backward propagation step:
+
+\item  $$ \frac{\partial{J}}{w^{i}} = \frac{1}{m}\sum_{i=1}^{m}{\frac{\partial{L}}{\partial{w^L}}}  + \frac{\lambda}{m}  \sum_{l=1}^{L} {\left\Vert w^{i} \right\Vert} $$
+
+\item looking at our mechanism now, $\lambda$ is a device for tuning the weight parameter, or rather as a valve to control it, the larger the $\lambda$ is the lower the w as we minimize our cost function.
+
+  \subsection {Inverted Dropout Regularization}
+\item instead of reducing the weight parameters, we can drop it out completely by assigning those values to zero.
+\item implementation algorithm: by matching a threshold probability = $P_{keep}$ against activation matrix $A^{(i)}$, and to keep balanced activation values, it's re-evaluated as $A^{(i)}/(1-P_{keep})$.
+
+  \subsection{Input Normalization}
+\item since there are no constraint on the input features, each feature can be of different range, and the cost function can end up elongated at one dimension, and narrow on the other, being steep on one edge of the function, and smooth on the other, it can be visualized by taking a contour of the \textbf{J} function, it will look like very long ellipse.
+\item with un-normalized input the gradient descend tends to take long time, and longer way down to the local minima, but if the input is normalized (demeaned, and divided by the standard deviation of the input) we end up with circular counter, and smooth, and faster gradient descent.
+
+\subsection{Vanishing/Exploding gradients}
+\item let's look deeper inside a deeper network, through L layers, such that L is large, $\hat{y}=(W^LW^{(L-1)}W^{(L-2)}...W^1)X$ if we assume $b=0$ for simplicity, and that $W^L$ is the transpose of $w^L$, in case entries of similar weight matrices in values, if the values of each $W^i$ matrix below the 1, then the overall $(W^LW^{(L-1)}W^{(L-2)}...W^1)$ term will be very small, and gradient descent will take forever, on the other hand, if those entries greater than 1, then the overall term will be huge, and the gradient descend will overshot(exploding).
+
+\item a well chosen initialization parameters can Speed up the convergence of gradient descent, and Increase the odds of gradient descent converging to a lower training (and generalization) error.
+
+    %TODO name the formula, and elaborate.
+\item to solve vanishing/exploding gradients problem we take two steps in weight parameters initialization, first the values are choosing at random through normal distribution, secondly, setting up the variance of $w^i$ to $\frac{1}{k}$  such that k is the number of the neurons in layer $i-1$. and it's by multiplying of $w^i$ by $\sqrt{\frac{1}{k}}$, this ratio shows to fit better with relu activation if replaced with $\sqrt{\frac{2}{k}}$
+
+\end{description}
+
+
 \chapter{Natural language processing}
 \section{pre-processing}
 \begin{description}
@@ -259,7 +312,7 @@ n  \item covert every word into it's stem form
 
 \section{Naive Bayes classifier}
 \begin{description}
-\item The prior probability represents the underlying probability in the target population that a tweet is positive versus negative.  In other words, if we had no specific information and blindly picked a tweet out of the population set, what is the probability that it will be positive versus that it will be negative? That is the "prior".
+\item The priorpp probability represents the underlying probability in the target population that a tweet is positive versus negative.  In other words, if we had no specific information and blindly picked a tweet out of the population set, what is the probability that it will be positive versus that it will be negative? That is the "prior".
 
 \item The prior is the ratio of the probabilities $\frac{P(D_{pos})}{P(D_{neg})}$.
 \item We can take the log of the prior to rescale it, and we'll call this the logprior
@@ -526,9 +579,56 @@ in the document.
 \item It's a metric value between different noise channels for the same word, or weight for insertion, deletion, and substitution, weighting each by 1, but substitution by 2 (insertion+substitution), known as \textbf{Levenshtein} distance.
 \item given two words target, and source, word distance can be calculated through Dynamic programming, laying out the target of length$\rightarrow{n}$ in the first column, and source of length $\rightarrow{m}$ in the first row, and creating matrix \textbf{distance} of size $\rightarrow{n}$ (n+1,m+1).
 \item looping through each column i from 0 $\rightarrow{n}$, and each row j from 0 $\rightarrow{m}$ :
-\item $$dstance[i,j] \leftarrow Min \begin{cases} \text{(distance[i-1,j] + inseration-cost($target_j$)}\\ \text{distance[i-1, j-1] + substraction-cost($source_j$,$target_i$)}\\ \text{distance[i,j-1] + inseration-cost($source_j$))}\end{cases}$$
-  \item
+\item $$dstance[i,j] \leftarrow Min \begin{cases} \text{(distance[i-1,j] + inseration-cost($target_j$)}\\ \text{distance[i-1, j-1] + substraction-cost($source_j$,$target_i$)}\\ \text{distance[i,j-1] + insertion-cost($source_j$))}\end{cases}$$
 \end{description}
+
+\section {Grammar Weighted Automata}
+\begin{description}
+\item it's a weighted directed graph of finite automaton for language, to predict the probability of following word.
+  \subsection{Markov chain}
+    \item .
+  \subsection{Hidden Markov Models HMMs}
+\item it's a special time of weighted Automata, in which previous states determine the current state.
+\item the weights over the directed arrows can be loaded from a given corpus as the probability of word $w_i$ followed by $w_j$, or in case of pronunciation, the probability of phone(p) $p_i$ followed by $p_j$.
+\item in tagged words we can classify each word in the corpus into specific group, and build the weighted graph for the classes instead.
+\item a weighted automaton is consisting of a set of states $q=<q_0q_1q_2...q_n>$, and transition states $a_{01}a_{12}a_{23}...a_{n-1}a_n$, while the input to the machine is called the Observation and denoted by $O=(o_1o_2o_3...o_t)$.
+\item decoding problem: is the resolution of the underlying sequence that produce a certain observation.
+\item word-detection is done through Bayesian inference $P(w|O)=P(O|w)p(w)$ if we ignore the denominator as discussed earlier.
+\item this method has two important elements first the forward algorithm which is analogous to the Minimum Edit distance algorithm, yet more generalized, the latter can be seen as a special case, in the forward algorithm, the row do no just represent a sequence of characters, but does indicate the possibilities to reach to each state $q_i$ from any previous state, and instead of the calculation of the minimum, here the sum of all probabilities in current state j forward[t,j] after observing the first t observations, given the automaton $\lambda$ of paths that lead to current state of aggregated,or in other words, the likelihood of the observations times the word probability p(w) and this is calculated through multiplying three different factors: \begin{enumerate}
+\item previous path probability \textit{forward[t-1,i]}.
+\item transition probability $a_{ij}$.
+\item observation likelihood $b_{jt}$ that the current state j matches the observation symbol t. can takes the range [0,1], 1 if there is matchs, and 0 otherwise.
+\end{enumerate}
+\item $$ forward[t,j] = P(o_1,o_2,...,o_t,q_t = j|\lambda)P(w) $$
+\item where $q_t = j$ means the probability that the t'th state in the sequence of states is state j.
+\item $$ forward[j,t] = forward[i,t-1] * a[j,i] *b[j,o_t] $$ after initializing forward[0,0]=1.
+\item there is more efficient graph than that of forward algorithm which enable us to track multiple of words, or sentences moving from state to another, or a more general algorithm called Viterbi.
+  \subsection {Viterbi Algorithm}
+\item it's a variation, or general implementation of the forward algorithm with multiple words/sentences running simultaneously.
+\item we set up a probability matrix, where each column is set for time index t, and one row for each state in the Automata graph.
+\item each column has a cell for each state $q_i$.
+\item the evaluation of the viterbi[t,j] is the same as in the forward algorithm.
+\item there is a slight difference with the Forward algorithm, which is the viterbi maximizes the sum of all path to current state.
+  \item.
+
+    \subsection {Part of Speech tagging (POS)}
+  \item starting with the phenomenon: a single word can have different meanings in different sentences.
+  \item How to model such linguistic complexity in language processing?
+  \item look at the following examples: \begin{itemize}
+    \item The whole team played well. [adverb]
+    \item You are doing well for yourself. [adjective]
+    \item Well, this assignment took me forever to complete. [interjection]
+    \item The well is dry. [noun]
+    \item Tears were beginning to well in her eyes. [verb]
+  \end{itemize}
+  \item the same word is used in different contexts to mean different things with different part of speech tags.
+    \item
+
+\end{description}
+%\citep{https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html}
+\citep{xyz2}
+\bibliographystyle{apalike}
+\bibliography{bib0}
 
 \begin{appendices}
   \chapter{Introduction to probabilities}
