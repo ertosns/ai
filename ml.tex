@@ -21,7 +21,8 @@
 
 \section{notation}
 \begin{description}
-\item $(x, y) \in R^{n_x}, y \in {0,1}$ are the training dataset, where x is input,  and y is corresponding output.
+  \item through the book i sometimes use subscript without braces, or superscript with braces, or even curly braces to indicate vector element access, or row access in the case of a matrix.
+\item $(x, y) \in R^{n_x}, y \in {0,1}$ are the training data-set, where x is input,  and y is corresponding output.
 \item therefore $M=\{(x^1, y^1), (x^2, y^2), ..., (x^{m}, y^{m})\}$  is the training set, and $M_{test}$ is test example.
 \item X is the input of training set and $\in R^{n_x \times m}$, $X=\begin{vmatrix}X^1&X^2&...&X^{m}\end{vmatrix}$, $X^{(i)}$ is the ith column of length n, and can be written as x, or $x^{(i)}$.
 \end{description}
@@ -237,7 +238,7 @@
   \subsection{bias-variance trade-off}
 \item In an n-dimensional training model, the bias-variance dimension indicates how far our model captures the data, and can be classified into under-fitting high-bias model where it hardly fit the data, on the other extreme, high-variance, over-fitting model, and in between just-right model.
 \item high-variance: in a classification problem where the training set error is 1\%, while the dev set error is 11\%, this gape indicate that the model is well trained in a very narrow data-set with limited range of features quite different from that of the development set, in this case the model is over-fitting, or hardly scaling to other data-sets, and therefore fails in application.
-\item high-bias: similarly in the same experiment if the training set error is around 15\% where the dev-set error is ~ 16\%, indicating that the model generalize much better than the previous case of high-variance over-fitting model, but with high error would indicate that the model is highly-biased, or well generalized.
+\item high-bias: similarly in the same experiment if the training set error is around 15\% where the dev-set error is ~ 16\%, indicating that the model generalize much better than the previous case of high-variance over-fitting model, but with high error would indicate that the model is highly-biased, and well generalized.
 \item high-bias, high-variance: the worst model is that which do not generalize well, and doesn't fit our data, with high training error say 15\%, and 30\% development error.
 \item low-bias, low-variance: the perfect model is that of low bias, low-variance, that which fits the training set, and generalizes well.
   \subsection{recipes for high-bias, high-variance}
@@ -249,6 +250,7 @@
   $$ J(w^1,w^2...,w^L,b^L,b^L...,b^L) = \frac{\alpha}{m}\sum_{i=1}^{m}{L(w^1,w^2...,w^L,b^1,b^2...,b^L)} + \frac{\lambda}{2m} \sum_{l=1}^{L} {\left\Vert w^{i} \right\Vert^2}  + \frac{\lambda}{2m}b^L $$
 
 \item but usually the last term is quite ineffective in regularization, and ignored, so it's cuts down to the following:
+
 \item $$ J(w^1,w^2...,w^L,b^L,b^L...,b^L) = \frac{\alpha}{m}\sum_{i=1}^{m}{L(w^1,w^2...,w^L,b^1,b^2...,b^L)}  + \frac{\lambda}{2m}  \sum_{l=1}^{L} {\left\Vert w^{i} \right\Vert^2} $$
 
 \item where the last norm is frobenius norm:
@@ -262,7 +264,7 @@
 
   \subsection {Inverted Dropout Regularization}
 \item instead of reducing the weight parameters, we can drop it out completely by assigning those values to zero.
-\item implementation algorithm: by matching a threshold probability = $P_{keep}$ against activation matrix $A^{(i)}$, and to keep balanced activation values, it's re-evaluated as $A^{(i)}/(1-P_{keep})$.
+\item implementation algorithm: by matching a threshold probability = $P_{keep}$ against activation matrix $A^{(i)}$, and to keep balanced activation values, it's re-evaluated as $A^{(i)}/(1-P_{keep})$ and this last step distinguish the inverted dropout, from normal dropout, and the inverted is more efficient.
 
   \subsection{Input Normalization}
 \item since there are no constraint on the input features, each feature can be of different range, and the cost function can end up elongated at one dimension, and narrow on the other, being steep on one edge of the function, and smooth on the other, it can be visualized by taking a contour of the \textbf{J} function, it will look like very long ellipse.
@@ -276,8 +278,72 @@
     %TODO name the formula, and elaborate.
 \item to solve vanishing/exploding gradients problem we take two steps in weight parameters initialization, first the values are choosing at random through normal distribution, secondly, setting up the variance of $w^i$ to $\frac{1}{k}$  such that k is the number of the neurons in layer $i-1$. and it's by multiplying of $w^i$ by $\sqrt{\frac{1}{k}}$, this ratio shows to fit better with relu activation if replaced with $\sqrt{\frac{2}{k}}$
 
+\item back to inverted dropout algorithm, due to the vanishing/exploding gradients problem we fix a threshold $P_{keep}$ and compare each entry in $W_i$ (taken from uniform distribution [0-1], unlike previously we choose W at random from normal/Gaussian distribution), so.
+\item back propagation step we run the same masking algorithm over $\partial{A^{l}}$ and divide it by the same factor.
+\item if $A^{l}=\frac{mask(A^{l})}{P_{keep}}=\frac{A^{l}.*A_{mask}}{P_{keep}}$, then $\partial{A^{l}}=\frac{\partial{A^{l}}.*A_{mask}}{P_{keep}}$ note that $.*$ means element-wise multiplication.
+  \subsection {gradient checking}
+  \item we verify the GD isn't converging.
+\item it's a method to verify that the gradient descent is within diminishing $\epsilon$ of error difference with the manual derivative of the derived function $f(\theta)$, and $\theta$ is a vector of unwrapped weight, and bias parameters.
+
+\item if following the Euclidean distance $L_2$ norm difference $ < (\epsilon =10e-7)$ then the result is negative. $$
+  \frac{
+    \left\Vert\frac{\partial{J(\theta^i)}}{\partial{\theta^i}} - \frac{\nabla {J(\theta^i)}}{\nabla{\theta^i}}\right\Vert
+  }
+       {
+         \left\Vert\frac{\partial{J(\theta^i)}}{\partial{\theta^i}}\right\Vert +
+         \left\Vert\frac{\nabla{J(\theta^i)}}{\nabla{\theta^i}}\right\Vert }  < \epsilon $$
 \end{description}
 
+\section {Optimization}
+
+\begin {description}
+\item machine learning is highly iterative process, to choose low-bias, low-variance model from the set of trained/tested models, the iteration process for each model through the same m data-set entries, of L layers, and this process is time consuming, optimized algorithms are essential.
+  \subsection{stochastic, mini-batch, and batch gradient descent}
+\item let's consider the input data-set $X$ of image-classification model Neural Network, using big-data of 5 million images, each with resolution of $800*400$, and three color channels, then our input Matrix X would be of size $5M*800*400*3$ bytes need to be loaded in the training machine memory, that is around 4.37 Tera bytes!
+\item to be able to train our model we divide our Input set into mini-batches, if we choose the batch size to be 1 meaning we run the gradient descent on a single input entry, without taking benefit of vectorization, and machine GPU, then it's called \textbf{stochastic gradient descent} it's a \textbf{mini-batch} of size 1, even using input from the same distribution the cost function hardly reduces to the local minima, and tend to take random-walks for each input, it's hard to predict it's behavior, but for the overall training-set it converges to the neighbourhood area of the local minima. but on the bright side it can run on a moderate computer, but takes longer time compared to \text{batch gradient descent} that make full use of vectorization, and GPU power.
+\item if we take the benefits of both worlds and choose \text{mini-batch} size fit enough to run in our training machine GPU/CPU memory, we can run our model in the  optimal time possible. so instead of running (X,Y) of size $m$ inside our model, we divide our training data-set (X,Y) into $(X^{\{t\}}, Y^{\{t\}}) | t=\frac{m}{number-of-batches}$ mini-batches.
+
+\end{description}
+
+\section{Gradient descent with momentum}
+\begin{description}
+\item  In the case of min-batch gradient descent, or in slow gradient descent the descent tends to overshoot, and deviate from the shortest path, to solve overshooting we employ weighted averages of the gradients (see appendix (D) on exponentially weighted averages) as follows: $$ Vdw^i = \beta_1 Vdw^{i-1} + (1-\beta_1) dw^i $$
+\item then we use $Vdw^i$ in update parameters step, $w^i = w^i - \alpha Vdw^i$.
+  \end{description}
+
+\section{RMSprob}
+\begin{description}
+\item In a highly oscillating converging gradient descent around the axis of convergence, we can employ 'root mean squared prob' algorithm also using weighted averages, and here is the formula $$ Sdw^i = \beta_2 Sdw^{i-1} + (1-\beta_2) (dw^i)^2 $$, the only difference here is that the last term's parameter is squared, and it's useful in the case of oscillating gradient along side an axis perpendicular to the converging axis, the squared weight will boost relative large value, or shrink down relatively small value, then in the update step we divide by the square root of the calculated maximized/shrinked weight value, if it was initialize relatively small we can compensate by increasing the learning rate $\alpha$ to leap larger steps, if the initial $dw$ value was relatively large then we shrink it for more stable gradient descent.
+\item the last step is: $$ w^i = w^i - \alpha \frac{dw^i}{\sqrt{Sdw^i + \epsilon}} $$.
+
+\end{description}
+
+\section{Adaptive Momentum estimation (Adam)}
+\begin{description}
+\item It's not always the case that one optimization algorithm on first application will scale will on a the second, so combination of different optimization algorithms shows to work best.
+\item adam algorithm combines both RMSprob, and momentum gradient descent:
+  $$ w^i = w^i - \alpha \frac{Vdw_{corrected}^i}{\sqrt{Sdw_{corrected}^i + \epsilon}} $$
+  $$ b^i = b^i - \alpha \frac{Vdb_{corrected}^i}{\sqrt{Sdb_{corrected}^i + \epsilon}} $$
+  (look up appendix D for further explanations on bias correction)
+  \subsection {Hyperparameters}
+  \begin{description}
+  \item the overall number of parameters is increasing: \begin{itemize}
+  \item $\alpha$: need to be tuned.
+  \item $\beta_1$:set to 0.9 (can be tuned).
+  \item $\beta_2$: set to 0.99 (can be tuned).
+  \item $\epsilon$: set to $10^{-8}$.
+  \end{itemize}
+  \end{description}
+\end{description}
+
+\section{Learning rate decay}
+\begin{description}
+\item at the start of gradient descent, it start making large leaps away from the maximum minima, but as it converges, gradient can converge faster if the $\alpha$ is tuned to adjust itself to get smaller over time.
+\item in  gradient descent iterations are called epochs, of index $epoc_{num}$ an epoch with rate $decay_{rate}$, we initialize learning rate to relatively large value $\alpha_0$ then we set our decaying learning rate to: $$\frac{1}{1+epoch_{num}*decay_{rate}}\alpha_0$$
+\item there are different variation of learning rate decay of the form scale*$\alpha_0$ for example:
+  $$0.95^{epoch_{rate}}\alpha_0 $$
+
+\end{description}
 
 \chapter{Natural language processing}
 \section{pre-processing}
@@ -289,7 +355,7 @@
   \item iliminate handles and URLs
   \item tokenize the string into words
   \item remove stop words such as ``and, is, a, on, etc''
-n  \item covert every word into it's stem form
+  \item covert every word into it's stem form
   \item lower case transformation
   \end{enumerate}
 
@@ -600,10 +666,12 @@ in the document.
 \item observation likelihood $b_{jt}$ that the current state j matches the observation symbol t. can takes the range [0,1], 1 if there is matchs, and 0 otherwise.
 \end{enumerate}
 \item $$ forward[t,j] = P(o_1,o_2,...,o_t,q_t = j|\lambda)P(w) $$
-\item where $q_t = j$ means the probability that the t'th state in the sequence of states is state j.
-\item $$ forward[j,t] = forward[i,t-1] * a[j,i] *b[j,o_t] $$ after initializing forward[0,0]=1.
-\item there is more efficient graph than that of forward algorithm which enable us to track multiple of words, or sentences moving from state to another, or a more general algorithm called Viterbi.
+\item where $q_t = j$ means the probability that the t'th state in the sequence of states is state j (current state).
+\item after initializing forward[0,0]=1.
+\item $$ forward[j,t] = forward[i,t-1] * a[j,i] *b[j,o_t] $$ (note that i is index of previous state),
+\item the problem with Forward algorithm is that it's run through a single channel. There is more efficient graph than that of forward algorithm which enable us to track multiple of words, or sentences moving from state to another, or a more general algorithm called Viterbi.
   \subsection {Viterbi Algorithm}
+  \item it's consists of three main steps, \textbf{initialization} of viterbi probability, and path matrix, and viterbi \textbf{forward}, and viterbi \textbf{backward}.
 \item it's a variation, or general implementation of the forward algorithm with multiple words/sentences running simultaneously.
 \item we set up a probability matrix, where each column is set for time index t, and one row for each state in the Automata graph.
 \item each column has a cell for each state $q_i$.
@@ -622,10 +690,33 @@ in the document.
     \item Tears were beginning to well in her eyes. [verb]
   \end{itemize}
   \item the same word is used in different contexts to mean different things with different part of speech tags.
-    \item
+
+  \item Algorithm:
+    \begin{enumerate}
+
+    \item calculate transition counts vector $C_t$ from tag $t_{i-1}$ to $t_i$ to calculate $P(t_i|t_{i-1})$.
+
+    \item calculate emission counts vector $C_e$ of tag $t_i$ and word $w_i$ to calculate $P(w_i|t_i)$.
+
+    \item tag counts is the count $C$ of occurrence of specific tag.
+
+    \item create a Markov model of tag states, of transition probability from step (1), and create \textbf{transition matrix A} of all the sates as follows: $\frac{C_t(t_{i-1},t_i) + \alpha}{C(t_{i-1}) + \alpha N}$ smoothed to avoid zero, or undefined value, or in other words to calculate the probability of the relation that doesn't exis, constant $\alpha$ usually small value of 0.001, and N the number of tags.
+
+    \item create \textbf{emission matrix B} from step(2) for the probability of observation O at specific state t:  $\frac{C_e(t_i, w_i) + \alpha}{C(t_i) + \alpha V}$. where V is the number of words in the dictionary.
+
+    \item the formula for the Viterbi matrix is different in the first column(first word) than the rest of the columns, in the previous column the previous value term is ignored!
+
+    \item Viterbi initialization: the previous value is set to the begining tag (i.e str --s--) let's call it start-state, of index 0, or $start_{idx}$, also to avoid getting zero value we take the logarithm of the natural e, of the transition, and emission states: $log(A[0,j]*log[j,w_i])$ = $log(A[0,j]) + log[j,w_i]$ (where j in the current tag index in the list of tags of size N, and i is the previous state index, and in the case of initialization it's 0,  $j \in N$), therefore the final initialization algorithm is:  $$V[j,0] = log(A[0,j]) + log[j,w_i]$$ $w_i$ is the current state word.
+
+    \item Viterbi forward: $$V[j,i] = \underset{k \in N}{\operatorname{argmax}}(V[k, i-1] + log(A[k,j]) + log[j,w_i])$$
+
+    \item Viterbi backward: starting for the last we pick the highest probability in the Viterbi matrix and record the indices of the corresponding tag, going backward up to the first column, add those tags in reverse order.
+
+    \end{enumerate}
+
 
 \end{description}
-%\citep{https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html}
+
 \citep{xyz2}
 \bibliographystyle{apalike}
 \bibliography{bib0}
@@ -635,6 +726,21 @@ in the document.
   \section {Naive Bayes}
   \chapter{Covariance}
   \chapter{Single Value Decomposition}
+  \chapter {Exponentially weighted averages}
+  \begin{description}
+  \item if we have a stochastic function over vector $\Theta$, to smooths it's overshoot a bit, we can take the averages over a window of size $k$, but for large sized vector $\Theta$, it's expensive to keep all values at memory, and repeatedly run the average function over a small window, instead we can keep just the previous value through weighted averages.
+  \item the weighted averages for $\Theta=(\theta^1,\theta^2,...,\theta^n)$ the weighted averaged $theta^i$: $V\theta^i=\beta V \theta^{i-1} + (1-\beta) \theta^i$.
+  \item there is a bias in the weighted averages in the initial steps, we can compensate for that through \textbf{bias correction} $V\theta^i=\frac{V\theta^i}{(1-\beta^t)}$. where t is a positive integer of the first initial values, for example if we doing bias correction for the first 10 values, then $t=10$.
+    \subsection {How to choose the value $\beta$ ?}
+    \begin{description}
+    \item it's more efficient to use average function over a window of inputs, but it's expensive in a large input set, in fact the $\beta$ value is a control of window size as it tend to fade away as the exponential gets bigger.
+    \item if we expand the $dV\theta^n$: $$
+      (1-\beta)\theta^{n} + \beta(1-\beta)^2\theta^{n-1} + ... + \beta(1-\beta)^{n}\theta^1
+      $$ and we know that $(1-\beta)^{\frac{1}{\beta}} = \frac{1}{e} = 0.367$ then $\frac{1}{1-\beta}$ iterations this weighting term will be $\frac{1}{e}$, meaning closer to zero, and then we can interpret the weight decay algorithm as the function that take the average over the last $\frac{1}{1-\beta}$ elements.
+
+    \end{description}
+  \end{description}
+
 \end{appendices}
 
 \end{document}
