@@ -342,15 +342,52 @@
 \item in  gradient descent iterations are called epochs, of index $epoc_{num}$ an epoch with rate $decay_{rate}$, we initialize learning rate to relatively large value $\alpha_0$ then we set our decaying learning rate to: $$\frac{1}{1+epoch_{num}*decay_{rate}}\alpha_0$$
 \item there are different variation of learning rate decay of the form scale*$\alpha_0$ for example:
   $$0.95^{epoch_{rate}}\alpha_0 $$
+\end{description}
+
+\section{Tuning parameters}
+\begin{description}
+\item so far our highly optimized neural network is composed of many parameters left to the designer to tune (ordered by priority):
+  \begin{enumerate}
+\item learning rate \textbf{$\alpha$}.
+\item number of hidden unites.
+\item momentum averaging constant \textbf{$\beta$}.
+\item mini-batch size.
+\item number of layers \textbf{L}.
+\item learning rate decay initial value \textbf{$\alpha_0$}.
+\item ADAM's $\beta_1$, $\beta_2$, $\epsilon$.
+  \end{enumerate}
+\item so we have 7 parameters so far, the permutation of those 7 variables even in a narrow range of discrete values, can take for ever, and an old-practice was to pick random permutation on a grid, meaning that $hyper-parameter_i$, against $hyper-parameter_j$, such that each cell map two different parameters, but since we are solving a stochastic search problem, it's more efficient to set the values at random in both dimension so for example for each $hyper-parameter_i$  is projected on the $hyper-parameter_j$ at each point, and texted, this opens more possibilities.
+
+ \subsection{coarse to fine search}
+  \subsection{panda vs caviar training approaches}
+  \begin{description}
+  \item depending on the computational capacity available you choose between panda, and caviar approaches, training a single model at a time, and tuning it's parameters every set of epochs in case you have limited computational resources is called panda approach, on the other hand, if you have sufficient power to run different models with different parameters simultaneously, this last approach is called caviar (those terms were coined by Andrew Ng in a coursera specialization).
+  \end{description}
+  \end{description}
+  \section{Batch Normalization}
+  \begin{description}
+\item in previous chapter we discussed input normalization, for the same reasons we can implement the same method for each layer's input before the activation process, then we re-scale by $\lambda,\beta$: $$
+  z_{norm}^{[l]} = \frac{z^{[l]} - \mu({z^{[l]}})}{\sqrt{\sigma^2+\epsilon}} | l \in [1-L] $$
+  $$\widetilde{z^{[l]}}  = \lambda z_{norm}^{[l]}  + \beta $$
+\item but make sure here that $(\beta,\lambda)!=(\sqrt{\sigma^2+\epsilon}, \beta)$, because in such case we end up with  $\widetilde{z^{[l]}} = z_{norm}^{[l]}$. here $\lambda, \beta$ are learned parameters, and updated during the training.
+\item update $\lambda, \beta$ in the update step:
+  $$ \beta^{[l]} = \beta^{[l]} -\alpha d\beta^{[l]} $$
+  $$ \lambda^{[l]} = \lambda^{[l]} -\alpha d\lambda^{[l]} $$
+\item in case of implementation of batch normalization we end up with the following: $$ z_{norm}^{[l]} = \frac{z^{[l]} - \mu({z^{[l]}})}{\sqrt{\sigma^2+\epsilon}} | l \in [1-L] $$, and  $$\widetilde{z^{[l]}}  = \lambda z_{norm}^{[l]}  + \beta $$ if we look closely we found that $\beta$ also serves the purpose of bias, or shifting term \textbf{b} in forward algorithm: $z^{[l]} = w^TX^{\{i\}} + b$, therefore we can set \textbf{b} to zero, or remove this term.
+  \subsection{Covariate Shift}
+\item if our data-set was from specific distribution, if we cut through the neural network at layer l, then all inputs $a^{[l-1]}$ feeding layer l are depended on the tuned parameters, gradients, and basically our input data, hence if $a^{[l]}$ are projected in specific neighbourhood  for mini-batch $X^{\{i\}}$, at different mini-batch $X^{\{j\}}$ the projection can shift greatly in different area. Batch normalization help to muzzle this overshoots, by mapping the output of previous layer $l-1$ into normalization dimension, hence keeping the output more controlled for different mini-batches.
+  \subsection{Batch normalization as a regularization technique}
+\item analogous to regularization, each mini-batch is scaled by mean, and variance, with the effect of randomizing the network layers output, similar to dropout technique, therefor it can be considered as regularization technique.
 
 \end{description}
+
 
 \chapter{Natural language processing}
 \section{pre-processing}
 \begin{description}
 \item the problem here is how to extract features $\mathbf{X}$ from the a sentence.
 \item for example how to classify a sentence being positive, or negative, assigning 0 for negative, and 1 for positive, starting for a preprocessed sentence how to turn it into a feature set X.
-  \item but there are unnecessary punctuation, conjugation, and stops that need to be get rid of, so first we need to pre-process our dataset as follows:
+  \item but there are unnecessary punctuation, conjugation, and stops that need to be get rid of, so first we need to pre-process our data-set as follows:
   \begin{enumerate}
   \item iliminate handles and URLs
   \item tokenize the string into words
@@ -711,8 +748,22 @@ in the document.
     \item Viterbi forward: $$V[j,i] = \underset{k \in N}{\operatorname{argmax}}(V[k, i-1] + log(A[k,j]) + log[j,w_i])$$
 
     \item Viterbi backward: starting for the last we pick the highest probability in the Viterbi matrix and record the indices of the corresponding tag, going backward up to the first column, add those tags in reverse order.
-
     \end{enumerate}
+
+
+    \section {N-grams}
+    \subsection{Smoothing}
+    \begin{description}
+      \item Add-k smoothing was described as a method for smoothing of the probabilities for previously unseen n-grams.
+      \end{description}
+    \subsection{Back-off}
+    \begin{description}
+    \item Back-off is a model generalization method that leverages information from lower order n-grams in case information about the high order n-grams is missing. For example, if the probability of an trigram is missing, use bigram information and so on.
+    \end{description}
+    \subsection{Interpolation}
+    \begin{description}
+    \item The other method for using probabilities of lower order n-grams is the interpolation. In this case, you use weighted probabilities of n-grams of all orders every time, not just when high order information is missing.
+    \end{description}
 
 
 \end{description}
@@ -723,6 +774,7 @@ in the document.
 
 \begin{appendices}
   \chapter{Introduction to probabilities}
+  \section{probabilities chain rule}
   \section {Naive Bayes}
   \chapter{Covariance}
   \chapter{Single Value Decomposition}
@@ -740,6 +792,7 @@ in the document.
 
     \end{description}
   \end{description}
+  \chapter{smoothing (add-k, and add-one laplacian)}
 
 \end{appendices}
 

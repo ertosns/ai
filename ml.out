@@ -36,37 +36,49 @@
 \BOOKMARK [1][-]{section.3.4}{Adaptive Momentum estimation \(Adam\)}{chapter.3}% 36
 \BOOKMARK [2][-]{subsection.3.4.1}{Hyperparameters}{section.3.4}% 37
 \BOOKMARK [1][-]{section.3.5}{Learning rate decay}{chapter.3}% 38
-\BOOKMARK [0][-]{chapter.4}{Natural language processing}{}% 39
-\BOOKMARK [1][-]{section.4.1}{pre-processing}{chapter.4}% 40
-\BOOKMARK [1][-]{section.4.2}{Example: positive, negative classifier}{chapter.4}% 41
-\BOOKMARK [1][-]{section.4.3}{Logistic regression classifier}{chapter.4}% 42
-\BOOKMARK [1][-]{section.4.4}{Naive Bayes classifier}{chapter.4}% 43
-\BOOKMARK [1][-]{section.4.5}{costine similaritis}{chapter.4}% 44
-\BOOKMARK [2][-]{subsection.4.5.1}{Euclidean distance}{section.4.5}% 45
-\BOOKMARK [1][-]{section.4.6}{Principle Component Analysis \(PCA\)}{chapter.4}% 46
-\BOOKMARK [1][-]{section.4.7}{Machine Translation}{chapter.4}% 47
-\BOOKMARK [2][-]{subsection.4.7.1}{Loss function L}{section.4.7}% 48
-\BOOKMARK [2][-]{subsection.4.7.2}{gradient descent}{section.4.7}% 49
-\BOOKMARK [2][-]{subsection.4.7.3}{fixed number of iterations}{section.4.7}% 50
-\BOOKMARK [2][-]{subsection.4.7.4}{k-Nearest neighbors algorithm}{section.4.7}% 51
-\BOOKMARK [2][-]{subsection.4.7.5}{Searching for the translation embedding}{section.4.7}% 52
-\BOOKMARK [2][-]{subsection.4.7.6}{LSH and document search}{section.4.7}% 53
-\BOOKMARK [2][-]{subsection.4.7.7}{Bag-of-words \(BOW\) document models}{section.4.7}% 54
-\BOOKMARK [2][-]{subsection.4.7.8}{ Choosing the number of planes}{section.4.7}% 55
-\BOOKMARK [2][-]{subsection.4.7.9}{ Getting the hash number for a vector}{section.4.7}% 56
-\BOOKMARK [1][-]{section.4.8}{Probabilistic model of pronounciation and spelling}{chapter.4}% 57
-\BOOKMARK [2][-]{subsection.4.8.1}{auto-correction}{section.4.8}% 58
-\BOOKMARK [2][-]{subsection.4.8.2}{Bayesian inference model}{section.4.8}% 59
-\BOOKMARK [2][-]{subsection.4.8.3}{Minimum edit distance}{section.4.8}% 60
-\BOOKMARK [1][-]{section.4.9}{Grammar Weighted Automata}{chapter.4}% 61
-\BOOKMARK [2][-]{subsection.4.9.1}{Markov chain}{section.4.9}% 62
-\BOOKMARK [2][-]{subsection.4.9.2}{Hidden Markov Models HMMs}{section.4.9}% 63
-\BOOKMARK [2][-]{subsection.4.9.3}{Viterbi Algorithm}{section.4.9}% 64
-\BOOKMARK [2][-]{subsection.4.9.4}{Part of Speech tagging \(POS\)}{section.4.9}% 65
-\BOOKMARK [0][-]{section*.3}{Appendices}{}% 66
-\BOOKMARK [0][-]{appendix.a.A}{Introduction to probabilities}{}% 67
-\BOOKMARK [1][-]{section.a.A.1}{Naive Bayes}{appendix.a.A}% 68
-\BOOKMARK [0][-]{appendix.a.B}{Covariance}{}% 69
-\BOOKMARK [0][-]{appendix.a.C}{Single Value Decomposition}{}% 70
-\BOOKMARK [0][-]{appendix.a.D}{Exponentially weighted averages}{}% 71
-\BOOKMARK [1][-]{subsection.a.D.0.1}{How to choose the value \040?}{appendix.a.D}% 72
+\BOOKMARK [1][-]{section.3.6}{Tuning parameters}{chapter.3}% 39
+\BOOKMARK [2][-]{subsection.3.6.1}{coarse to fine search}{section.3.6}% 40
+\BOOKMARK [2][-]{subsection.3.6.2}{panda vs caviar training approaches}{section.3.6}% 41
+\BOOKMARK [1][-]{section.3.7}{Batch Normalization}{chapter.3}% 42
+\BOOKMARK [2][-]{subsection.3.7.1}{Covariate Shift}{section.3.7}% 43
+\BOOKMARK [2][-]{subsection.3.7.2}{Batch normalization as a regularization technique}{section.3.7}% 44
+\BOOKMARK [0][-]{chapter.4}{Natural language processing}{}% 45
+\BOOKMARK [1][-]{section.4.1}{pre-processing}{chapter.4}% 46
+\BOOKMARK [1][-]{section.4.2}{Example: positive, negative classifier}{chapter.4}% 47
+\BOOKMARK [1][-]{section.4.3}{Logistic regression classifier}{chapter.4}% 48
+\BOOKMARK [1][-]{section.4.4}{Naive Bayes classifier}{chapter.4}% 49
+\BOOKMARK [1][-]{section.4.5}{costine similaritis}{chapter.4}% 50
+\BOOKMARK [2][-]{subsection.4.5.1}{Euclidean distance}{section.4.5}% 51
+\BOOKMARK [1][-]{section.4.6}{Principle Component Analysis \(PCA\)}{chapter.4}% 52
+\BOOKMARK [1][-]{section.4.7}{Machine Translation}{chapter.4}% 53
+\BOOKMARK [2][-]{subsection.4.7.1}{Loss function L}{section.4.7}% 54
+\BOOKMARK [2][-]{subsection.4.7.2}{gradient descent}{section.4.7}% 55
+\BOOKMARK [2][-]{subsection.4.7.3}{fixed number of iterations}{section.4.7}% 56
+\BOOKMARK [2][-]{subsection.4.7.4}{k-Nearest neighbors algorithm}{section.4.7}% 57
+\BOOKMARK [2][-]{subsection.4.7.5}{Searching for the translation embedding}{section.4.7}% 58
+\BOOKMARK [2][-]{subsection.4.7.6}{LSH and document search}{section.4.7}% 59
+\BOOKMARK [2][-]{subsection.4.7.7}{Bag-of-words \(BOW\) document models}{section.4.7}% 60
+\BOOKMARK [2][-]{subsection.4.7.8}{ Choosing the number of planes}{section.4.7}% 61
+\BOOKMARK [2][-]{subsection.4.7.9}{ Getting the hash number for a vector}{section.4.7}% 62
+\BOOKMARK [1][-]{section.4.8}{Probabilistic model of pronounciation and spelling}{chapter.4}% 63
+\BOOKMARK [2][-]{subsection.4.8.1}{auto-correction}{section.4.8}% 64
+\BOOKMARK [2][-]{subsection.4.8.2}{Bayesian inference model}{section.4.8}% 65
+\BOOKMARK [2][-]{subsection.4.8.3}{Minimum edit distance}{section.4.8}% 66
+\BOOKMARK [1][-]{section.4.9}{Grammar Weighted Automata}{chapter.4}% 67
+\BOOKMARK [2][-]{subsection.4.9.1}{Markov chain}{section.4.9}% 68
+\BOOKMARK [2][-]{subsection.4.9.2}{Hidden Markov Models HMMs}{section.4.9}% 69
+\BOOKMARK [2][-]{subsection.4.9.3}{Viterbi Algorithm}{section.4.9}% 70
+\BOOKMARK [2][-]{subsection.4.9.4}{Part of Speech tagging \(POS\)}{section.4.9}% 71
+\BOOKMARK [1][-]{section.4.10}{N-grams}{chapter.4}% 72
+\BOOKMARK [2][-]{subsection.4.10.1}{Smoothing}{section.4.10}% 73
+\BOOKMARK [2][-]{subsection.4.10.2}{Back-off}{section.4.10}% 74
+\BOOKMARK [2][-]{subsection.4.10.3}{Interpolation}{section.4.10}% 75
+\BOOKMARK [0][-]{section*.3}{Appendices}{}% 76
+\BOOKMARK [0][-]{appendix.a.A}{Introduction to probabilities}{}% 77
+\BOOKMARK [1][-]{section.a.A.1}{probabilities chain rule}{appendix.a.A}% 78
+\BOOKMARK [1][-]{section.a.A.2}{Naive Bayes}{appendix.a.A}% 79
+\BOOKMARK [0][-]{appendix.a.B}{Covariance}{}% 80
+\BOOKMARK [0][-]{appendix.a.C}{Single Value Decomposition}{}% 81
+\BOOKMARK [0][-]{appendix.a.D}{Exponentially weighted averages}{}% 82
+\BOOKMARK [1][-]{subsection.a.D.0.1}{How to choose the value \040?}{appendix.a.D}% 83
+\BOOKMARK [0][-]{appendix.a.E}{smoothing \(add-k, and add-one laplacian\)}{}% 84

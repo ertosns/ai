@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.12.2)  16 DEC 2020 16:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.12.2)  17 DEC 2020 18:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -369,12 +369,12 @@ Overfull \hbox (5.12228pt too wide) in paragraph at lines 279--280
 g at ran-dom through
  []
 
-[24] [25] [26] [27] [28]
+[24] [25] [26] [27] [28] [29] [30]
 Chapter 4.
-[29
+[31
 
-] [30] [31] [32]
-Overfull \hbox (33.14264pt too wide) in paragraph at lines 422--423
+] [32] [33] [34]
+Overfull \hbox (33.14264pt too wide) in paragraph at lines 459--460
 []\OT1/cmr/m/n/12 Recall that con-di-tional prob-a-bil-ity $\OML/cmm/m/it/12 p\
 OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 pos\OT1/
 cmr/m/n/12 ) = []$, $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 pos\OT
@@ -383,89 +383,93 @@ cmr/m/n/12 ) = []$, $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 pos\OT
  []
 
 
-Overfull \hbox (16.12262pt too wide) in paragraph at lines 424--425
+Overfull \hbox (16.12262pt too wide) in paragraph at lines 461--462
 \OT1/cmr/m/n/12 us-ing the so-called 'lapla-cian smooth-ing': $\OML/cmm/m/it/12
  p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 class
 \OT1/cmr/m/n/12 ) = []$,
  []
 
-[33] [34] [35] [36] [37] [38] [39] [40] [41]
-Overfull \hbox (4.80772pt too wide) in paragraph at lines 620--620
+[35] [36] [37] [38] [39] [40] [41] [42] [43]
+Overfull \hbox (4.80772pt too wide) in paragraph at lines 657--657
 []\OT1/cmr/bx/n/17.28 Probabilistic model of pro-noun-ci-a-tion and
  []
 
-[42]
+[44]
 Overfull \hbox (14.25706pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 4.8.  PROBABILISTIC MODEL OF PRONOUNCIATION AND SPELLING \OT1/
-cmr/m/n/12 43
+cmr/m/n/12 45
  []
 
-[43]
-Overfull \hbox (40.14713pt too wide) detected at line 648
+[45]
+Overfull \hbox (40.14713pt too wide) detected at line 685
 \OML/cmm/m/it/12 dstance\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 i; j\OT1/cmr/m/n/12 ]
  \OMS/cmsy/m/n/12   \OML/cmm/m/it/12 Min []
  []
 
-[44] [45] [46] [47]
+[46] [47] [48] [49] [50]
 
-Package natbib Warning: Citation `xyz2' on page 48 undefined on input line 720.
+Package natbib Warning: Citation `xyz2' on page 51 undefined on input line 771.
 
 
 No file ml.bbl.
-[48] [49
+[51] [52
 
+] [53
 
-] [50]
+] [54]
 Appendix A.
-[51
+[55
 
-] [52
+] [56
 
 ]
 Appendix B.
-[53] [54
+[57] [58
 
 ]
 Appendix C.
-[55] [56
+[59] [60
 
 ]
 Appendix D.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 734.
+(hyperref)                than one, level fixed on input line 786.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 734.
+(hyperref)                removing `math shift' on input line 786.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\beta' on input line 734.
+(hyperref)                removing `\beta' on input line 786.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 734.
+(hyperref)                removing `math shift' on input line 786.
 
-[57]
+[61] [62]
+Appendix E.
 
 Package natbib Warning: There were undefined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 746.
-[58]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 746.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 799.
+[63
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 799.
  (./ml.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 746.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 746.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 799.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 799.
 Package rerunfilecheck Info: File `ml.out' has not changed.
-(rerunfilecheck)             Checksum: E0E85CDBA04E6AF17A5E8BEBE5EE6FF8;5136.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 746.
+(rerunfilecheck)             Checksum: 35D1B012049D984722F5BE81C5DBB38A;6012.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 799.
  ) 
 Here is how much of TeX's memory you used:
- 5821 strings out of 482663
- 86316 string characters out of 5955139
+ 5857 strings out of 482663
+ 86772 string characters out of 5955139
  349571 words of memory out of 5000000
- 20757 multiletter control sequences out of 15000+600000
+ 20769 multiletter control sequences out of 15000+600000
  542048 words of font info for 57 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
  34i,12n,31p,891b,521s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -484,10 +488,10 @@ r8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on ml.pdf (58 pages, 282958 bytes).
+Output written on ml.pdf (63 pages, 292384 bytes).
 PDF statistics:
- 733 PDF objects out of 1000 (max. 8388607)
- 650 compressed objects within 7 object streams
- 149 named destinations out of 1000 (max. 500000)
- 577 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 826 PDF objects out of 1000 (max. 8388607)
+ 737 compressed objects within 8 object streams
+ 173 named destinations out of 1000 (max. 500000)
+ 673 words of extra memory for PDF output out of 10000 (max. 10000000)
 
