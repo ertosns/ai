@@ -378,8 +378,20 @@
 \item if our data-set was from specific distribution, if we cut through the neural network at layer l, then all inputs $a^{[l-1]}$ feeding layer l are depended on the tuned parameters, gradients, and basically our input data, hence if $a^{[l]}$ are projected in specific neighbourhood  for mini-batch $X^{\{i\}}$, at different mini-batch $X^{\{j\}}$ the projection can shift greatly in different area. Batch normalization help to muzzle this overshoots, by mapping the output of previous layer $l-1$ into normalization dimension, hence keeping the output more controlled for different mini-batches.
   \subsection{Batch normalization as a regularization technique}
 \item analogous to regularization, each mini-batch is scaled by mean, and variance, with the effect of randomizing the network layers output, similar to dropout technique, therefor it can be considered as regularization technique.
+  \subsection{Batch normalization on test sets}
+\item during the test time, you can run the model on a a single example, so there are two approaches for calculation of $\mu, \sigma^2$ those values can be taken from the final mini-batch, or through exponential/running weighted averages run over each mini-batch parameters.
+  \end{description}
 
-\end{description}
+  \section{Multi-class classification}
+  \begin{description}
+  \item so far we discussed a \textbf{sigmoid} activation over \textbf{$\hat{y}$}, what if our model's \textbf{y} is multi-class, and y isn't a single number but a vector of length n?
+    \item if we run for example sigmoid, or relu on a vector rather than a real number the sum of the vector entries will be arbitrary number,
+    \subsection{Softmax activation}
+  \item softmax is a probabilistic activation function, run over $z^{[L]}$ is defined as: $$
+    a^{[L]}=\frac{e^{z^{[l]}}}{\sum_{i=1}^{n^{[L]}}t_i},$$  where $t=e^{z^{[L]}} $.
+    \item the resultant $\sum_{i=1}^{n^{[L]}}{a_i^{[L]}}=1$, where $n^{[L]}$ is the number of neurons, or nodes in the final layer, which is the same as the number of classes at output \textbf{y}.
+  \end{description}
+
 
 
 \chapter{Natural language processing}
@@ -484,7 +496,7 @@ Euclidean distance is defined as:
 
 \item $n$ is the number of elements in the vector
 \item $A$ and $B$ are the corresponding word vectors.
-\item The more similar the words, the more likely the Euclidean distance will be close to 0.
+\item The more similar the words, the more likely the Euclidean distance will be close to 0.p
 \end{description}
 
 \section {Principle Component Analysis (PCA)}
