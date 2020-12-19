@@ -369,7 +369,7 @@
 \item in previous chapter we discussed input normalization, for the same reasons we can implement the same method for each layer's input before the activation process, then we re-scale by $\lambda,\beta$: $$
   z_{norm}^{[l]} = \frac{z^{[l]} - \mu({z^{[l]}})}{\sqrt{\sigma^2+\epsilon}} | l \in [1-L] $$
   $$\widetilde{z^{[l]}}  = \lambda z_{norm}^{[l]}  + \beta $$
-\item but make sure here that $(\beta,\lambda)!=(\sqrt{\sigma^2+\epsilon}, \beta)$, because in such case we end up with  $\widetilde{z^{[l]}} = z_{norm}^{[l]}$. here $\lambda, \beta$ are learned parameters, and updated during the training.
+\item but make sure here that $(\beta,\lambda)\neq(\sqrt{\sigma^2+\epsilon}, \beta)$, because in such case we end up with  $\widetilde{z^{[l]}} = z_{norm}^{[l]}$. here $\lambda, \beta$ are learned parameters, and updated during the training.
 \item update $\lambda, \beta$ in the update step:
   $$ \beta^{[l]} = \beta^{[l]} -\alpha d\beta^{[l]} $$
   $$ \lambda^{[l]} = \lambda^{[l]} -\alpha d\lambda^{[l]} $$
@@ -392,7 +392,49 @@
     \item the resultant $\sum_{i=1}^{n^{[L]}}{a_i^{[L]}}=1$, where $n^{[L]}$ is the number of neurons, or nodes in the final layer, which is the same as the number of classes at output \textbf{y}.
   \end{description}
 
-
+  \chapter{Structuring machine learning}
+  \section{Machine learning strategy}
+  \begin{description}
+  \item we discussed in previous chapter how, and when to use optimization, regularization techniques, in practice, such decision making is crucial, and can save months of development time if we know to choose the right direction, and make the right decision to help our model work more effectively, doing regularization when the system need optimization in the case of high-bias is time consuming process, and spending months getting more data-set in highly biased model can be a total wast of time.
+    \section{orthogonality}
+  \item tuning process isn't done arbitrarily  but we must know which hyper-parameters to tune to get the most desired effect.
+  \item modeling a process or a problem with as many features, we need to be able to fit our model to capture all data-set features. in the set of hyper-parameters it's easier if we can tune one parameter from the set of hyper-parameters and only take an effect on the corresponding purpose without avalanche effect, so for example in a car we can choose the adjust speed separately from the steering, although steering and speed are related in a single function, yet we can change one without affecting the other, therefor the name \textbf{orthogonality}
+  \item doing well on training set, usually comparable to human level performance, depending on the application,... change the network into different architecture, use more efficient optimization algorithm i.e ADAM, etc
+  \item doing well on the dev-set, in that order if the model is note fitting the dev set, meaning we have a high-variance, and we can use regularization, or getting a larger data-set.
+  \item fit test-set well on the cost function, if we can't get our model to fit on the test-set in the other, then we probably over-tuned the model on the dev-set, and we need to re-tune with bigger dev-set.
+  \item perform well in application, finally and in this order, if we can't capture the real application features in our model, then we then dev-test sets aren't quit fitting in the model, or we need to change the cost function.
+    \section{Set up your Goal}
+    \begin{description}
+      \subsection{Evaluation metric}
+      \subsection{Precision vs accuracy}
+    \item accuracy/recall numerically the average of our prediction measurement is how var close to the reality.
+    \item on the other hand, precision is how far our network prediction are True, or in other words is how far our predication are what they are.
+    \item precision, and accuracy are orthogonal metrics, but there is a trad-off between both of them, in application, in the training process, it's advised to train different simultaneously (if possible) and plot their precision/accuracy metrics, and those the highest of all, getting high precision in one model, or high accuracy on the other, can't indicate which model is better.
+      \subsection {F1-score}
+    \item this metric is harmonic mean of precision \textbf{p}, and accuracy/recall \textbf{R}: $$\frac{2}{\frac{1}{P} + \frac{1}{R}}$$.
+    \item with a single metric that combine how far our model is both accurate, and precise can be more efficient.
+      \subsection {Satisfying-Optimizing metric}
+      \item we might have a precise, and accurate model such as in case of F1-score, but yet it doesn't satisfy our practical application, in reality we are limited by time, and computational resources, and we need high \textbf{F1-score} relative to available resources, then a more general metric is a weighted average of F1-score, and our resource metrics, for example if we developing a network for recognition on phone we need the system to be both accurate/precise, but also to be under specific time threshold $T$, then our evaluation metric can be $F1-score*0.8+T*0.2$.
+    \end{description}
+    \section{train/dev/test sets}
+    \begin{description}
+    \item as discussed earlier in previous chapter that the ration of data-set partition into train, dev, and test sets are dependent on the data-set size, and the application really in accord with bias/variance scale.
+    \item having a large enough training set can reduce variance, and sufficiently large enough dev set can enable us to have a deep perspective into the bias-variance scale, and finally the test set is essential to evaluate how var our low-bias, low-variance model fits on the same distribution of data.
+      \subsection {dev/test metric}
+    \item in case of very domain-specific training algorithm, for example a classification network on a very specific class $c_i$ or object out of the set of different classes C from our data-set of size n, we need to train our model to be aware of different classes, well distinguish between object rather than cat/not-cat binary classification, but also be able to classify our target object efficiently enough, we can add ad weighting parameter to the cost function evaluation: $$ J(w,b)=\frac{1}{\sum_{k=1}^{C_k}{w_k}} \sum_{i=1}^{m}w_k L(\hat{y},y) $$ where $w_k$ is the weight corresponding to each class $\begin{cases}w_1 \leftarrow \hat{y}=c_1\\w_2 \leftarrow \hat{y}=c_2\\...\\w_n \leftarrow \hat{y}=c_n\end{cases}$
+    \end{description}
+    \item it's important to note that if the distribution of the practical input-set is of different features than that of our train/dev/test distribution, our model can be guaranteed to do well in practice.
+  \end{description}
+  \section{Human-level performance}
+  \begin{description}
+  \item in the past few years machine learning have surpassed human cognitive levels in different areas, performance of machine today overshadow that of humans, in the past decades the accuracy of machine has been increasing linearly up to level slightly higher than the human's.
+  \item as long as the machine level is lower from that of the humans we can boost it with human-labeled data, gain a better insight from error analysis, better analysis of bias/variance , as to increase it's cognitive abilities
+    \subsection{human(bayes) error}
+  \item as machine level rises high to humans, we can add another level the train/dev/test cycle, that is human level error, and interpretation from human/bayes level to training error is called the \textbf{avoidable bias} error, and difference in error between training and development is the \textbf{variance}.
+  \item we can use avoidable bias, and variance as a metric for how well our model perform, and optimize our model, and network to reach human level performance, and minimize that error.
+  \item comparing those two metrics tell us where to optimize, for example if the avoidable bias is 4%, and the variance error is 10% then it's wiser to resolve the over-fitting of the model before achieving human-level performance.
+    \item the human level performance is really lose, comparable to how well our model is trained to achieve low variance error, humans as well difference in their levels of cognitive ability fitting a normal distribution naturally, but if an average human is to be compared to a guru in the specific domain, then the guru of sufficient skill-set, and training is able to achieve lower Bayes error, and the latter varies greatly, for example in radiology, an average human is expected to achieve higher error of diagnosis, and recognition  compared to skilled doctor, and the latter compared to a team of doctors, choosing specific human-level from the domain of human-cognition is another problem.
+    \end{description}
 
 \chapter{Natural language processing}
 \section{pre-processing}
@@ -807,5 +849,4 @@ in the document.
   \chapter{smoothing (add-k, and add-one laplacian)}
 
 \end{appendices}
-
 \end{document}
