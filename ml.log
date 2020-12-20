@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.12.2)  19 DEC 2020 08:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.12.2)  20 DEC 2020 10:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -391,12 +391,18 @@ Overfull \hbox (25.09708pt too wide) in paragraph at lines 433--434
 level the train/dev/test
  []
 
-[36] [37] [38
+[36] [37] [38] [39]
+Overfull \hbox (5.5139pt too wide) in paragraph at lines 466--467
+\OT1/cmr/m/n/12 domains-specific ap-pli-ca-tion, and ran-domly ini-tial-ize the
+ last layer's
+ []
 
-]
+[40]
 Chapter 5.
-[39] [40] [41] [42]
-Overfull \hbox (33.14264pt too wide) in paragraph at lines 513--514
+[41
+
+] [42] [43] [44]
+Overfull \hbox (33.14264pt too wide) in paragraph at lines 551--552
 []\OT1/cmr/m/n/12 Recall that con-di-tional prob-a-bil-ity $\OML/cmm/m/it/12 p\
 OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 pos\OT1/
 cmr/m/n/12 ) = []$, $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 pos\OT
@@ -405,96 +411,103 @@ cmr/m/n/12 ) = []$, $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 pos\OT
  []
 
 
-Overfull \hbox (16.12262pt too wide) in paragraph at lines 515--516
+Overfull \hbox (16.12262pt too wide) in paragraph at lines 553--554
 \OT1/cmr/m/n/12 us-ing the so-called 'lapla-cian smooth-ing': $\OML/cmm/m/it/12
  p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 class
 \OT1/cmr/m/n/12 ) = []$,
  []
 
-[43] [44] [45] [46] [47] [48] [49] [50] [51]
-Overfull \hbox (4.80772pt too wide) in paragraph at lines 711--711
+[45] [46] [47] [48] [49] [50] [51] [52] [53]
+Overfull \hbox (4.80772pt too wide) in paragraph at lines 749--749
 []\OT1/cmr/bx/n/17.28 Probabilistic model of pro-noun-ci-a-tion and
  []
 
-[52]
+[54]
 Overfull \hbox (14.25706pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 5.8.  PROBABILISTIC MODEL OF PRONOUNCIATION AND SPELLING \OT1/
-cmr/m/n/12 53
+cmr/m/n/12 55
  []
 
-[53]
-Overfull \hbox (40.14713pt too wide) detected at line 739
+[55]
+Overfull \hbox (40.14713pt too wide) detected at line 777
 \OML/cmm/m/it/12 dstance\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 i; j\OT1/cmr/m/n/12 ]
  \OMS/cmsy/m/n/12   \OML/cmm/m/it/12 Min []
  []
 
-[54] [55] [56] [57] [58]
+[56] [57] [58] [59] [60]
 
-Package natbib Warning: Citation `xyz2' on page 59 undefined on input line 825.
+Package natbib Warning: Citation `xyz2' on page 61 undefined on input line 863.
 
 
 No file ml.bbl.
-[59] [60
+[61] [62
 
-] [61
+] [63
 
-] [62]
+] [64]
 Appendix A.
-[63
+[65
 
-] [64
+] [66
 
 ]
 Appendix B.
-[65] [66
+[67] [68
 
 ]
 Appendix C.
-[67] [68
+[69] [70
 
 ]
 Appendix D.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 840.
+(hyperref)                than one, level fixed on input line 878.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 840.
+(hyperref)                removing `math shift' on input line 878.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\beta' on input line 840.
+(hyperref)                removing `\beta' on input line 878.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 840.
+(hyperref)                removing `math shift' on input line 878.
 
-[69] [70]
+[71] [72]
 Appendix E.
 
 Package natbib Warning: There were undefined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 852.
-[71
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 890.
+[73
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 852.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 890.
  (./ml.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 852.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 852.
-Package rerunfilecheck Info: File `ml.out' has not changed.
-(rerunfilecheck)             Checksum: BB3F0F077B6E14EF14690BA87EE63FC6;7071.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 852.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 890.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 890.
+
+
+Package rerunfilecheck Warning: File `ml.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `ml.out':
+(rerunfilecheck)             Before: 047D30871D1F919B0A96114712AAFD56;7659
+(rerunfilecheck)             After:  17FE4980FD84DB3367E38D47CA0FDB7E;7734.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 890.
  ) 
 Here is how much of TeX's memory you used:
- 5895 strings out of 482663
- 87264 string characters out of 5955139
+ 5914 strings out of 482663
+ 87531 string characters out of 5955139
  348571 words of memory out of 5000000
- 20784 multiletter control sequences out of 15000+600000
+ 20792 multiletter control sequences out of 15000+600000
  542048 words of font info for 57 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
- 34i,12n,31p,891b,521s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,12n,31p,990b,521s stack positions out of 5000i,500n,10000p,200000b,80000s
  </root/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texl
@@ -510,10 +523,10 @@ r8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on ml.pdf (71 pages, 306573 bytes).
+Output written on ml.pdf (73 pages, 315181 bytes).
 PDF statistics:
- 940 PDF objects out of 1000 (max. 8388607)
- 842 compressed objects within 9 object streams
- 196 named destinations out of 1000 (max. 500000)
- 793 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 993 PDF objects out of 1000 (max. 8388607)
+ 893 compressed objects within 9 object streams
+ 207 named destinations out of 1000 (max. 500000)
+ 857 words of extra memory for PDF output out of 10000 (max. 10000000)
 

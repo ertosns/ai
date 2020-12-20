@@ -434,6 +434,44 @@
   \item we can use avoidable bias, and variance as a metric for how well our model perform, and optimize our model, and network to reach human level performance, and minimize that error.
   \item comparing those two metrics tell us where to optimize, for example if the avoidable bias is 4%, and the variance error is 10% then it's wiser to resolve the over-fitting of the model before achieving human-level performance.
     \item the human level performance is really lose, comparable to how well our model is trained to achieve low variance error, humans as well difference in their levels of cognitive ability fitting a normal distribution naturally, but if an average human is to be compared to a guru in the specific domain, then the guru of sufficient skill-set, and training is able to achieve lower Bayes error, and the latter varies greatly, for example in radiology, an average human is expected to achieve higher error of diagnosis, and recognition  compared to skilled doctor, and the latter compared to a team of doctors, choosing specific human-level from the domain of human-cognition is another problem.
+  \end{description}
+
+  \section{Error analysis}
+  \begin{description}
+\item taking the right decisions in what to invest your time in while optimizing a model can be a great leverage and can save month, if not years of Engineering time! making error analysis is just one of those.
+
+\item statistical analysis of the mismatched predictions $\hat{y}$ at the test time cat is coined the name \textbf{Error analysis}.
+\item Assume for example that error analysis taking from the sample of mismatched predictions shows that false-negative is 50\% percent, then it would be wise to spend time enhancing our model for predictions, and cut down the ratio of 50\% to a reasonable ratio, perhaps 2\% .
+\item for example in a classifier network, out of N mismatched predictions are actually what we expect (of being a specific class), but the model classified otherwise, from the N mismatched predictions we take for example 100 entry, and analyse the false-negatives. if it shows that the ratio is 50\% for example then we are on the right track to regard this as bias problem, and invest time on it, on the other-hand if out of the 100 entries only 3\% were false-negatives then, it's not our priority to invest time down this road, and to achieve such high accuracy is actually indication that we might not be able to do better, and it's more wise to move on, and spend time optimizing our model to get a low false-negatives on other classes from our error analysis, or train our model on certain features that might be mis-classified.
+  \subsection{Mislabeled  data}
+\item another perspective to Error analysis is to record the mislabeled input data, it turns out that deep learning is quite robust against small randomly mislabeled data, so in big data of millions of entries, if the mislabeled data are randomly distributed over the data-set classes, and it's a below acceptable error, it's really unwise to spend months fixed mislabeled data since deep learning prove to be robust against just errors.
+\item so far there are three metrics in error analysis to consider, first the overall false-negatives, we take this ration, and sum the ratio of each prediction, thirdly the ratio of mislabeled data, comparing the three metrics can give us insight to help enhance our model, and reduce the overall error, if the overall error is reduced, meaning our model accuracy is acceptable compared to human level, we still have two metrics, to choose from, if the prediction-error (overall-error - mislabeled-error) from the dev-set is reduced after we choose between models, and the test error is also reduced then it can be wise to spend time on mislabeled input data.
+
+  \section{Mismatched training dev/test sets}
+  \begin{description}
+  \item it turns out in practice the model's input usually tend to noisier than the training/dev/test sets input, which are filtered for example in computer vision, input data-set can be of a common distribution of high-resolution, close proximity, centered object, while user input can be blurry, of low-resolution, or in speech recognition we train our model on a clear audio, yet in practice there will be stutter, background noise, etc.
+  \item there is a trade-off between choosing data-input between different distribution, and accuracy, and choosing data from different distribution can really help but under the following criteria, that the dev/test phases need to aim at our target, meaning to be chosen completely from target data, while the training data-set can be a shuffle of different distributions.
+  \item in this scenario new error is introduces, consider that the training error is 1\% and the dev error is 10\% then it's possible to tell wither our model is over-fitting or it's result of mismatch data from different distribution?! to help make a decision, the data-set is divided into training/train-dev/dev/test sets, where train-dev, and training sets are form the same shuffled distributions, while dev/test sets are of our target data, so addressing the same problem if the train error is 1\%, and the train-dev error is 9.5\%, while the dev error is 10\% then it's a variance problem, but if the train-dev error is 1.5\%, and the development error is 10\% then our model is getting mismatched data.
+  \item lastly, and as previously discussed if the test error say 15\% then our test set of the same target distribution as the dev-set is over-fitting the dev-set, and to fix this, we ought to increase the dev-set.
+    \subsection{Addressing data mismatch}
+  \item in case of data mismatch in a shuffle of distributions, or in other words the wide error difference between train-dev set, and the dev set, this is an indication of the gap between the data-sets from different distributions.
+  \item a close examination of that difference through error analysis help taking the right decision to reduce this difference, and choosing training data from distribution closer to the target data.
+    \subsection{Artificial data synthesis}
+  \item if the target data-set is limited as usual in practice, given a target data set of size m, it's possible through artificial data synthesis techniques to increase this size to 100m, or even as large as 1000m, but in this case it's possible to run into an over-fitting problem if the original m data set isn't representative enough.
+  \end{description}
+
+  \section{Multiple tasks learning}
+  \begin{description}
+    \subsection{Transfer learning}
+    \item when we train a model in a very domain-specific application with very limited data-set, we can employ weight-transfer, also known as transfer learning, and pick the closest general domain to our domains-specific application, and randomly initialize the last layer's weight $w^{[L]}$, leaving the rest of weight as they are, and through the new domain-specific data set $(X,Y)$ old $w^{[l]}$ $ | l \in [0-L[$, and randomly initialized $w^{[L]}$ we can scale the old model to the new model very quickly.
+    \end{description}
+    \subsection{Multitask learning}
+    \item in transfer learning we make use of previously trained weights to train our model on a newly different task usually in cases when there isn't sufficient data of the second class, but in cases when there is a need to extract as many features from the same example, and the same model, previously we discussed softmax activation function for training a model for multi-class classification, but in different cases of multitasking models rather than multi-class model, for example in object detection in a video, we need to extract boundaries around n set of object $\{o_1,o_2,...,o_n\}$ with bounding box surrounding each object, compared to multi-class problem then we just satisfied with the prediction of $\hat{y}$ in a sparse hot-vector, but in the multitask the label $Y$ is vector with more than a single entry of each task, in this we employ what is called Multitask learning, in the following chapter we will deal such case.
+  \end{description}
+
+  \section{End-to-End Machine Learning}
+  \begin{description}
+    \item .
     \end{description}
 
 \chapter{Natural language processing}
