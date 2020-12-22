@@ -66,43 +66,51 @@
 \contentsline {subsection}{\numberline {4.8.1}Transfer learning}{40}{subsection.4.8.1}%
 \contentsline {subsection}{\numberline {4.8.2}Multitask learning}{40}{subsection.4.8.2}%
 \contentsline {section}{\numberline {4.9}End-to-End Machine Learning}{40}{section.4.9}%
-\contentsline {chapter}{\numberline {5}Natural language processing}{41}{chapter.5}%
-\contentsline {section}{\numberline {5.1}pre-processing}{41}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Example: positive, negative classifier}{41}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Logistic regression classifier}{42}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Naive Bayes classifier}{43}{section.5.4}%
-\contentsline {section}{\numberline {5.5}costine similaritis}{45}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Euclidean distance}{46}{subsection.5.5.1}%
-\contentsline {section}{\numberline {5.6}Principle Component Analysis (PCA)}{46}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Machine Translation}{47}{section.5.7}%
-\contentsline {subsection}{\numberline {5.7.1}Loss function L}{48}{subsection.5.7.1}%
-\contentsline {subsection}{\numberline {5.7.2}gradient descent}{49}{subsection.5.7.2}%
-\contentsline {subsection}{\numberline {5.7.3}fixed number of iterations}{50}{subsection.5.7.3}%
-\contentsline {subsection}{\numberline {5.7.4}k-Nearest neighbors algorithm}{50}{subsection.5.7.4}%
-\contentsline {subsection}{\numberline {5.7.5}Searching for the translation embedding}{51}{subsection.5.7.5}%
-\contentsline {subsection}{\numberline {5.7.6}LSH and document search}{51}{subsection.5.7.6}%
-\contentsline {subsection}{\numberline {5.7.7}Bag-of-words (BOW) document models}{52}{subsection.5.7.7}%
-\contentsline {subsection}{\numberline {5.7.8} Choosing the number of planes}{52}{subsection.5.7.8}%
-\contentsline {subsection}{\numberline {5.7.9} Getting the hash number for a vector}{53}{subsection.5.7.9}%
-\contentsline {section}{\numberline {5.8}Probabilistic model of pronounciation and spelling}{54}{section.5.8}%
-\contentsline {subsection}{\numberline {5.8.1}auto-correction}{54}{subsection.5.8.1}%
-\contentsline {subsection}{\numberline {5.8.2}Bayesian inference model}{55}{subsection.5.8.2}%
-\contentsline {subsection}{\numberline {5.8.3}Minimum edit distance}{56}{subsection.5.8.3}%
-\contentsline {section}{\numberline {5.9}Grammar Weighted Automata}{56}{section.5.9}%
-\contentsline {subsection}{\numberline {5.9.1}Markov chain}{56}{subsection.5.9.1}%
-\contentsline {subsection}{\numberline {5.9.2}Hidden Markov Models HMMs}{57}{subsection.5.9.2}%
-\contentsline {subsection}{\numberline {5.9.3}Viterbi Algorithm}{58}{subsection.5.9.3}%
-\contentsline {subsection}{\numberline {5.9.4}Part of Speech tagging (POS)}{59}{subsection.5.9.4}%
-\contentsline {section}{\numberline {5.10}N-grams}{60}{section.5.10}%
-\contentsline {subsection}{\numberline {5.10.1}Smoothing}{60}{subsection.5.10.1}%
-\contentsline {subsection}{\numberline {5.10.2}Back-off}{60}{subsection.5.10.2}%
-\contentsline {subsection}{\numberline {5.10.3}Interpolation}{61}{subsection.5.10.3}%
-\contentsline {chapter}{Appendices}{63}{section*.3}%
-\contentsline {chapter}{\numberline {A}Introduction to probabilities}{65}{appendix.a.A}%
-\contentsline {section}{\numberline {A.1}probabilities chain rule}{65}{section.a.A.1}%
-\contentsline {section}{\numberline {A.2}Naive Bayes}{65}{section.a.A.2}%
-\contentsline {chapter}{\numberline {B}Covariance}{67}{appendix.a.B}%
-\contentsline {chapter}{\numberline {C}Single Value Decomposition}{69}{appendix.a.C}%
-\contentsline {chapter}{\numberline {D}Exponentially weighted averages}{71}{appendix.a.D}%
-\contentsline {subsection}{\numberline {D.0.1}How to choose the value $\beta $ ?}{71}{subsection.a.D.0.1}%
-\contentsline {chapter}{\numberline {E}smoothing (add-k, and add-one laplacian)}{73}{appendix.a.E}%
+\contentsline {chapter}{\numberline {5}Computer Vision}{41}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Object Detection}{41}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Edge Detection}{42}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Padding}{43}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}striding}{44}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Convolution on RGB channels}{44}{subsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.1.5}Multiple filters Convolution}{44}{subsection.5.1.5}%
+\contentsline {chapter}{\numberline {6}Natural language processing}{45}{chapter.6}%
+\contentsline {section}{\numberline {6.1}pre-processing}{45}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Example: positive, negative classifier}{45}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Logistic regression classifier}{46}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Naive Bayes classifier}{47}{section.6.4}%
+\contentsline {section}{\numberline {6.5}costine similaritis}{49}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Euclidean distance}{50}{subsection.6.5.1}%
+\contentsline {section}{\numberline {6.6}Principle Component Analysis (PCA)}{50}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Machine Translation}{51}{section.6.7}%
+\contentsline {subsection}{\numberline {6.7.1}Loss function L}{52}{subsection.6.7.1}%
+\contentsline {subsection}{\numberline {6.7.2}gradient descent}{53}{subsection.6.7.2}%
+\contentsline {subsection}{\numberline {6.7.3}fixed number of iterations}{54}{subsection.6.7.3}%
+\contentsline {subsection}{\numberline {6.7.4}k-Nearest neighbors algorithm}{54}{subsection.6.7.4}%
+\contentsline {subsection}{\numberline {6.7.5}Searching for the translation embedding}{55}{subsection.6.7.5}%
+\contentsline {subsection}{\numberline {6.7.6}LSH and document search}{55}{subsection.6.7.6}%
+\contentsline {subsection}{\numberline {6.7.7}Bag-of-words (BOW) document models}{56}{subsection.6.7.7}%
+\contentsline {subsection}{\numberline {6.7.8} Choosing the number of planes}{56}{subsection.6.7.8}%
+\contentsline {subsection}{\numberline {6.7.9} Getting the hash number for a vector}{57}{subsection.6.7.9}%
+\contentsline {section}{\numberline {6.8}Probabilistic model of pronounciation and spelling}{58}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}auto-correction}{58}{subsection.6.8.1}%
+\contentsline {subsection}{\numberline {6.8.2}Bayesian inference model}{59}{subsection.6.8.2}%
+\contentsline {subsection}{\numberline {6.8.3}Minimum edit distance}{60}{subsection.6.8.3}%
+\contentsline {section}{\numberline {6.9}Grammar Weighted Automata}{60}{section.6.9}%
+\contentsline {subsection}{\numberline {6.9.1}Markov chain}{60}{subsection.6.9.1}%
+\contentsline {subsection}{\numberline {6.9.2}Hidden Markov Models HMMs}{61}{subsection.6.9.2}%
+\contentsline {subsection}{\numberline {6.9.3}Viterbi Algorithm}{62}{subsection.6.9.3}%
+\contentsline {subsection}{\numberline {6.9.4}Part of Speech tagging (POS)}{63}{subsection.6.9.4}%
+\contentsline {section}{\numberline {6.10}N-grams}{64}{section.6.10}%
+\contentsline {subsection}{\numberline {6.10.1}Smoothing}{64}{subsection.6.10.1}%
+\contentsline {subsection}{\numberline {6.10.2}Back-off}{64}{subsection.6.10.2}%
+\contentsline {subsection}{\numberline {6.10.3}Interpolation}{65}{subsection.6.10.3}%
+\contentsline {chapter}{Appendices}{67}{section*.3}%
+\contentsline {chapter}{\numberline {A}Introduction to probabilities}{69}{appendix.a.A}%
+\contentsline {section}{\numberline {A.1}probabilities chain rule}{69}{section.a.A.1}%
+\contentsline {section}{\numberline {A.2}Naive Bayes}{69}{section.a.A.2}%
+\contentsline {chapter}{\numberline {B}Covariance}{71}{appendix.a.B}%
+\contentsline {chapter}{\numberline {C}Single Value Decomposition}{73}{appendix.a.C}%
+\contentsline {chapter}{\numberline {D}Exponentially weighted averages}{75}{appendix.a.D}%
+\contentsline {subsection}{\numberline {D.0.1}How to choose the value $\beta $ ?}{75}{subsection.a.D.0.1}%
+\contentsline {chapter}{\numberline {E}smoothing (add-k, and add-one Laplacian)}{77}{appendix.a.E}%
+\contentsline {chapter}{\numberline {F}Kernels, and Convolution functions}{79}{appendix.a.F}%

@@ -1,6 +1,7 @@
 \documentclass[4apaper,12pt]{book}
 \usepackage{amsmath}
 \usepackage{index}
+\usepackage{gensymb}
 \usepackage[toc,page]{appendix}
 \usepackage{hyperref}
 \usepackage[semicolon,round,sort&compress,sectionbib]{natbib}
@@ -471,11 +472,100 @@
 
   \section{End-to-End Machine Learning}
   \begin{description}
-    \item .
-    \end{description}
+  \item .
+  \end{description}
 
-\chapter{Natural language processing}
-\section{pre-processing}
+  \chapter{Computer Vision}
+  \section {Object Detection}
+  \begin{description}
+  \item In previous chapters we discussed classification neural networks, for a given input $x_i$, being an image, and prediction (estimate) $y$ is the classification wither in a binary representation 0/1 of size 1, or on-hot vector of multi-class classification, in case the input contains more than one class, known as multi-tasking. so far
+  \item classification in computer vision is one of the building blocks, feeding input $x_i$ to the NN, and getting an estimate of the classes inside the pictures isn't sufficient, when we (humans!) look at a picture we first locate the objects, then classify each of them, then derive a meaning. in computer vision we focus on the first two steps.
+  \item object detection is about How to locate all the objects in the picture simultaneously? but before that, in previous chapter we discussed that it's advised to use min-batch in the case of large NN compared to the available computational power, and memory, having a moderate resolution picture as an input i.e $1024 \times 1024$ of 3 channels, if the first layer consist of just 1000 neurons we end up with billions of parameters to train! with huge amount of parameters, and features to capture, if we doesn't have sufficient data-set, then our model will be over-fitting the data-set, then how to solve it?
+    \subsection{Edge Detection}
+    \begin{description}
+    \item for input image $x_i$ how to detect the boundaries? how to interpret it mathematically?
+    \item first, edge boundaries of $2\times2$, or $4\times4$ pixels can be vertical, horizontal, or inclined by $n^{\circ}$, to extract such features of image $g(x)$ by filter $f(y)$, is a process of weighting image \textbf{g} by the filter \textbf{f}, or mathematically, it's the integral of all the shifts in shifted, and reversed function g, or f $$ \int_{\infty}^{-\infty}{f(\tau)*g(x-\tau)d\tau} $$ (see the appendix on convolutions)
+    \item to detect a vertical edges a vertical edge detection can be as simple as $\begin{bmatrix}1&0&-1\\1&0&-1\\1&0&-1\end{bmatrix}$, or with more emphases on the center.
+    \item for example to detect horizonal edges, we employ
+      $f(\tau)=\begin{bmatrix}
+      1&1&1\\
+      0&0&0\\
+      -1&-1&-1\end{bmatrix}$, for image $g(x)=\begin{bmatrix}
+      10&10&10&0&0&0\\
+      10&10&10&0&0&0\\
+      10&10&10&0&0&0\\
+      0&0&0&10&10&10\\
+      0&0&0&10&10&10\\
+      0&0&0&10&10&10\end{bmatrix}$ then convoluted
+      $\int_{\infty}^{-\infty}{f(\tau)*g(x-\tau)d\tau}$ evaluated to $\begin{bmatrix}
+        0&0&0&0\\
+        30&10&-10&-30\\
+        30&10&-10&-30\\
+        0&0&0&0 \end{bmatrix}$
+      \item more filter examples: \begin{itemize}
+      \item \textbf{sobel's filter} is $\begin{bmatrix} 1&0&-1\\ 2&0&-2\\ 1&0&-1\end{bmatrix}$.
+      \item identity filter function $\begin{bmatrix}
+        \ \ 0 &\ \  0 &\ \  0 \\
+        \ \ 0 &\ \  1 &\ \  0 \\
+        \ \ 0 &\ \  0 &\ \  0 \end{bmatrix}$
+      \item  another sharper edge detection filter $\begin{bmatrix}
+        -1 &  -1 & -1 \\
+        -1 & \ \ 8 & -1 \\
+        -1 &  -1 & -1 \end{bmatrix}$
+      \item sharpen filter $\begin{bmatrix}
+        \ \ 0 & -1 & \ \ 0 \\
+        -1 & \ \ 5 & -1 \\
+        \ \ 0 & -1 & \ \ 0
+      \end{bmatrix} $
+      \item blur box filter $\frac{1}{9}
+        \begin{bmatrix}
+          \ \ 1 &\ \  1 &\ \  1 \\
+          \ \ 1 &\ \  1 &\ \  1 \\
+          \ \ 1 &\ \  1 &\ \  1
+        \end{bmatrix}$
+      \item Gaussian blur filter $\frac{1}{16}
+        \begin{bmatrix}
+          \ \ 1 &\ \  2 &\ \  1 \\
+          \ \ 2 &\ \  4 &\ \  2 \\
+          \ \ 1 &\ \  2 &\ \  1
+        \end{bmatrix}$
+      \item larger $5\times5$ Gaussian blur filter $\frac{1}{256} \begin{bmatrix}
+        1 & 4 & 6 & 4 & 1 \\
+        4 & 16 & 24 & 16 & 4 \\
+        6 & 24 & 36 & 24 & 6 \\
+        4 & 16 & 24 & 16 & 4 \\
+        1 & 4 & 6 & 4 & 1
+      \end{bmatrix}$.
+      \end{itemize}
+        \subsection{Padding}
+      \item from previous example you can notice that $6\times6$ input image was shrunk into $4\times4$ matrix (\textbf{known as valid convolution}), also the boundary edges are dismissed, to maintain the same output size to the input size (\textbf{known as the same convolution}) we use padding:
+      \item for input image of size $n\times n$, and filter of size $f\times f$, the output is $n-f+1\times n-f+1$, for same convolution we pad the edges with p cells, such that $p=f-1/2$ then final output image size $n+2p-f+1\times n+2p-f+1$, for this equation to hold, then filter size have to be \textbf{odd}, and it's usually the case in computer vision, look at the \textbf{identity filter}, where the weighting parameters are set to zero, while the \textbf{center pixel} is set to 1.
+      \item to pad our previous  examples we get the following image with $p=1$ $g(x)=\begin{bmatrix}
+        0&0&0&0&0&0&0&0 \\
+        0&10&10&10&0&0&0&0\\
+        0&10&10&10&0&0&0&0\\
+        0&10&10&10&0&0&0&0\\
+        0&0&0&0&10&10&10&0\\
+        0&0&0&0&10&10&10&0\\
+        0&0&0&0&10&10&10&0\\
+        0&0&0&0&0&0&0&0\end{bmatrix}$
+        \subsection{striding}
+        \item ?
+    \end{description}
+    \subsection{Convolution on RGB channels}
+    \begin{description}
+      \item In 3 RGB channels $n_c=3$, on image $n\times{n}$ we add filter for each channel $f\times{f}\times{n_c}$, and the output image is $n-f+1 \times{n-f+1} \times{1}$
+    \end{description}
+    \subsection{Multiple filters Convolution}
+    \begin{description}
+      \item for layer $L$ of size $n\times{n}\times{n_c}$, there is always more than a single features, and therefore requires filter for each feature, so filtering layer end up being $f\times{f}\times{n_c}\times{n^*}$ such that $n^*$ is the number of filters for layers, and the output is $n-f+1\times{n-f+1}\times{n^*}$.
+      \end{description}
+  \end{description}
+
+
+
+  \chapter{Natural language processing}
+  \section{pre-processing}
 \begin{description}
 \item the problem here is how to extract features $\mathbf{X}$ from the a sentence.
 \item for example how to classify a sentence being positive, or negative, assigning 0 for negative, and 1 for positive, starting for a preprocessed sentence how to turn it into a feature set X.
@@ -495,7 +585,7 @@
 \item for a set of strings $S=\{s_1, s_2, .., s_n\}$, matching each string against a vocabulary of all words to end up with two vectors of word frequency, we create positive frequency vector freqs(w,1), and negative frequency vector freqs(w,0) such that w stand for sentence word, and such that $X_m=[1, \sum_{w}freqs(w,1), \sum_{w}freqs(w,0)]$
 \item given a set of sentences, each is labeled for training as either positive, or negative. we mark each word in a positive-labeled sentence as positive, even if the word is negative, and conversely the opposite with negative-labeled sentences, we mark every word as negative.
 \item first of all we create a set vocabulary $V$ that includes all sets, or sentences $S$, $V=\{words(s_i) | s_i \in{S}\}$.
-\item for example in training sets ${s_1, s_2}$, $s_1$=''i love NLP, therefore i study it'' labeled as positive, and $s_2$=''society no longer in need for black magic, or superstition'' labeled negative, we can extract pos-neg features against vocabulary V=['i', 'love', 'NLP', ',', 'therefore', 'study', 'it', 'society', 'no', 'longer', 'in', 'need', 'for', 'black', 'magic', 'or', 'superstition'], pos-freqs = [2, 1, 1, 1, 1, 1, 1, 0, 0, 0, ..., 0], neg-freqs = [0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]. $X_m$=[1, 8, 11]. for m training sets, $X_{m}=\begin{vmatrix}1&x_1^{(1)}&x_2^{(1)}\\1&x_1^{(2)}&x_2^{(2)}\\1&x_1^{(3)}&x_2^{(3)}\\...\\1&x_1^{(m)}&x_2^{(m)}\end{vmatrix}$
+\item for example in training sets ${s_1, s_2}$, $s_1$=''i love NLP, therefore i study it'' labeled as positive, and $s_2$=''society no longer in need for black magic, or superstition'' labeled negative, we can extract pos-neg features against vocabulary V=['i', 'love', 'NLP', ',', 'therefore', 'study', 'it', 'society', 'no', 'longer', 'in', 'need', 'for', 'black', 'magic', 'or', 'superstition'], pos-freqs = [2, 1, 1, 1, 1, 1, 1, 0, 0, 0, ..., 0], neg-freqs = [0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]. $X_m$=[1, 8, 11]. for m training sets, $X_{m}=\begin{vmatrix}1&x_1^{(1)}&x_2^{(1)}\\1&x_1^{(2)}&x_2^{(2)}\\1&x_1^{(3)}&x_2^{(3)}\\...\\1&x_1^{(m)}&x_2^{(m)}\end{vmatrix}$pp
   \end{description}
 \section{Logistic regression classifier}
 \begin{description}
@@ -884,7 +974,13 @@ in the document.
 
     \end{description}
   \end{description}
-  \chapter{smoothing (add-k, and add-one laplacian)}
-
+  \chapter{smoothing (add-k, and add-one Laplacian)}
+  \begin{description}
+    \item .
+    \end{description}
+  \chapter{Kernels, and Convolution functions}
+  \begin{description}
+    \item .
+    \end{description}
 \end{appendices}
 \end{document}
