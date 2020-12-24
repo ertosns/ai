@@ -18,7 +18,7 @@
 \tableofcontents
 
 \chapter*{Introduction}
-\addcontentsline{toc}{chapter}{Introduction}
+0\addcontentsline{toc}{chapter}{Introduction}
 
 \section{notation}
 \begin{description}
@@ -179,6 +179,10 @@
 \item Iterating through each layer, such that $L^i$ layer of length $l_i$ nodes, and previous layer $L^{i-1}$ of $l_{i-1}$ nodes, the weight parameter at layer L is inter-connected with all nodes in the previous layer, meaning that nodes at layer $L^i$ ought to have weight matrix of shape $(l_i, l_{i-1})$, and bias of shape $(l_i,1)$.
 \item Unlike the logistic regression, in Neural network initialization step is crucial step, in logistic regression there is only a single activation node extracting a single feature such as price of a house for example, but we intend to employ neural networks to capture as many features as possible inside each node, and therefor initialization ought to be with random values, otherwise we end up with similar copies of each node forward, and backward propagation.
 \item and since we choose random $W^i$ we can choose $b^i$ to be zero.
+  \subsection{Xavier initialization}
+  \begin{description}
+  \item randomizing weight parameters from a Gaussian, or normal distribution help to keep the initial values contained, or in other words, solves the vanishing, exploding gradient problem , instead to be demeaned around zero, this is proven to reduce variance (we will discuss this in details later on)
+    \end{description}
 \end{description}
 
 \section{Forward Propagation}
@@ -481,8 +485,10 @@
   \item In previous chapters we discussed classification neural networks, for a given input $x_i$, being an image, and prediction (estimate) $y$ is the classification wither in a binary representation 0/1 of size 1, or on-hot vector of multi-class classification, in case the input contains more than one class, known as multi-tasking. so far
   \item classification in computer vision is one of the building blocks, feeding input $x_i$ to the NN, and getting an estimate of the classes inside the pictures isn't sufficient, when we (humans!) look at a picture we first locate the objects, then classify each of them, then derive a meaning. in computer vision we focus on the first two steps.
   \item object detection is about How to locate all the objects in the picture simultaneously? but before that, in previous chapter we discussed that it's advised to use min-batch in the case of large NN compared to the available computational power, and memory, having a moderate resolution picture as an input i.e $1024 \times 1024$ of 3 channels, if the first layer consist of just 1000 neurons we end up with billions of parameters to train! with huge amount of parameters, and features to capture, if we doesn't have sufficient data-set, then our model will be over-fitting the data-set, then how to solve it?
-    \subsection{Edge Detection}
-    \begin{description}
+  \item convolution solves this problem, it makes use of the \textbf{sparsity of connections} (in each layer, each output value depends only on a small number of inputs), and \textbf{parameter sharing} (that a single features detector or a filter is shared between features) and we will discuss it in the following sections.
+ \item due to sparsity of connection convolutions NN good at capturing translation invariance, meaning a network is capable of getting the same output of a slightly shifted image, we will see why.
+   \subsection{Edge Detection}
+   \begin{description}
     \item for input image $x_i$ how to detect the boundaries? how to interpret it mathematically?
     \item first, edge boundaries of $2\times2$, or $4\times4$ pixels can be vertical, horizontal, or inclined by $n^{\circ}$, to extract such features of image $g(x)$ by filter $f(y)$, is a process of weighting image \textbf{g} by the filter \textbf{f}, or mathematically, it's the integral of all the shifts in shifted, and reversed function g, or f $$ \int_{\infty}^{-\infty}{f(\tau)*g(x-\tau)d\tau} $$ (see the appendix on convolutions)
     \item to detect a vertical edges a vertical edge detection can be as simple as $\begin{bmatrix}1&0&-1\\1&0&-1\\1&0&-1\end{bmatrix}$, or with more emphases on the center.
@@ -559,31 +565,174 @@
     \subsection{Multiple filters Convolution}
     \begin{description}
       \item for layer $L$ of size $n\times{n}\times{n_c}$, there is always more than a single features, and therefore requires filter for each feature, so filtering layer end up being $f\times{f}\times{n_c}\times{n^*}$ such that $n^*$ is the number of filters for layers, and the output is $n-f+1\times{n-f+1}\times{n^*}$.
+    \end{description}
+    %\subsections{Notations}
+    \subsection{Example ConvNet}
+    \begin{description}
+    \item in case of input image $n_H^{[0]}=n_W^{[0]}=39, n_c^{[0]}=3$ of size $39 \times{39} \times{3}$, using 10 filter of size $f^{[1]}=3$, and strides $S^{[1]}=1$, padding $P^{[1]}=0$ and 10 filters, then layer 1 will deterministically be of a size  $\left \lfloor{\frac{n^{[1]}+2p^{[1]}-f^{[1]}}{s^{[1]}}}\right \rfloor + 1=37$, then $n_H^{[1]}=n_W^{[1]}=37,n_c^{[1]}=10$.
+    \item in layer 2, using 20 filter of size $f^{[2]}=5$, and strides $S^{[2]}=2$, padding $P^{[2]}=0$, then layer 2 will deterministically be of a size  $\left \lfloor{\frac{n^{[2]}+2p^{[2]}-f^{[2]}}{s^{[2]}}}\right \rfloor + 1=17$, then $n_H^{[1]}=n_W^{[1]}=17,n_c^{[1]}=20$.
+    \item in layer 3, using 40 filters,  of size of size $f^{[3]}=5$, and strides $S^{[3]}=2$, padding $P^{[3]}=0$, then layer 3 will deterministically be of a size  $\left \lfloor{\frac{n^{[3]}+2p^{[3]}-f^{[3]}}{s^{[3]}}}\right \rfloor + 1=7$, then $n_H^{[1]}=n_W^{[1]}=7 ,n_c^{[1]}=40$.
+    \item flatten layer3 $7 \times{7} \times{40}$ into $1960\times{1}$ and activate it through softmax/logistic function, where last layer 5 is $1\times{1}$.
+
+    \end{description}
+    \subsection{Pooling Convolutions}
+    \begin{description}
+    \item along side convolution NN, there Pooling layers are used to make the network more robust, and cut down the size of parameters.
+    \item most used parameters are $f=2,s=2$, or $f=3,s=2$, and padding is rarely used.
+    \item note that there is no learned parameters in pooling, so max-pooling layer doesn't count as a stand alone layer since no parameters to train, and rather seen as part of the layer operating on.
+      \subsection{Max Pooling}
+      \begin{description}
+      \item pooling is $n\times{n}$ layer, and services to divide the input layer into smaller $n\times{n}$ layers and leaving only the maximum value of which it's an \textbf{argmax} convolution function, the convolution function takes the argmax instead o the integral.
+      \item for example, input layer $\begin{bmatrix}1&3&2&1\\2&9&1&1\\1&3&2&3\\5&6&1&2\end{bmatrix}$, with $strides=2$, convoluted by $2\times{2}$ max-pooling into $\begin{bmatrix}9&2\\6&3\end{bmatrix}$
       \end{description}
+
+      \subsection{Average Pooling}
+      \begin{description}
+      \item similar to max pooling except argamx is replaced with the mean function.
+      \item for example, input layer $\begin{bmatrix}1&3&2&1\\2&9&1&1\\1&3&2&3\\5&6&1&2\end{bmatrix}$, with $strides=2$, convoluted by $2\times{2}$, max-pooling into $\begin{bmatrix}3.75&1.25\\4&2\end{bmatrix}$.
+      \end{description}
+    \end{description}
+    \section{Examples}
+
+      \subsection{LeNet-5 Network}
+      \begin{enumerate}
+      \item Layer 0: with input image $n_H^{[0]}=n_W^{[0]}=32$, $n_c^{[0]}=3$.
+    \item Layer 1: using 8 filters, $f^{[1]}=5$, $s^{[1]}=1$, we get $28 \times{28} \times{8}$, adding  max-pooling with $f=2, s=2$, pours down into $14\times{14}\times{8}$ layer.
+    \item Layer 2: using 16 filters $f^{[2]}=5$, $s^{[2]}=1$, we get $10 \times{10} \times{16}$, adding  max-pooling with $f=2, s=2$, pours down into $5\times{5}\times{16}$ layer, flattened into $400\times{1} vector$
+    \item Layer 3: Fully-Connected (FC3) layer of 120 neurons, with weight, bias parameters $W^{[3]}, b^{[3]}$.
+    \item Layer 4: FC4 layer of 84 neurons, and $W^{[4]},b^{[4]}$, feed to softmax activation with 10 neurons output.
+      \end{enumerate}
+    \item notice the size of parameters in convolution layers compared tota \textbf{FC} layers, in \textbf{CONV1}, \textbf{CONV2} number of parameters are 208, 416 respectively compared to 48001, 10,081 in \textbf{FC3}, \textbf{FC4} respectively. meanwhile the \textbf{Activation size} falls down gradually, from 3.072 the number of pixels in the image to 10 neurons in the softmax classification, and 6.272, 1.568, 1.600, 400, 120, 84 in CONV1, POOL1, CONV2, POOL2, FC3, FC4 respectively.
   \end{description}
+  \subsection{AlexNet Network}
+  \begin{enumerate}
+  \item Layer 0: input is $227\times{227} \times{3}$,
+  \item Layer 1: applying 96 filter with size 11, and stride=4, the output is $5 \times{5} \times{96}$ max pooled by $3\times{3}$ of strides of size 2, the input is $27\times 27 \times 96$.
+  \item Layer 2: applying 256 filter, of \textbf{SAME} padding, of size 5, outputs $27 \times27 \times 256$, max-pooled by size 3, and stride size=2 outputs $13 \times 13 \times 256$.
+  \item Layer 3: 384 filters with SAME padding convolutions, outputs $13 \times {13} \times {384}$.
+  \item Layer 4: 256 filters with SAME padding, outputs $13\times{13}\times{256}$ max-pooled by size 3, and strides of size 2, outputs $6\times{6}\times{256}$ flattened into $9216\times{1}$.
+  \item Layer 5: fully-connected $4096\times{1}$, by $4096\times{1}$, then softmax of 1000 neurons/predictions.
+  \item compare the two networks, LeNet-5 from the nineties with around 60000 parameter, to 2012 AlexNet with 60 million parameters, despite this, they are similar in structure.
+  \end{enumerate}
 
 
+  \subsection{VGG-16 Network}
+  \begin{description}
+  \item VGG similar AlexNet, yet deeper, with narrower convolution proven to be more powerful.
+  \item using [CONV] of size $3\times{3}$, strides size=1, of SAME padding, MAX-POOLing of size $2\times{2}$, with strides size=2.
+  \item consist of 16 layers therefore the name VGG-16, with ~138Million of parameters, and it's network is:  $[CONV64\times{2}] \rightarrow [CONV256\times{3}] \rightarrow [CONV512\times{3}] \rightarrow [CONV512\times{3}] \rightarrow [FC4096] \rightarrow [FC4096] \rightarrow [SOFTMAX1000]$
+    \end{description}
+  \begin{enumerate}
+  \item  $224\times{224}\times{3}$ input image.
+  \item  applying $[CONV64] \times{2}$, (convolutions of 64 filters twice), outputs $224\times{224}\times{3}$. [MAX-POOL]ed into $112\times{112}\times{64}$
+  \item  $[CONV128]\times{2}$ [MAX-POOL]ed into $56\times{56}\times{128}$.
+  \item  $[CONV256]\times{3}$ [MAX-POOL]ed into $28\times{28}\times{256}$
+  \item  $[CONV512]\times{3}$ [MAX-POOL]ed into $28\times{28}\times{512}$
+  \item  $[CONV512]\times{3}$ [MAX-POOL]ed into $7\times{7}\times{512}$
+  \item $[FC4096]$ fully connected layer with  4096 nodes
+  \item $[FC4096]$ fully connected layer with  4096 nodes
+  \item $[SOFTMAX1000]$  softmax activation with 1000 entries.
+  \end{enumerate}
+  \subsection{ResNet (Residual Block)}
+  \begin{description}
+    \item Very deep network are much difficult to train because of vanishing, and exploding gradients, to make this feasible,  \textbf{Residual blocks} was introduced
+    \item even with the use of an Optimizer to lessen the vanishing/exploding gradients, in a very deep network with hundreds or even thousands of layers, which are rarely used, the number adds up, and either diminishes to zero, or explode into large numbers. residual blocks adds the activation from a previous layer (i.e $l-2) $into the current activation function $l$, $a^{[l]}=g(z^{[l]}+a^{[l-2]})$, also known as \textbf{shortcut}, or \textbf{skip connection}.
+    \item assume for example we using regularization and $w^{[l]},b^{[l]}\rightarrow{0}$, then $a^{[l]}=g(a^{[l-2]}$, residual would prevent vanishing gradient.
+    \item note that skip connection between $a^{[i+n]}$, and $a^{[i]}$ for $i,n \in N$, can be between two different sizes, in practice same padding is used between shorted layers, or through function W, such that shape of $a^{[i+n]}=W.a^{[i]}$. that can for example zero pad the ith layer.
+      \item .
+  \end{description}
+  \section{Inception}
+  \begin{description}
+  \item another parameter to worry about is the size of convolution kernel, instead of testing out different sizes, it's possible to combine all of them at once with SAME padding, and let the model train, and figure out the most convenient of all, called \textbf{Inception network}, on a computational cost.
+  \item for example in input network of size $28\times{28}\times{192}$, we can combine $1\times{1}$, $3\times{3}$ SAME padding, $5\times{5}$ SAME padding, and MAX-POOLing SAME padding, to get $28\times{28}\times{256}$ network. in this example note that the computational cost is for 120 million parameter.
+    \subsection{$1\times{1}$ Convolutions}
+    \begin{description}
+    \item in such very expensive layer, what we can do to reduce the computational cost is convolution of $1\times{1}$ times the factor or reduction, for example in the previous example we can pick fittest filter through [CONV1], with 16 kernel, applying second [CONV5] with 32 filters we end up with $28\times{28}\times{32}$ layer, so we manage to pick the fittest kernel, and also reduce the computation cost for 120 million parameter to just 12.4 million.
+      \item
+    \end{description}
+    \subsection{Inception Block}
+    \begin{description}
+    \item the inception network is a series of block of the following building block: (insert the szegedy paper picture here)
+    \end{description}
+    \subsection{Inception Branches}
+    \item (insert the szegedy paper picture here)
+      \section{Object Detection}
+      \subsection{Localization and Detection}
+      \begin{description}
+      \item  in computer vision network the output layer is usually a vector of localized objects rather than an one-hot vector representing a specific class, and the process is divided into three steps, first \textbf{Detection}, second \textbf{Localization}, lastly \textbf{classification}.
+        \subsection{classification with localization}
+      \item  one-hot vector SOFTMAX output can be combined with localization, to locate, specific target class in an image, boxing our target object with $b_w\times {b_h}$ with Cartesian coordinates of the image center $(b_x,b_y)$, now three are 4 more parameters. $b_x, b_y,b_w, b_h$ for localization.
+      \item labeled output vector with localization: $\begin{vmatrix}p_c | \text{a Boolean for wither there is an object or not}\\
+        b_x\\b_y\\b_h\\b_w\\c_1 | \text{first class}\\c_2 \text{class 2}\\...\\c_n | \text{class n}\end{vmatrix}$. if $p_c=0$ then the rest of the vector's elements will be zero.
+      \item Loss function $L(\hat{y},y)$ will be element wise operation. but practically different loss functions can be used on different ranges of  $y$ for example log-likelihood on range [$c_1$-$c_n$], and mean squared on the bounding box coordinates range, and logistic regression loss.
+      \end{description}
+      \subsection{Landmark detection}
+      \begin{description}
+      \item it's possible to go deeper beyond the bounding box, and train model on labeled data-set with desired landmarks on the target object, for example after along side localization of the humane face with bounding box, it's possible to add landmark features for example to locate the human mouth, eye's, and cheek boundaries, so to extract the facial expressions, another example could be tracking the skeleton, and joints for pose estimation of an athlete during exercise, also used in augmented reality applications.
+      \item to place 50 landmark on a single object to locate it's boundaries with two Cartesian coordinates points means extra 100 entry inside the labeled data-set entries.
+      \end{description}
+      \subsection{Object Detection}
+      \begin{description}
+      \item to detect, locate objects in input image of size $N\times{N}$.
+      \item run sliding window cropping function over input image cropping images with re-sizable starting with length = l, with certain strides.
+      \item sequencially iterate through the previous step increasing the length l for larger crops, this is a problem with $O(N^2)$ computational complexity.
+      \item then final step is to run the cropped images in the classifier.
+        \subsection{Convolutional sliding windows}
+        \begin{description}
+        \item sliding window cropping is computationally expensive, if you have noticed that for every crop, the model expected to forward the cropped image to be classified, then increasing the complexity by the number of crops.
+        \item the shared parameters characteristic of the convolutions can a great leverage to solve this problem, and cut the complexity significantly, by running the whole iterations simultaneously, it can be illustrated by an example.
+          \subsection{Example:}
+          \begin{description}
+          \item for the following network classifying input image(expected input) of size $14\times{14}\times{3}$, $[CONV5]\rightarrow [MAX-POOL2-5] \rightarrow [FC5-400] \rightarrow [FC1-400] \rightarrow [SOFT-MAX-4]$. with the corresponding size $10\times{10}\times{16}\rightarrow 5\times{5}\times{16} \rightarrow 1\times{1}\times{400} \rightarrow 1\times{1}\times{400} \rightarrow 1\times{1}\times{4}$ we end up with 4 neurons (softmax output) being our classification model, for an input image  with size $28\times{28}\times{3}$ and sliding window $14\times{14}$ to fit in our model, running the same convolution network above on this input  $[CONV5]\rightarrow [MAX-POOL2-5] \rightarrow [FC5-400] \rightarrow [FC1-400] \rightarrow [SOFT-MAX-4]$. with the corresponding size $24\times{24}\times{16}\rightarrow 12\times{12}\times{16} \rightarrow 8\times{8}\times{400} \rightarrow 8\times{8}\times{400} \rightarrow 8\times{8}\times{4}$ such that the most upper right cell $1\times{1}\times{4}$ of coordinates (0,0) is actually corresponding to the simplified model output above, and the second (0,1) output is one slide to the right, and so on.
+
+          \end{description}
+
+        \end{description}
+      \end{description}
+      \section{Bounding Box prediction}
+    \item the aspect ratio of the bounding box isn't really fixed, and to wrap the detected object correctly, then there are two variables in the sliding box instead of one in sequential terms.
+        \subsection{YOLO}
+        \begin{description}
+        \item YOLO is a convolutional network, but we can explain it from a sequential iterative perspective that the input image is divided up into $k\times{k}$ cells, running the sliding window function in each cell, then simultaneously, so instead of getting a single $8\times{1}$ output, we get $k\times{k}\times{8}$ output, the localization algorithms runs in a single cell.
+        \item even if the object stretches on multiple grid cells, it's only assigned to a single cell.
+        \item to specify the bounding box inside a grid, the center of the detected object is coordinated with respect to the origin(0,0) of the cell on the top most left, and the bottom right assigned to (1,1), therefore the center$(b_x,b_y)$ must be between 0,1, where as the $b_w,b_h$ can be greater than 1 if it wraps multiple cells, and it's measured by the ratio with respect to the cell width, or height respectively.
+        \end{description}
+        \subsection{Intersection over Union IOU function}
+        \begin{description}
+          \item it's an accuracy metric for how well the model is performing, and defined by the area of intersection between the prediction, and the labeled bounding boxes, over the prediction area. indicating how far this predicted bounding box fits into the ground truth table.
+        \end{description}
+        \subsection{Non-Max Suppression}
+        \begin{description}
+        \item in practice the input image is divided up into very fine cells, and a single object can overlap multiple cells, Non-Max suppression is algorithm to choose the maximum overlapping cell, and assign the detection with is, suppressing other cells, therefore the name.
+        \item the metric for overlap is the $p_c$ in the output layer, previously we assigned $p_c$ to either 0, or 1, but in this case is the probability of overlap, and only the highest bounding box's $p_c$ remains, suppressing the rest.
+        \end{description}
+        \subsection{Anchor Boxes}
+        \begin{description}
+        \item in a single cell there could coexist more than one object, we expect multiple object each with specific aspect ratio, then we consider more than sliding window also known as \textbf{Anchor Box}, each with different aspect ratio, and the output $y,\hat{y}$ will look like the following for m anchor boxes but flattened into a single vector $$ \begin{vmatrix}p_c^1&p_c^{2}&...&p_c^{m}\\p_x^{1}&p_x^{2}&...&p_x^{m}\\p_y^{1}&p_y^{2}&...&p_y^{m}\\p_h^{1}&p_h^{2}&...&p_h^{m}\\p_w^{1}&p_w^2&...&p_w^{m}\\c_1^{1}&c_1^{2}&...&c_1^{m}\\...\\c_n^{1}&c_n^{2}&...&c_n^{m}\end{vmatrix}$$
+        \end{description}
+        \item .
+  \end{description}
 
   \chapter{Natural language processing}
   \section{pre-processing}
-\begin{description}
-\item the problem here is how to extract features $\mathbf{X}$ from the a sentence.
-\item for example how to classify a sentence being positive, or negative, assigning 0 for negative, and 1 for positive, starting for a preprocessed sentence how to turn it into a feature set X.
+  \begin{description}
+  \item the problem here is how to extract features $\mathbf{X}$ from the a sentence.
+  \item for example how to classify a sentence being positive, or negative, assigning 0 for negative, and 1 for positive, starting for a preprocessed sentence how to turn it into a feature set X.
   \item but there are unnecessary punctuation, conjugation, and stops that need to be get rid of, so first we need to pre-process our data-set as follows:
-  \begin{enumerate}
-  \item iliminate handles and URLs
-  \item tokenize the string into words
-  \item remove stop words such as ``and, is, a, on, etc''
-  \item covert every word into it's stem form
-  \item lower case transformation
-  \end{enumerate}
+    \begin{enumerate}
+    \item iliminate handles and URLs
+    \item tokenize the string into words
+    \item remove stop words such as ``and, is, a, on, etc''
+    \item covert every word into it's stem form
+    \item lower case transformation
+    \end{enumerate}
 
-\end{description}
-\section{Example: positive, negative classifier}
-\begin{description}
-\item given sentence s=``i love NLP, therefore i study it'' how to classify s=['i', 'love', 'NLP', ',', 'therefore', 'i', 'study', 'it']  as positive or negative?.
-\item for a set of strings $S=\{s_1, s_2, .., s_n\}$, matching each string against a vocabulary of all words to end up with two vectors of word frequency, we create positive frequency vector freqs(w,1), and negative frequency vector freqs(w,0) such that w stand for sentence word, and such that $X_m=[1, \sum_{w}freqs(w,1), \sum_{w}freqs(w,0)]$
-\item given a set of sentences, each is labeled for training as either positive, or negative. we mark each word in a positive-labeled sentence as positive, even if the word is negative, and conversely the opposite with negative-labeled sentences, we mark every word as negative.
+  \end{description}
+  \section{Example: positive, negative classifier}
+  \begin{description}
+  \item given sentence s=``i love NLP, therefore i study it'' how to classify s=['i', 'love', 'NLP', ',', 'therefore', 'i', 'study', 'it']  as positive or negative?.
+  \item for a set of strings $S=\{s_1, s_2, .., s_n\}$, matching each string against a vocabulary of all words to end up with two vectors of word frequency, we create positive frequency vector freqs(w,1), and negative frequency vector freqs(w,0) such that w stand for sentence word, and such that $X_m=[1, \sum_{w}freqs(w,1), \sum_{w}freqs(w,0)]$
+  \item given a set of sentences, each is labeled for training as either positive, or negative. we mark each word in a positive-labeled sentence as positive, even if the word is negative, and conversely the opposite with negative-labeled sentences, we mark every word as negative.
 \item first of all we create a set vocabulary $V$ that includes all sets, or sentences $S$, $V=\{words(s_i) | s_i \in{S}\}$.
 \item for example in training sets ${s_1, s_2}$, $s_1$=''i love NLP, therefore i study it'' labeled as positive, and $s_2$=''society no longer in need for black magic, or superstition'' labeled negative, we can extract pos-neg features against vocabulary V=['i', 'love', 'NLP', ',', 'therefore', 'study', 'it', 'society', 'no', 'longer', 'in', 'need', 'for', 'black', 'magic', 'or', 'superstition'], pos-freqs = [2, 1, 1, 1, 1, 1, 1, 0, 0, 0, ..., 0], neg-freqs = [0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]. $X_m$=[1, 8, 11]. for m training sets, $X_{m}=\begin{vmatrix}1&x_1^{(1)}&x_2^{(1)}\\1&x_1^{(2)}&x_2^{(2)}\\1&x_1^{(3)}&x_2^{(3)}\\...\\1&x_1^{(m)}&x_2^{(m)}\end{vmatrix}$pp
   \end{description}
