@@ -99,6 +99,7 @@
 \contentsline {subsection}{\numberline {5.5.2}Intersection over Union IOU function}{54}{subsection.5.5.2}%
 \contentsline {subsection}{\numberline {5.5.3}Non-Max Suppression}{55}{subsection.5.5.3}%
 \contentsline {subsection}{\numberline {5.5.4}Anchor Boxes}{55}{subsection.5.5.4}%
+\contentsline {subsection}{\numberline {5.5.5}Region Proposal R-CNN, Fast R-CNN}{55}{subsection.5.5.5}%
 \contentsline {chapter}{\numberline {6}Natural language processing}{57}{chapter.6}%
 \contentsline {section}{\numberline {6.1}pre-processing}{57}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Example: positive, negative classifier}{57}{section.6.2}%

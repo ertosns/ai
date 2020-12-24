@@ -662,8 +662,8 @@
       \item  in computer vision network the output layer is usually a vector of localized objects rather than an one-hot vector representing a specific class, and the process is divided into three steps, first \textbf{Detection}, second \textbf{Localization}, lastly \textbf{classification}.
         \subsection{classification with localization}
       \item  one-hot vector SOFTMAX output can be combined with localization, to locate, specific target class in an image, boxing our target object with $b_w\times {b_h}$ with Cartesian coordinates of the image center $(b_x,b_y)$, now three are 4 more parameters. $b_x, b_y,b_w, b_h$ for localization.
-      \item labeled output vector with localization: $\begin{vmatrix}p_c | \text{a Boolean for wither there is an object or not}\\
-        b_x\\b_y\\b_h\\b_w\\c_1 | \text{first class}\\c_2 \text{class 2}\\...\\c_n | \text{class n}\end{vmatrix}$. if $p_c=0$ then the rest of the vector's elements will be zero.
+      \item labeled output vector with localization: $$\begin{vmatrix}p_c | \text{a Boolean for wither there is an object or not}\\
+        b_x\\b_y\\b_h\\b_w\\c_1 | \text{first class}\\c_2 \text{class 2}\\...\\c_n | \text{class n}\end{vmatrix}$$. if $p_c=0$ then the rest of the vector's elements will be zero.
       \item Loss function $L(\hat{y},y)$ will be element wise operation. but practically different loss functions can be used on different ranges of  $y$ for example log-likelihood on range [$c_1$-$c_n$], and mean squared on the bounding box coordinates range, and logistic regression loss.
       \end{description}
       \subsection{Landmark detection}
@@ -710,6 +710,11 @@
         \begin{description}
         \item in a single cell there could coexist more than one object, we expect multiple object each with specific aspect ratio, then we consider more than sliding window also known as \textbf{Anchor Box}, each with different aspect ratio, and the output $y,\hat{y}$ will look like the following for m anchor boxes but flattened into a single vector $$ \begin{vmatrix}p_c^1&p_c^{2}&...&p_c^{m}\\p_x^{1}&p_x^{2}&...&p_x^{m}\\p_y^{1}&p_y^{2}&...&p_y^{m}\\p_h^{1}&p_h^{2}&...&p_h^{m}\\p_w^{1}&p_w^2&...&p_w^{m}\\c_1^{1}&c_1^{2}&...&c_1^{m}\\...\\c_n^{1}&c_n^{2}&...&c_n^{m}\end{vmatrix}$$
         \end{description}
+        \subsection{Region Proposal R-CNN, Fast R-CNN}
+        \begin{description}
+        \item instead of running the sliding window on everywhere in all cells, with the same slide, it can be more appropriate to narrow this down into very specific regions: first the input image is run through semantic segmentation function, dividing up the input into blobs(Regions proposal), then the Anchor boxes are run on top of them, but this process turns out to be very slow.
+        \item Fast R-CNN is a convolution implemtnation of it, and speeds up the process a bit.
+          \end{description}
         \item .
   \end{description}
 
