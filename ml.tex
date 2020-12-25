@@ -717,6 +717,82 @@
           \end{description}
         \item .
   \end{description}
+  \section {Face Recognition }
+  \subsection{Recognition vs. Verification}
+  \begin{description}
+  \item in verification given an input image, name/ID, verify whether the input image is that of the claimed person, on the other hand, in a databaseof K persons, given an image, Recognize the image to one of the images in the database.
+  \item having 99\% accuracy in the verification process is good enough threshold, meanwhile in recognition in database of 1000 persons, having 99\% accuracy means that the classifier works with uncertainty  of 1 to 10, there our classification model maps the image to 10 out of 1000 with equally likely probability, so accuracy in recognition need to  approach 100 percent.
+  \end{description}
+  \subsection{One-Shot learning}
+  \begin{description}
+  \item addressing the following criteria given a single input image for a person, as a single entry in the training-set, our model need to have accuracy approaching 100\%. for new inputs to the trained model, how to scale?
+    \subsection{Similarity learning function}
+    \begin{description}
+    \item given two images $I_1,I_2$, then similarity function $d(I_1,I_2)$ calculates the distance, and the distance inverse is how identical the two images are, such that $d=0$ if $I_1=I_2$, and verification is acceptable under negligible distance threshold $\tau$: $$
+      \begin{cases}
+        same  \leftarrow d(I_1,I_2) \leq \tau \\
+        different \leftarrow d(I_1,I_2) > \tau
+      \end{cases}
+      $$
+      \item a convolution example is the Siasmese network:
+    \end{description}
+    \subsection{Siamese Network}
+  \item how to calculate the similarity distance?
+    \begin{description}
+    \item for an convolution network ending with fully-connected with N nodes [FCN] layer, then for each data-set entry $x^{(i)}$, we define $f(x^{(i)})$ to be the output of [FCN] on the entry $x^{(i)}$.
+    \item for two input images $x^i, x^j$ from the data-set, the similarity function: $$ \|f(x^{(i)}) - f(x^{(j)})\|_2^2 $$.
+    \item so, how to define the loss function? using what is called a \textbf{Triplet Loss}
+      \subsection{Triplet Loss}
+      \begin{description}
+      \item Loss function is defined on top of the similarity function d, in terms of  distance between current image $x^i$, and the whole data-set images, the model can be trained on a single image called \textbf{Negative} $x_i^{n}$ with large distance, and \textbf{Positive} $x_i^{n}$ image with small distance, against the current image called \textbf{Anchor image} $x_i^{a}$, and the loss function for the triplet can be defined as $L(d(x_i^a,x_i^p), d(x_i^a,x_i^p))$.
+      \item but to prevent against the trivial solutions for triplets of the same persons, a marginal $\alpha$ is used, so the final loss equation is for N triplets: $$
+         \sum_i^N {\|f(x_i^a) - f(x_i^p)\|_2^2  - \|f(x_i^a) - f(x_i^n)\|_2^2} + \alpha
+        $$
+      \end{description}
+    \item  what to do in case of new input images?!
+      \subsection{Binary Classification}
+      \begin{description}
+      \item another variation is binary classification into ``match'', or ``not match'', can be performed into pair of images $x^i, x^j$, and label 0 (for different persons), or 1(for the same person), with Sigmoid activation, defined as of [FC] layer of size F: $$
+        \hat{y}=\sigma (\sum_k^{F} w_i \|f(x^{i})_k - f(x^{j})_k \| + b)
+        $$ where $w_i, b_i$ are training parameters.
+      \item or using the qui-square formula $$
+        \frac{(f(x^i)_k - f(x^j)_k)^2}{(f(x^i)_k + f(x^j)_k}
+        $$
+        \end{description}
+    \end{description}
+    \section{Neural Style Transfer}
+    \begin{description}
+      \item first of all how to define style? style is the variations, or shades of specific content, and inside the neural network style transfer can be length of correlation between activations across different channels.
+      \item artistic style transfer, is the transfer of style of the Style image \textbf{S}, to the content image \textbf{C}, that outputs the generated image \textbf{G}.
+      \item cost function can be defined on the generated G, as follows: $$J(G) = \alpha J_{content}(C,G) + \beta J_{style}(S,G) $$ using weighting parameters $\alpha, \beta $ to control how far the generated image is closer to either the content, or the style (note that a single weight is sufficient, for example $\alpha, and (1-\alpha))$ minimizing the cost between both the style, and the generated image, and the content, and the generated, thus merging the content, and the style images.
+        \subsection{Generated image descent}
+        \begin{description}
+      \item gradient descent is minimizing J(G), rather than weight parameters. $$ G=G-\frac{\partial{J(G)}}{\partial{G}} $$
+      \item the final generated image descent is as simple as: \begin{enumerate}
+      \item initialize G randomly
+      \item use gradient descne to minimize J(G)
+      \end{enumerate}
+        \end{description}
+        \subsection{Content cost}
+        \begin{description}
+        \item using a middle layer l, not too shallow, not two deep,
+        \item using pre-trained Convolution network, let $a_C^{[l]}, a_G^{[l]}$ be the activation of layer l on the content, and generated respectively, then we define $$J_{content}(C, G) = \frac{1}{2}\|a_C^{[l]} - a_G^{(G)}\|^2$$.
+        \end{description}
+        \subsection{Style cost}
+        \begin{description}
+          \subsection{Gram Matrix(style)}
+          \item let $a_{i,j,k}^{[l]}$ be the  activation  at $(i,j,k)$, $G^{[l]}$  be the covariance (un-normalized) of different channels of size $n_c^{[l]}$, the style gram matrix can be formulated as: $$
+            G_{kk`}^{[l](S)} = \sum_{i=1}^{n_H^{[l]}} \sum_{j=1}^{n_W^{[l]}} a_{i,j,k}^{[l](S)} a_{i,j,k`}^{[l](S)}$$
+          \item generated gram matrix: $$
+            G_{kk`}^{[l](G)} = \sum_{i=1}^{n_H^{[l]}} \sum_{j=1}^{n_W^{[l]}} a_{i,j,k}^{[l](G)} a_{i,j,k`}^{[l](G)} $$
+        \item the final style cost function: $$
+          J_{style}^{[l]}(S,G) = \frac{1}{2n_H^{[l]}n_W^{[l]}n_C^{[l]})^2} \| G^{[l](S)} - G^{[l](G)}\|_F^2
+          $$ such that $\frac{1}{2n_H^{[l]}n_W^{[l]}n_C^{[l]})^2}$ is a normalization term.
+          \item $$J_{style}(S,G) = \sum_l^L \lambda^{[l]} J_{style}^{[l]}(S,G) $$ with weight parameter $\lambda$.
+        \end{description}
+
+    \end{description}
+  \end{description}
 
   \chapter{Natural language processing}
   \section{pre-processing}

@@ -100,44 +100,56 @@
 \BOOKMARK [2][-]{subsection.5.5.3}{Non-Max Suppression}{section.5.5}% 100
 \BOOKMARK [2][-]{subsection.5.5.4}{Anchor Boxes}{section.5.5}% 101
 \BOOKMARK [2][-]{subsection.5.5.5}{Region Proposal R-CNN, Fast R-CNN}{section.5.5}% 102
-\BOOKMARK [0][-]{chapter.6}{Natural language processing}{}% 103
-\BOOKMARK [1][-]{section.6.1}{pre-processing}{chapter.6}% 104
-\BOOKMARK [1][-]{section.6.2}{Example: positive, negative classifier}{chapter.6}% 105
-\BOOKMARK [1][-]{section.6.3}{Logistic regression classifier}{chapter.6}% 106
-\BOOKMARK [1][-]{section.6.4}{Naive Bayes classifier}{chapter.6}% 107
-\BOOKMARK [1][-]{section.6.5}{costine similaritis}{chapter.6}% 108
-\BOOKMARK [2][-]{subsection.6.5.1}{Euclidean distance}{section.6.5}% 109
-\BOOKMARK [1][-]{section.6.6}{Principle Component Analysis \(PCA\)}{chapter.6}% 110
-\BOOKMARK [1][-]{section.6.7}{Machine Translation}{chapter.6}% 111
-\BOOKMARK [2][-]{subsection.6.7.1}{Loss function L}{section.6.7}% 112
-\BOOKMARK [2][-]{subsection.6.7.2}{gradient descent}{section.6.7}% 113
-\BOOKMARK [2][-]{subsection.6.7.3}{fixed number of iterations}{section.6.7}% 114
-\BOOKMARK [2][-]{subsection.6.7.4}{k-Nearest neighbors algorithm}{section.6.7}% 115
-\BOOKMARK [2][-]{subsection.6.7.5}{Searching for the translation embedding}{section.6.7}% 116
-\BOOKMARK [2][-]{subsection.6.7.6}{LSH and document search}{section.6.7}% 117
-\BOOKMARK [2][-]{subsection.6.7.7}{Bag-of-words \(BOW\) document models}{section.6.7}% 118
-\BOOKMARK [2][-]{subsection.6.7.8}{ Choosing the number of planes}{section.6.7}% 119
-\BOOKMARK [2][-]{subsection.6.7.9}{ Getting the hash number for a vector}{section.6.7}% 120
-\BOOKMARK [1][-]{section.6.8}{Probabilistic model of pronounciation and spelling}{chapter.6}% 121
-\BOOKMARK [2][-]{subsection.6.8.1}{auto-correction}{section.6.8}% 122
-\BOOKMARK [2][-]{subsection.6.8.2}{Bayesian inference model}{section.6.8}% 123
-\BOOKMARK [2][-]{subsection.6.8.3}{Minimum edit distance}{section.6.8}% 124
-\BOOKMARK [1][-]{section.6.9}{Grammar Weighted Automata}{chapter.6}% 125
-\BOOKMARK [2][-]{subsection.6.9.1}{Markov chain}{section.6.9}% 126
-\BOOKMARK [2][-]{subsection.6.9.2}{Hidden Markov Models HMMs}{section.6.9}% 127
-\BOOKMARK [2][-]{subsection.6.9.3}{Viterbi Algorithm}{section.6.9}% 128
-\BOOKMARK [2][-]{subsection.6.9.4}{Part of Speech tagging \(POS\)}{section.6.9}% 129
-\BOOKMARK [1][-]{section.6.10}{N-grams}{chapter.6}% 130
-\BOOKMARK [2][-]{subsection.6.10.1}{Smoothing}{section.6.10}% 131
-\BOOKMARK [2][-]{subsection.6.10.2}{Back-off}{section.6.10}% 132
-\BOOKMARK [2][-]{subsection.6.10.3}{Interpolation}{section.6.10}% 133
-\BOOKMARK [0][-]{section*.3}{Appendices}{}% 134
-\BOOKMARK [0][-]{appendix.a.A}{Introduction to probabilities}{}% 135
-\BOOKMARK [1][-]{section.a.A.1}{probabilities chain rule}{appendix.a.A}% 136
-\BOOKMARK [1][-]{section.a.A.2}{Naive Bayes}{appendix.a.A}% 137
-\BOOKMARK [0][-]{appendix.a.B}{Covariance}{}% 138
-\BOOKMARK [0][-]{appendix.a.C}{Single Value Decomposition}{}% 139
-\BOOKMARK [0][-]{appendix.a.D}{Exponentially weighted averages}{}% 140
-\BOOKMARK [1][-]{subsection.a.D.0.1}{How to choose the value \040?}{appendix.a.D}% 141
-\BOOKMARK [0][-]{appendix.a.E}{smoothing \(add-k, and add-one Laplacian\)}{}% 142
-\BOOKMARK [0][-]{appendix.a.F}{Kernels, and Convolution functions}{}% 143
+\BOOKMARK [1][-]{section.5.6}{Face Recognition }{chapter.5}% 103
+\BOOKMARK [2][-]{subsection.5.6.1}{Recognition vs. Verification}{section.5.6}% 104
+\BOOKMARK [2][-]{subsection.5.6.2}{One-Shot learning}{section.5.6}% 105
+\BOOKMARK [2][-]{subsection.5.6.3}{Similarity learning function}{section.5.6}% 106
+\BOOKMARK [2][-]{subsection.5.6.4}{Siamese Network}{section.5.6}% 107
+\BOOKMARK [2][-]{subsection.5.6.5}{Triplet Loss}{section.5.6}% 108
+\BOOKMARK [2][-]{subsection.5.6.6}{Binary Classification}{section.5.6}% 109
+\BOOKMARK [1][-]{section.5.7}{Neural Style Transfer}{chapter.5}% 110
+\BOOKMARK [2][-]{subsection.5.7.1}{Generated image descent}{section.5.7}% 111
+\BOOKMARK [2][-]{subsection.5.7.2}{Content cost}{section.5.7}% 112
+\BOOKMARK [2][-]{subsection.5.7.3}{Style cost}{section.5.7}% 113
+\BOOKMARK [2][-]{subsection.5.7.4}{Gram Matrix\(style\)}{section.5.7}% 114
+\BOOKMARK [0][-]{chapter.6}{Natural language processing}{}% 115
+\BOOKMARK [1][-]{section.6.1}{pre-processing}{chapter.6}% 116
+\BOOKMARK [1][-]{section.6.2}{Example: positive, negative classifier}{chapter.6}% 117
+\BOOKMARK [1][-]{section.6.3}{Logistic regression classifier}{chapter.6}% 118
+\BOOKMARK [1][-]{section.6.4}{Naive Bayes classifier}{chapter.6}% 119
+\BOOKMARK [1][-]{section.6.5}{costine similaritis}{chapter.6}% 120
+\BOOKMARK [2][-]{subsection.6.5.1}{Euclidean distance}{section.6.5}% 121
+\BOOKMARK [1][-]{section.6.6}{Principle Component Analysis \(PCA\)}{chapter.6}% 122
+\BOOKMARK [1][-]{section.6.7}{Machine Translation}{chapter.6}% 123
+\BOOKMARK [2][-]{subsection.6.7.1}{Loss function L}{section.6.7}% 124
+\BOOKMARK [2][-]{subsection.6.7.2}{gradient descent}{section.6.7}% 125
+\BOOKMARK [2][-]{subsection.6.7.3}{fixed number of iterations}{section.6.7}% 126
+\BOOKMARK [2][-]{subsection.6.7.4}{k-Nearest neighbors algorithm}{section.6.7}% 127
+\BOOKMARK [2][-]{subsection.6.7.5}{Searching for the translation embedding}{section.6.7}% 128
+\BOOKMARK [2][-]{subsection.6.7.6}{LSH and document search}{section.6.7}% 129
+\BOOKMARK [2][-]{subsection.6.7.7}{Bag-of-words \(BOW\) document models}{section.6.7}% 130
+\BOOKMARK [2][-]{subsection.6.7.8}{ Choosing the number of planes}{section.6.7}% 131
+\BOOKMARK [2][-]{subsection.6.7.9}{ Getting the hash number for a vector}{section.6.7}% 132
+\BOOKMARK [1][-]{section.6.8}{Probabilistic model of pronounciation and spelling}{chapter.6}% 133
+\BOOKMARK [2][-]{subsection.6.8.1}{auto-correction}{section.6.8}% 134
+\BOOKMARK [2][-]{subsection.6.8.2}{Bayesian inference model}{section.6.8}% 135
+\BOOKMARK [2][-]{subsection.6.8.3}{Minimum edit distance}{section.6.8}% 136
+\BOOKMARK [1][-]{section.6.9}{Grammar Weighted Automata}{chapter.6}% 137
+\BOOKMARK [2][-]{subsection.6.9.1}{Markov chain}{section.6.9}% 138
+\BOOKMARK [2][-]{subsection.6.9.2}{Hidden Markov Models HMMs}{section.6.9}% 139
+\BOOKMARK [2][-]{subsection.6.9.3}{Viterbi Algorithm}{section.6.9}% 140
+\BOOKMARK [2][-]{subsection.6.9.4}{Part of Speech tagging \(POS\)}{section.6.9}% 141
+\BOOKMARK [1][-]{section.6.10}{N-grams}{chapter.6}% 142
+\BOOKMARK [2][-]{subsection.6.10.1}{Smoothing}{section.6.10}% 143
+\BOOKMARK [2][-]{subsection.6.10.2}{Back-off}{section.6.10}% 144
+\BOOKMARK [2][-]{subsection.6.10.3}{Interpolation}{section.6.10}% 145
+\BOOKMARK [0][-]{section*.3}{Appendices}{}% 146
+\BOOKMARK [0][-]{appendix.a.A}{Introduction to probabilities}{}% 147
+\BOOKMARK [1][-]{section.a.A.1}{probabilities chain rule}{appendix.a.A}% 148
+\BOOKMARK [1][-]{section.a.A.2}{Naive Bayes}{appendix.a.A}% 149
+\BOOKMARK [0][-]{appendix.a.B}{Covariance}{}% 150
+\BOOKMARK [0][-]{appendix.a.C}{Single Value Decomposition}{}% 151
+\BOOKMARK [0][-]{appendix.a.D}{Exponentially weighted averages}{}% 152
+\BOOKMARK [1][-]{subsection.a.D.0.1}{How to choose the value \040?}{appendix.a.D}% 153
+\BOOKMARK [0][-]{appendix.a.E}{smoothing \(add-k, and add-one Laplacian\)}{}% 154
+\BOOKMARK [0][-]{appendix.a.F}{Kernels, and Convolution functions}{}% 155
