@@ -6,7 +6,16 @@
 \usepackage{hyperref}
 \usepackage[semicolon,round,sort&compress,sectionbib]{natbib}
 \usepackage{chapterbib}
+\usepackage{tikz}
+\usetikzlibrary{positioning,chains}
 \makeindex
+
+
+
+% for mathematical symbols
+%\usepackage{amsfonts}
+\usepackage{amssymb}
+
 
 \begin{document}
 
@@ -790,6 +799,308 @@
           $$ such that $\frac{1}{2n_H^{[l]}n_W^{[l]}n_C^{[l]})^2}$ is a normalization term.
           \item $$J_{style}(S,G) = \sum_l^L \lambda^{[l]} J_{style}^{[l]}(S,G) $$ with weight parameter $\lambda$.
         \end{description}
+
+    \end{description}
+  \end{description}
+
+  \chapter{Recurrent Neural Networks RNN}
+  \section{Introduction}
+  \begin{description}
+  \item RNN has been making advance in the area of sequence modeling such as speech recognition, bio-informatics, music generation, natural language processing, and activity, and name recognition, given an input as a sequence, sequence models maps it to another sequence, for example translation of voices into words, or musical note, into a generated song, proteins in the DNA, etc.
+  \end{description}
+  \section{Notation}
+  \begin{description}
+  \item in a sequence $x^{(i)}$, of the training data-set X, is dereferenced by $x^{(i)<t>}$, such that t is the t(th)  (temporal element in the sequence) and represented by one-hot vector from a known Vocabulary V.
+  \item sequence $x^{(i)}$ have the corresponding length $T_x^{(i)}$.
+  \item equivalently $y^{(i)<t>}$ is the element t of the $y^{(i)}$ output, with output sequence length $T_y^{(i)}$.
+    \item finally the weight parameter $W_{ab}$ means wight for calculation of a  after multiplication by b.
+  \end{description}
+
+  \section{RNN}
+  \begin{description}
+\item first of all, why NN isn't used in sequence modeling? NN is used in scenarios where there are shared features in the input, and where the input, and output are of the same length but in sequences it's not expected for the input features to be of similar features, and the length of input, and output different, therefore NN leads to less accurate model that is hard to train, instead in RNN, the layers are interconnected, and each input $X^{<i>}$ maps to $Y^{<i>}$.
+    \subsection{RNN model}
+    \begin{description}
+      %%
+    \item \begin{tikzpicture}[item/.style={circle,draw,thick,align=center},
+        itemc/.style={item,on chain,join}]
+      \begin{scope}
+        [start chain=going right,nodes=itemc,every
+          join/.style={-latex,very thick},local bounding box=chain]
+        \path node (A0) {$A$} node (A1) {$A$} node (A2) {$A$} node[xshift=2em] (At) {$A$};
+      \end{scope}
+      \node[left=1em of chain,scale=2] (eq) {$=$};
+      \node[left=2em of eq,item] (AL) {$A$};
+      \path (AL.west) ++ (-1em,2em) coordinate (aux);
+      \draw[very thick,-latex,rounded corners] (AL.east) -| ++ (1em,2em) -- (aux) |- (AL.west);
+      \foreach \X in {0,1,2,t} {
+
+        \draw[very thick,-latex] (A\X.north) -- ++ (0,2em) node[above,item,fill=gray!10]  (y\X) {$y^{<\X>}$};
+
+        \draw[very thick,latex-] (A\X.south) -- ++ (0,-2em) node[below,item,fill=gray!10]  (x\X) {$x^{<\X>}$};
+      }
+      \draw[white,line width=0.8ex] (AL.north) -- ++ (0,1.9em);
+
+      \draw[very thick,-latex] (AL.north) -- ++ (0,2em)
+      node[above,item,fill=gray!10] {$y^{<t>}$};
+      \draw[very thick,latex-] (AL.south) -- ++ (0,-2em)
+      node[below,item,fill=gray!10] {$x^{<t>}$};
+      \path (x2) -- (xt) node[midway,scale=2,font=\bfseries] {\dots};
+    \end{tikzpicture}
+    \item and the network is often initialized by random $A^{<0>}$ at the start of the network
+    \item this type of model are called unidirection RNN, compared to bidirectional RNN where the paths moves both ways.
+      \section{uni-directional RNN Forward propagation}
+      \begin{description}
+      \item $$a^{<t>} = g(W_{aa}a^{<t-1>} + W_{ax}X^{<t>} + b_a) $$
+      \item $$\hat{y}^{<t>} = g(W_{ya}a^{<t>} + b_y) $$  where \textbf{g} function is usually \textbf{tanh}, or \textbf{relu}.
+      \item  $a^{<t>}$ is usually represented in vectorized notation into  $$ a^{<t>} = g(W_{a}[A^{<t-1>}, X^{<t>}] + b_a) $$ where $W_a$ is $\begin{vmatrix}W_{aa} & {W_{ax}}\end{vmatrix}$, and $[a^{<t-1>}, X^{<t>}]=\begin{vmatrix} a^{<t-1>} \\ X^{<t>} \end{vmatrix}$
+      \item $$L=\sum {L^{<t>}(\hat{y^{<t>}},y^{<t>})}$$
+      \item notice that from the Bayesian chain-rule (see next chapter) that $P(y^{<t>}|y^{<1>}\dots{y^{<t-1>}})=\hat{y^{<t>}}$
+        \section{uni-directional RNN backward propagation through time}
+        \begin{description}
+        \item (derive)
+        \end{description}
+        \section {Variations of RNN models}
+        \begin{description}
+        \item in the previous figure we discussed many-to-many uni-directional recurrent neural network architecture, a more general architecture is the bidirectional RNN where arrows goes both ways.
+        \item another variation is many-to-one, and it look like this
+          \subsection{many-to-one RNN}
+          \begin{description}
+        \item \begin{tikzpicture}[item/.style={circle,draw,thick,align=center},
+        itemc/.style={item,on chain,join}]
+      \begin{scope}
+        [start chain=going right,nodes=itemc,every
+          join/.style={-latex,very thick},local bounding box=chain]
+        \path node (A0) {$A$} node (A1) {$A$} node (A2) {$A$} node[xshift=2em] (At) {$A$};
+      \end{scope}
+      \node[left=1em of chain,scale=2] (eq) {$=$};
+      \node[left=2em of eq,item] (AL) {$A$};
+      \path (AL.west) ++ (-1em,2em) coordinate (aux);
+      %\draw[very thick,-latex,rounded corners] (AL.east) -| ++ (1em,2em) -- (aux) |- (AL.west);
+      \draw[very thick,-latex] (At.north) -- ++ (0,2em) node[above,item,fill=gray!10]  (yt) {$y^{<t>}$};
+      \foreach \X in {0,1,2,t} {
+        \draw[very thick,latex-] (A\X.south) -- ++ (0,-2em) node[below,item,fill=gray!10]  (x\X) {$x^{<\X>}$};
+      }
+      \draw[white,line width=0.8ex] (AL.north) -- ++ (0,1.9em);
+      \draw[very thick,-latex] (AL.north) -- ++ (0,2em)
+      node[above,item,fill=gray!10] {$y^{<t>}$};
+      \draw[very thick,latex-] (AL.south) -- ++ (0,-2em)
+      node[below,item,fill=gray!10] {$x^{<t>}$};
+      \path (x2) -- (xt) node[midway,scale=2,font=\bfseries] {\dots};
+        \end{tikzpicture}
+        \item notice that there is a single output the map the whole sequence to a single output, similar to the Neural network.
+          \end{description}
+          \subsection{One-to-Many RNN}
+          \begin{description}
+          \item and finally one-to-many:
+        \item \begin{tikzpicture}[item/.style={circle,draw,thick,align=center},
+        itemc/.style={item,on chain,join}]
+      \begin{scope}
+        [start chain=going right,nodes=itemc,every
+          join/.style={-latex,very thick},local bounding box=chain]
+        \path node (A0) {$A$} node (A1) {$A$} node (A2) {$A$} node[xshift=2em] (At) {$A$};
+      \end{scope}
+      \node[left=1em of chain,scale=2] (eq) {$=$};
+      \node[left=2em of eq,item] (AL) {$A$};
+      \path (AL.west) ++ (-1em,2em) coordinate (aux);
+      \foreach \X in {0,1,2,t} {
+        \draw[very thick,-latex] (A\X.north) -- ++ (0,2em) node[above,item,fill=gray!10]  (y\X) {$y^{<\X>}$};
+      }
+      \draw[very thick,latex-] (A0.south) -- ++ (0,-2em) node[below,item,fill=gray!10]  (x0) {$x$};
+      \draw[white,line width=0.8ex] (AL.north) -- ++ (0,1.9em);
+
+      \draw[very thick,-latex] (AL.north) -- ++ (0,2em)
+      node[above,item,fill=gray!10] {$y^{<t>}$};
+      \draw[very thick,latex-] (AL.south) -- ++ (0,-2em)
+      node[below,item,fill=gray!10] {$x^{<t>}$};
+        \end{tikzpicture}
+        \item for example in a music generation model, the input X could be the genre, or the initial note, or could pi ${\phi}$.
+          \end{description}
+          \end{description}
+        \subsection{Many-to-Many of different input/output length}
+        \begin{description}
+
+        \item \begin{tikzpicture}[item/.style={circle,draw,thick,align=center},
+        itemc/.style={item,on chain,join}]
+      \begin{scope}
+        [start chain=going right,nodes=itemc,every
+          join/.style={-latex,very thick},local bounding box=chain]
+        \path node (A0) {$A$} node (A1) {$A$} node (A2) {$A$} node[xshift=2em] (At) {$A$};
+      \end{scope}
+      \node[left=1em of chain,scale=2] (eq) {$=$};
+      \node[left=2em of eq,item] (AL) {$A$};
+      \path (AL.west) ++ (-1em,2em) coordinate (aux);
+
+      \draw[very thick,latex-] (A0.south) -- ++ (0,-2em) node[below,item,fill=gray!10]  (x0) {$x^{<0>}$};
+
+      \draw[very thick,latex-] (A1.south) -- ++ (0,-2em) node[below,item,fill=gray!10]  (x1) {$x^{<n>}$};
+      \path (x0) -- (x1) node[midway,scale=0.5,font=\bfseries] {\dots};
+      \draw[very thick,-latex] (A2.north) -- ++ (0,2em) node[above,item,fill=gray!10]  (yn) {$y^{<n>}$};
+      \draw[very thick,-latex] (At.north) -- ++ (0,2em) node[above,item,fill=gray!10]  (yt) {$y^{<t>}$};
+      \path (x2) -- (xt) node[midway,scale=2,font=\bfseries] {\dots};
+      \draw[white,line width=0.8ex] (AL.north) -- ++ (0,1.9em);
+      \draw[very thick,-latex] (AL.north) -- ++ (0,2em)
+      node[above,item,fill=gray!10] {$y^{<t>}$};
+      \draw[very thick,latex-] (AL.south) -- ++ (0,-2em)
+      node[below,item,fill=gray!10] {$x^{<t>}$};
+        \end{tikzpicture}
+          \item (TODO fix the spacing)
+        \item in the case of machine translation, the model in composed of encoder consisting of the first input $X^{<0>}$ to $X^{<n>}$, and output decoder consisting of the last output $y^{<n+1>}$ to $y^{<t>}$.
+        \end{description}
+      \item (TODO add attention based architecture)
+
+      \end{description}
+
+    \end{description}
+
+    \section{Language Model and sequence generation}
+    \begin{description}
+    \item In NLP sequence generation the many-to-many model of the same length is utilized, where each input (one-hot vector) representation of the word $X^{<t>}$ maps to $Y^{<t>}$: the probability of an input word given the prior words, can be the output of a \textbf{softmax} activation into the whole indices of the vocabulary.
+    \item after training the model on a large training example, the output sequence can be utilized to predict the most likely word after a given input sequence, for example for a new input sequence $y^{<1>}, y^{<2>}, y^{<3>}$, what is $P(y^{<1>}, y^{<2>}, y^{<3>})$, using the chain-rule (see the appendix on probabilities) this term expands to $P(y^{<1>})P(y^{<2>}|y^{1})P(y^{<3>}|y^{<2>},y^{<1>})=\hat{y^{<1>}}\hat{y^{<2>}}\hat{y^{<3>}}$
+    \end{description}
+    \section{Sampling novel sequences}
+    \begin{description}
+    \item it's possible to generate a novel sequence from the trained weights from a corpus, for example if the initial node $a^{<0>}=X^{<0>}=0$, and the input $X^{<1>} \to X^{<T_x>}$ are taken from the previous output $y^{<0>} \to X^{<T_y-1>}$, for example $X^{<t>}=y^{<t-1>}$, then it output a sequence with writing style, and vocabulary similar to that of the corpus.
+    \item so if the the corpus vocabulary contain <EOS> or end of sentence token, sequence generator can stop after <EOS>, otherwise, it can set to generate a specific length of words (we will discuss pre-processing in NLP chapter).
+    \item in previous case the input is a vocabulary of words, it could be modeled on sequence of characters instead in similar way, in this case the vocabulary is the set of characters, and numbers, white space, and possibly punctuation.
+    \end{description}
+    \section{Vanishing/Exploding gradients}
+    \begin{description}
+    \item similar to the Neural network, RNN also can have Vanishing, and exploding gradients, it turns out that the latter is less common, in this case it leads to overflow of output, and usually solved by gradient clipping, or comparing the output against some threshold, then re-scale the gradient vector as to normalize it, but the former case of vanishing gradients is the most common, in a very long model.
+      \subsection{Gated Recurrent Unit (GRU)}
+      \begin{description}
+      \item starting with an example from NLP, in English language, verbs are conjugated w.r.t the subject in the sentence, in a very long text, keeping track of the subject is essential, but in the RNN which flows from the left to right can be substantially long, such  forward, and backward propagation influences the advanced nodes is very negligible thus leading to vanishing gradients problems, to solve this, keeping a record of the such pivotal words is essential, for this GRU was invented.
+
+      \item (TODO draw GRU graph)
+        \subsection{GRU simplified}
+        \begin{description}
+        \item define memory cell C, $C^{<t-i>} = a^{<t-i>}$.
+        \item an estimate of the $C^{<t>}$ is notated with  $\tilde{C^{<t>}}$.
+        \item the the estimated C is gated with $\Gamma_u$, multiplied together to generate the output $C^{<t>}$.
+        \item $$\tilde{C^{<t>}}=tanh(W_c[c^{<t-1>},X^{<t>}]+b_c) $$
+        \item $$ \Gamma_u = \sigma(W_u[c^{<t-1>},X^{<t>}]+b_u) $$
+        \item $$ C^{<t>}=\Gamma_u * \tilde{C^{<t>}} + (1-\Gamma_U)*C^{<t-1>}$$ (note that * denotes element-wise multiplication).
+        \end{description}
+      \end{description}
+    \item for a full GRU implementation relevance gate $\Gamma_r$ is used to estimate the relevance of $C^{<t-1>}$ to calculate $\tilde{C^{<t>}}$
+    \item \item $$ \Gamma_r = \sigma(W_r[c^{<t-1>},X^{<t>}]+b_u) $$
+    \item $$\tilde{C^{<t>}}=tanh(W_c[\Gamma_r*c^{<t-1>},X^{<t>}]+b_c) $$
+    \end{description}
+    \subsection{Long Short Term Memory (LSTM)}
+    \begin{description}
+    \item $$\tilde{C^{<t>}}=tanh(W_c[c^{<t-1>},X^{<t>}]+b_c) $$
+    \item $$ \Gamma_u = \sigma(W_u[a^{<t-1>},X^{<t>}]+b_u) $$
+    \item $$ \Gamma_f = \sigma(W_f[a^{<t-1>},X^{<t>}]+b_f) $$ is the forget gate used instead of $(1-\Gamma_u)$.
+    \item $$ \Gamma_o = \sigma(W_o[a^{<t-1>},X^{<t>}]+b_o) $$ is the output get
+    \item $$ C^{<t>}=\Gamma_u * \tilde{C^{<t>}} + \Gamma_U*C^{<t-1>}$$
+    \item $$ a^{<t>} = \Gamma_o * tanh(C^{<t>})$$.
+    \item one notice here is that in $\Gamma_o$ instead of $X^{<t>}$ you could use $C^{<t-1>}$ instead, and known as \textbf{peephole connection}
+    \end{description}
+  \end{description}
+
+
+  \chapter{Probabilistic Graphical Models (PGM)}
+  \section{Introduction}
+  \begin{description}
+  \item first, what Models are? models are declarative representation of the world, \textbf{probabilistic models:} are representation of the uncertainty of the model. PGM is graphical representation of a phenomena, that can be used with other input data with other algorithms to take decisions, in classification, segmentation, or  recognition. and the reasons for uncertainty : \begin{enumerate}
+  \item partial knowledge of state of the world
+  \item noisy observations
+  \item phenomena not covered by the model
+    \item inherent stochasticity: that the world is inherently stochastic, and therefor the model.
+  \end{enumerate}
+  \item therefore the model is probabilistic and feed with random input variables mimicking uncertainty with their joint distribution.
+  \item examples on graph are Bayesian network, represented with directed graph, and Markov networks (un-directed graph, usually weighted).
+    \subsection{preliminaries}
+    \begin{description}
+    \item given random variables (for example I,D,G, being the data sampled from a class I(intelligence, D(difficulity), G(grade)) the joint distribution P(I,D,G),and represented as a vector of joint distribution.
+    \item \textbf{reduced random variable}: is the joint distribution under certain conditions for subset of the random variables for example $p(I,D,G^1)$ of the binary random variable G(taking the values 0,1), $G^1$ is the random variable $G=1$. and $p(I,D,G^1)$ is the reduced distribution to $G^1$ values.
+    \item \textbf{re-normalized RV}: is the process of normalizing the distribution after reduction.
+    \item \textbf{marginalization of RV}: is the distribution of one RV summed over the distribution of another for example $P(D)=\sum_{i=1}^nP(D|I)$.
+      \subsection{factors}
+      \begin{description}
+      \item consider the vector variables A,B,C with arbitrary values called scope, factor are the building block, or the input for our model for probabilistic representation in high-dimensional spaces.
+      \item \textbf{factor} is a map from set of random variable \textbf{scope}(parameters) to real value $\phi(X^0,X^1,...,X^n) \rightarrow \mathbb{R}$ for example the joint distribution $P(I,D,g^1)$ is a factor, and the scope in the case is I,D since $g^1$ is set to $g^1$ binary random variable constant value, factors aren't necessarily of probability scope, but could be for any values.
+      \item \textbf{factor product}:  $\phi_1{(A,B)} \phi_2{(B,C)}=\phi_3{(A,B,C)}$ multiplication done on the real scalar values ($\#B$ means size of variable B).
+      \item \textbf{factor marginalization}: from distribution $\phi{(A,B,C)}$, $\phi{(A,C)}=\sum_{i=1}^{n={\#B}}\phi(A,C)$.
+      \item \textbf{reduced factor}: reduced factor over $C^1$ is $\phi{(A,B,C^1)}=\phi{(A,B,C)} \leftarrow {C=1}$.
+      \end{description}
+    \item \textbf{Conditional Probability Distribution (CPD}): is the conditional probability with a joint probability distribution, for example $P(G|I,D)$.
+
+    \end{description}
+    \section{Bayesian Network Fundamentals}
+    \begin{description}
+    \item for student grading with vector random variables, G(grades),D(course difficulity),I(intelligence),S(sat score),L(reference recommendation letter).
+      \subsection{constructing dependencies}
+      \begin{description}
+      \item first graph is constructed to mimic the phenomenon, which is the student score: in which the grade is dependent on both D,I, $p(G|D,I)$, and S is dependent on I, $P(S|I)$, recommendation letter is dependent on the grade $P(L|G)$. so in this constructed graph, factorization of the joint distribution $P(D,I,G,S,L)=P(D)P(I|D)P(G|D,I)P(S|D,I,G)P(L|D,I,G,S)$ from the chain rule (see appendix on probabilities). from the graph $P(I|D)=P(I)$, $P(S|D,I,G)=P(S,I)$, $P(L|D,I,G,S)=P(L|G)$, therefor $P(D,I,G,S,L)=P(D)P(I)P(G|D,I)P(S|I)P(L|G)$.
+      \item here example for the graph truth table for the probability distributions for example P(D) \begin{tabular}{ |c|c| }
+        \hline
+        $d^0$ & $d^1$ \\
+        \hline
+        \hline
+        0.6 & 0.4 \\
+        \hline
+      \end{tabular}, P(I) \begin{tabular} {|c|c| }
+        \hline
+        $i^0$ & $i^1$ \\
+        \hline
+        \hline
+        0.7 & 0.3 \\
+        \hline
+      \end{tabular}, P(S) \begin{tabular} { |c|c|c| }
+        \hline
+        & $s^0$ & $s^1$ \\
+        \hline
+        \hline
+        $i^0$ & 0.95 & 0.05 \\
+        \hline
+        $i^1$ & 0.2 & 0.8 \\
+        \hline
+      \end{tabular},  P(G) \begin{tabular} { |c|c|c|c| }
+        \hline
+        & $g^1$ & $g^2$ & $g^3$  \\
+        \hline
+        \hline
+        $i^0,d^0$ & 0.3 & 0.4 & 0.3 \\
+        \hline
+        $i^0,d^1$ & 0.05 & 0.25 & 0.7 \\
+        \hline
+        $i^1,d^0$ & 0.9 & 0.08 & 0.02 \\
+        \hline
+        $i^1,d^1$ & 0.5 & 0.3 & 0.2 \\
+        \hline
+      \end{tabular},  P(L) \begin{tabular} {|c|c|c|}
+        \hline
+        & $l^0$ & $l^1$ \\
+        \hline
+        \hline
+        $g^1$ & 0.1 & 0.9 \\
+        \hline
+        $g^2$ & 0.4 & 0.6 \\
+        \hline
+        $g^3$ & 0.99 & 0.01 \\
+        \hline
+      \end{tabular}
+        \item now what is $P(d^0,i^1,g^3,s^1,l^1)$ ? from the last derived equation it's $P(d^0)P(i^1)P(g^3|d^0,i^1)P(s^1|i^1)P(l^1|g^3)$ from the tables it's 0.6*0.3*0.02*0.01*0.8.
+      \end{description}
+    \item A Basyesian network is a directed a-cyclic graph (DAG) such that each node of the graph is a representation of the underlying random variable. such that for each node $X_i$ (random variable) a CPD is $P(X_i|Par_G(X_i))$ where $Par_G$ is a function mapping node (i) random variable to it's parent nodes in the directed graph G
+    \item the probability distribution at any node with $X_i$ representation is $P(X_1,..,X_n)=\prod_i{P(X_i|Par_G(X_i))}$ (chain rule see the appendix).
+    \item BN distribution build off probability distribution P is expected to be $ P > 0 $, and $\sum {P} = 1$. for example in the prior example $\sum_{D,I,G,S,L}P(D,I,G,S,L)=1$.
+    \item Probability P factorizes over G $\iff$ it's represented by chain rule.
+      \section{Reasoning Patterns on BN}
+      \begin{description}
+      \item \textbf{Causal reasoning}: is is reasoning from bottom up, for example $P(l^1) \approx 0.5$,  $P(l^1 | i^0) \approx 0.39$,  $P(l^1 | i^0,d^0) \approx 0.51$.
+      \item \textbf{Evidential Reasoning}: is top down reasoning toward the parent nodes, in a class where student gets C with initial $P(i^1)=0.3$, $P(d^1)=0.4$, then the hypothesis that the student is smart given the grades  $P(i^1 |g^3)\approx 0.08$ goes down, and the hypothesis that the class is difficult given the grade  $P(d^1|g^3)\approx 0.63$ goes up.
+      \item \textbf{Intercausal Reasoning}: in relational evidential reasoning, for example what is the probability of the intelligence of a student given the grade, and that the it was difficult $P(i^1|g^3,d^1)\approx 0.11$ it went up from 0.08.
+      \item .
+        \section{Flow of Probabilistic Influence}
+        \begin{description}
+        \item it was discussed in previous section that both causal reasoning, and evidential reasoning between the parent, and child node influence each others directly, for example for X, Y variables $ X \rightarrow Y $ e causally affect Y, and $ X \leftarrow Y $ evidentially affect Y. similarly in presence of via node in the case of $X \rightarrow W \rightarrow Y$, then X influences Y via W, similarly $X \leftarrow W \leftarrow Y$ then X influences Y.
+        \item in the case in direct edges via nodes even from the same graphical level, for example $ X \leftarrow W \rightarrow Y$ this can be reduced to $ X \leftarrow W $ then X influences W, and $ W \rightarrow Y$ then W influences Y, therefore X influences Y, in the student example the observation of the sat score influences the grade.
+        \item meanwhile in the case of \textbf{V-structure} $ X \rightarrow W \leftarrow Y $  in this case X influences W, and Y influences W, but X, doesn't influence Y.
+
+        \end{description}
+      \end{description}
 
     \end{description}
   \end{description}
