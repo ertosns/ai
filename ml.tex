@@ -906,6 +906,7 @@
       \foreach \X in {0,1,2,t} {
         \draw[very thick,-latex] (A\X.north) -- ++ (0,2em) node[above,item,fill=gray!10]  (y\X) {$y^{<\X>}$};
       }
+
       \draw[very thick,latex-] (A0.south) -- ++ (0,-2em) node[below,item,fill=gray!10]  (x0) {$x$};
       \draw[white,line width=0.8ex] (AL.north) -- ++ (0,1.9em);
 
@@ -913,6 +914,11 @@
       node[above,item,fill=gray!10] {$y^{<t>}$};
       \draw[very thick,latex-] (AL.south) -- ++ (0,-2em)
       node[below,item,fill=gray!10] {$x^{<t>}$};
+
+      \draw (y0) to [out=90,in=270,looseness=4] (A1);
+      \draw (y1) to [out=90,in=270,looseness=4] (A2);
+      \draw (y2) to [out=90,in=270,looseness=4] (At);
+
         \end{tikzpicture}
         \item for example in a music generation model, the input X could be the genre, or the initial note, or could pi ${\phi}$.
           \end{description}
@@ -1012,7 +1018,7 @@
   \item examples on graph are Bayesian network, represented with directed graph, and Markov networks (un-directed graph, usually weighted).
     \subsection{preliminaries}
     \begin{description}
-    \item given random variables (for example I,D,G, being the data sampled from a class I(intelligence, D(difficulity), G(grade)) the joint distribution P(I,D,G),and represented as a vector of joint distribution.
+    \item given random variables (for example I,D,G, being the data sampled from a class I(intelligence), D(difficulity), G(grade) the joint distribution P(I,D,G),and represented as a vector of joint distribution.
     \item \textbf{reduced random variable}: is the joint distribution under certain conditions for subset of the random variables for example $p(I,D,G^1)$ of the binary random variable G(taking the values 0,1), $G^1$ is the random variable $G=1$. and $p(I,D,G^1)$ is the reduced distribution to $G^1$ values.
     \item \textbf{re-normalized RV}: is the process of normalizing the distribution after reduction.
     \item \textbf{marginalization of RV}: is the distribution of one RV summed over the distribution of another for example $P(D)=\sum_{i=1}^nP(D|I)$.
@@ -1020,8 +1026,8 @@
       \begin{description}
       \item consider the vector variables A,B,C with arbitrary values called scope, factor are the building block, or the input for our model for probabilistic representation in high-dimensional spaces.
       \item \textbf{factor} is a map from set of random variable \textbf{scope}(parameters) to real value $\phi(X^0,X^1,...,X^n) \rightarrow \mathbb{R}$ for example the joint distribution $P(I,D,g^1)$ is a factor, and the scope in the case is I,D since $g^1$ is set to $g^1$ binary random variable constant value, factors aren't necessarily of probability scope, but could be for any values.
-      \item \textbf{factor product}:  $\phi_1{(A,B)} \phi_2{(B,C)}=\phi_3{(A,B,C)}$ multiplication done on the real scalar values ($\#B$ means size of variable B).
-      \item \textbf{factor marginalization}: from distribution $\phi{(A,B,C)}$, $\phi{(A,C)}=\sum_{i=1}^{n={\#B}}\phi(A,C)$.
+      \item \textbf{factor product}:  $\phi_1{(A,B)} \phi_2{(B,C)}=\phi_3{(A,B,C)}$ multiplication done on the real scalar values.
+      \item \textbf{factor marginalization}: from distribution $\phi{(A,B,C)}$, $\phi{(A,C)}=\sum_{i=1}^{n={\#B}}\phi(A,C)$ ($\#B$ means size of variable B).
       \item \textbf{reduced factor}: reduced factor over $C^1$ is $\phi{(A,B,C^1)}=\phi{(A,B,C)} \leftarrow {C=1}$.
       \end{description}
     \item \textbf{Conditional Probability Distribution (CPD}): is the conditional probability with a joint probability distribution, for example $P(G|I,D)$.
@@ -1032,6 +1038,17 @@
     \item for student grading with vector random variables, G(grades),D(course difficulity),I(intelligence),S(sat score),L(reference recommendation letter).
       \subsection{constructing dependencies}
       \begin{description}
+      \item  \begin{tikzpicture}[node distance={30mm}, thick, main/.style = {draw, circle}]
+        \node[main] (1) [fill=gray!10] {Intelligence};
+        \node[main] (2) [left of=1, fill=gray!10] {Difficulity};
+        \node[main] (3) [below left of=1, fill=gray!10] {Grade};
+        \node[main] (4) [below right of=1, fill=gray!10] {SAT};
+        \node[main] (5) [below of=3, fill=gray!10] {Letter};
+        \draw[->] (1) -- (3);
+        \draw[->] (2) -- (3);
+        \draw[->] (1) -- (4);
+        \draw[->] (3) -- (5);
+      \end{tikzpicture}
       \item first graph is constructed to mimic the phenomenon, which is the student score: in which the grade is dependent on both D,I, $p(G|D,I)$, and S is dependent on I, $P(S|I)$, recommendation letter is dependent on the grade $P(L|G)$. so in this constructed graph, factorization of the joint distribution $P(D,I,G,S,L)=P(D)P(I|D)P(G|D,I)P(S|D,I,G)P(L|D,I,G,S)$ from the chain rule (see appendix on probabilities). from the graph $P(I|D)=P(I)$, $P(S|D,I,G)=P(S,I)$, $P(L|D,I,G,S)=P(L|G)$, therefor $P(D,I,G,S,L)=P(D)P(I)P(G|D,I)P(S|I)P(L|G)$.
       \item here example for the graph truth table for the probability distributions for example P(D) \begin{tabular}{ |c|c| }
         \hline
@@ -1092,17 +1109,56 @@
       \item \textbf{Causal reasoning}: is is reasoning from bottom up, for example $P(l^1) \approx 0.5$,  $P(l^1 | i^0) \approx 0.39$,  $P(l^1 | i^0,d^0) \approx 0.51$.
       \item \textbf{Evidential Reasoning}: is top down reasoning toward the parent nodes, in a class where student gets C with initial $P(i^1)=0.3$, $P(d^1)=0.4$, then the hypothesis that the student is smart given the grades  $P(i^1 |g^3)\approx 0.08$ goes down, and the hypothesis that the class is difficult given the grade  $P(d^1|g^3)\approx 0.63$ goes up.
       \item \textbf{Intercausal Reasoning}: in relational evidential reasoning, for example what is the probability of the intelligence of a student given the grade, and that the it was difficult $P(i^1|g^3,d^1)\approx 0.11$ it went up from 0.08.
-      \item .
         \section{Flow of Probabilistic Influence}
         \begin{description}
         \item it was discussed in previous section that both causal reasoning, and evidential reasoning between the parent, and child node influence each others directly, for example for X, Y variables $ X \rightarrow Y $ e causally affect Y, and $ X \leftarrow Y $ evidentially affect Y. similarly in presence of via node in the case of $X \rightarrow W \rightarrow Y$, then X influences Y via W, similarly $X \leftarrow W \leftarrow Y$ then X influences Y.
         \item in the case in direct edges via nodes even from the same graphical level, for example $ X \leftarrow W \rightarrow Y$ this can be reduced to $ X \leftarrow W $ then X influences W, and $ W \rightarrow Y$ then W influences Y, therefore X influences Y, in the student example the observation of the sat score influences the grade.
         \item meanwhile in the case of \textbf{V-structure} $ X \rightarrow W \leftarrow Y $  in this case X influences W, and Y influences W, but X, doesn't influence Y.
+        \end{description}
+        \section{d-separation}
+        \begin{description}
+        \item X, and Y are d-separated in the graph G, if there is no flow of influence between them, and it's denoted by $d-sep_G(X,Y|Z)$, interpreted as X, and Y are separated on the graph G, or there is no flow of influence between them.
+        \item to look for active trails, we search the graph from V-structures.
+        \item (TODO add illustrative graph)
+        \item If P factorizes over G, and $d-sep_G(X,Y|Z)$ then P satisfies $(X \perp Y|Z)$. if there is d-separation between X, and Y given Z, then there is no flow of influence given Z, and from definition of independence $P(X \perp Y | Z) = P(X|Z)P(Y|Z)$.
+        \item chain rule expansion of $P(D,I,G,S,L)=P(D)P(I|D)P(G|I,D)P(S|G,I,D)P(L|S,G,I,D)$ from flow of influences in G it reduces to $$P(D)P(I)P(G|D,I)P(S|I)P(L|G)$$
+        \item $$P(D,S)=\sum_{G,L,I}P(D)P(I)P(G|D,I)P(S|I)P(L|G)$$
+        \item $$=\sum_{I}P(D)P(I)P(S|I)\sum_{G}(P(G|D,I)\sum_{L}(L|G))$$
+        \item $$=P(D)(\sum_IP(I)P(S|I))$$
+        \item $$=P(D)P(S)=\phi_1(D)\phi_2(S)$$
+        \item then $P \models D \perp S$
+        \item any node is d-separated from it's non-descendants given it's parents, that is the same rule used to simplify the chain rule joint distribution of the graph G.
+          \subsection{I-map}
+          \begin{description}
+          \item d-separation in G $\rightarrow$ satisfies corresponding independence: $$ I(G) = {(X \perp Y | Z) : d-sep_G(X,Y|Z), X,Y,Z \in G} $$
+          \item if P satisfies I(G) then G is an I-map (independency map) of P.
+          \item if G is an I-map for P, then P factorizes over G.
 
+
+          \end{description}
         \end{description}
       \end{description}
-
     \end{description}
+  \end{description}
+  \section{Naive Bayes Model}
+  \begin{description}
+  \item naive base is a graph of independent Variables mapping to the  same parent.
+  \item \begin{tikzpicture}[node distance={30mm}, thick, main/.style = {draw, circle}]
+    \node[main] (1) [fill=gray!10]  {class(C)};
+    \node[main] (2) [below left of=1, fill=gray!10]  {$X_1$};
+    \node[main] (3) [right of=2, fill=gray!10]  {$X_2$};
+    \node[main] (4) [right of=3, fill=gray!10]  {$X_n$};
+    \draw[->] (1) -- (2);
+    \draw[->] (1) -- (3);
+    \draw[->] (1) -- (4);
+    \path (3) -- (4) node[midway,scale=2,font=\bfseries] {\dots};
+  \end{tikzpicture}
+
+  \item $$(X_i \perp X_j | C) \forall X_i,X_j$$
+  \item $$P(C,X_1,\dots,X_n) = P(C) \prod_{i=1}^{n}P(X_i|C) $$
+  \item given two observations of the input features X, we can define the ratio probability of outcome of two observation: $$
+    \frac{P(C=c^1 | x_1,\dots,x_n)}{P(C=c^2 | x_1,\dots,x_n)} = \frac{P(C=c^1)}{P(C=c^2)}\prod_{i=1}^n\frac{P(x_i|C=c^1)}{P(x_i|C=c^2)}$$ (note the first term denoted by the prior, and the second is the odd ratio).
+
   \end{description}
 
   \chapter{Natural language processing}
