@@ -854,7 +854,9 @@
       \item $$a^{<t>} = g(W_{aa}a^{<t-1>} + W_{ax}X^{<t>} + b_a) $$
       \item $$\hat{y}^{<t>} = g(W_{ya}a^{<t>} + b_y) $$  where \textbf{g} function is usually \textbf{tanh}, or \textbf{relu}.
       \item  $a^{<t>}$ is usually represented in vectorized notation into  $$ a^{<t>} = g(W_{a}[A^{<t-1>}, X^{<t>}] + b_a) $$ where $W_a$ is $\begin{vmatrix}W_{aa} & {W_{ax}}\end{vmatrix}$, and $[a^{<t-1>}, X^{<t>}]=\begin{vmatrix} a^{<t-1>} \\ X^{<t>} \end{vmatrix}$
+      \item $$ \hat{y}^{<t>} = softmax(W_{ya}a^{<t>} + b_y) $$
       \item $$L=\sum {L^{<t>}(\hat{y^{<t>}},y^{<t>})}$$
+
       \item notice that from the Bayesian chain-rule (see next chapter) that $P(y^{<t>}|y^{<1>}\dots{y^{<t-1>}})=\hat{y^{<t>}}$
         \section{uni-directional RNN backward propagation through time}
         \begin{description}
@@ -892,7 +894,7 @@
           \end{description}
           \subsection{One-to-Many RNN}
           \begin{description}
-          \item and finally one-to-many:
+          \item and finally one-to-many, input to next time step is sampled from the previous output:
         \item \begin{tikzpicture}[item/.style={circle,draw,thick,align=center},
         itemc/.style={item,on chain,join}]
       \begin{scope}
@@ -982,7 +984,7 @@
         \begin{description}
         \item define memory cell C, $C^{<t-i>} = a^{<t-i>}$.
         \item an estimate of the $C^{<t>}$ is notated with  $\tilde{C^{<t>}}$.
-        \item the the estimated C is gated with $\Gamma_u$, multiplied together to generate the output $C^{<t>}$.
+        \item the the estimated C is gated with $\Gamma_u$ (update gate, sometimes denoted by $\Gamma_i$), multiplied together to generate the output $C^{<t>}$.
         \item $$\tilde{C^{<t>}}=tanh(W_c[c^{<t-1>},X^{<t>}]+b_c) $$
         \item $$ \Gamma_u = \sigma(W_u[c^{<t-1>},X^{<t>}]+b_u) $$
         \item $$ C^{<t>}=\Gamma_u * \tilde{C^{<t>}} + (1-\Gamma_U)*C^{<t-1>}$$ (note that * denotes element-wise multiplication).
@@ -997,13 +999,27 @@
     \item $$\tilde{C^{<t>}}=tanh(W_c[c^{<t-1>},X^{<t>}]+b_c) $$
     \item $$ \Gamma_u = \sigma(W_u[a^{<t-1>},X^{<t>}]+b_u) $$
     \item $$ \Gamma_f = \sigma(W_f[a^{<t-1>},X^{<t>}]+b_f) $$ is the forget gate used instead of $(1-\Gamma_u)$.
-    \item $$ \Gamma_o = \sigma(W_o[a^{<t-1>},X^{<t>}]+b_o) $$ is the output get
-    \item $$ C^{<t>}=\Gamma_u * \tilde{C^{<t>}} + \Gamma_U*C^{<t-1>}$$
+    \item $$ \Gamma_o = \sigma(W_o[a^{<t-1>},X^{<t>}]+b_o) $$ is the output gate
+    \item $$ C^{<t>}=\Gamma_u * \tilde{C^{<t>}} + \Gamma_f*C^{<t-1>}$$
     \item $$ a^{<t>} = \Gamma_o * tanh(C^{<t>})$$.
     \item one notice here is that in $\Gamma_o$ instead of $X^{<t>}$ you could use $C^{<t-1>}$ instead, and known as \textbf{peephole connection}
+      \subsection{Back-propagation}
+      \begin{description}
+        \item (TODO add derivation)
+        \end{description}
+    \end{description}
+    \subsection{Bidirectional RNN}
+    \begin{description}
+    \item (TODO insert the graph here)
+    \item bidirectional RNN runs forward propagation both forward, and backward, utilizing two activation unites $a_f^{<t>}$, and $a_b^{<t>}$, in stead of just $a^{<t>}$, where the propagation flows from $a_f^{<i>} \rightarrow a_f^{<i+1>}$, at the same time, from $a_b^{<i+1>} \leftarrow a_b^{<i>}$, to estimate $$\hat{y^{<t>}} = g(W_y\begin{vmatrix}a_f^{<t>}\\a_b^{<t>}\end{vmatrix} + b_y)$$.
+    \item this model require first processing all the sequence input, before generating any output, with advantage of both backward, and forward contextual semantics awareness, and disadvantage that output is generated after processing all the input X.
+    \end{description}
+    \section{Deep RNNs}
+    \begin{description}
+    \item (TODO insert the graph)
+    \item (TODO add forward/backward propagation)
     \end{description}
   \end{description}
-
 
   \chapter{Probabilistic Graphical Models (PGM)}
   \section{Introduction}
@@ -1240,7 +1256,7 @@
 \item to reduce the sensitivity of each word, and avoid getting 0 $p(w_i|class)$, $class\in \{pos, neg\}$ we modify the conditional probabilistic frequency using the so-called 'laplacian smoothing': $p(w_i|class)=\frac{freq(w_i|class)+1}{freq(class)+unique(V)}$, freq(class) is defined as $N_{class}$, and unique(V) is defined as $N_V$, for example $p(w_i|pos)=\frac{freq(w_i|pos)+1}{N_{pos}+N_V}$.
 \item to keep the scale small as possible likelihood is replaced with log of likelihood coined with symbol $\lambda(w_i)=log(\frac{p(w_i|pos)}{p(w_i|neg)})$, and a prior=$log(\frac{p(pos)}{p(neg)})$, the classifier of a sentence $W$ is equivalent to prior + $\sum_{i=1}^{m}{\lambda{w_i}}$, and if $\lambda>0$ then it's positive, and negative otherwise.
 \end{description}
-\section {costine similaritis}
+\section {cosine similaritis}
 \begin{description}
 
 \item The cosine similarity function is:
