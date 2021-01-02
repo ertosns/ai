@@ -1020,6 +1020,34 @@
     \item (TODO add forward/backward propagation)
     \end{description}
   \end{description}
+  \section{Word Representation}
+  \begin{description}
+  \item previously we discussed one-hot vector representation of a word in NLP models( we will elaborate more on that in following chapters), as a representation of a word in vector of size V, which is the length of the vocabulary, each word is denoted by $O_{word index}$, but this sparse representation have drawbacks, that the dot product(degree of alignment) isn't captured, so any two words, no matter how similar will have zero dot product,  for example the pair Man/Woman, King/Queen, Apple/Orange aren't distinguished from each others, instead a high dimensional featured representation is used coined \textbf{Word Embedding}.
+    \subsection{Word Embedding}
+    \begin{description}
+    \item word embedding for dictionary V is a matrix where each word is represented by a column vector matched against features at each row. in this case, we can use rules of Linear Algebra applied on word embedding representation, as for example to calculate the distance between two different words, so in the pair Queen/King, or Woman/man we expect the distance between the words in each pair to be the same with negligible difference, and this distance is called \textbf{Cosine Similarity}  (we will elaborate on that in following chapters).
+      \subsection{Named Entity recognition}
+      \begin{description}
+      \item in the following two sentences \begin{enumerate}
+      \item Sally Johnson is an orange farmer.
+      \item Robert Lin is an apple farmer.
+      \end{enumerate}
+      \item only with word Embedding a trained BRNN model on a large text corpus, where it encounter the first sentence, can deduce from the second example the ``Robert Lin'' is a name of person.
+      \item to use such model, it first trained on large data-set, then with transfer learning, new tasks are added with moderate size data-set for example 100k words, as analogous to convolution NN in computer vision, where a trained model with large data-set can be utilized with image encoding to generalize to new task.
+
+      \end{description}
+      \item for a Vocabulary of V words, the \textbf{Matrix Embedding} $E$ of N-dimensional features, is consistent of V word embedding, for example for word $w^i$, if it's embedding it's $e_{w^i}$, then $EO_{w^i}=e_{w^i}$ of size N.
+      \subsection{Learning word embedding}
+      \begin{description}
+        \item .
+      \end{description}
+      \subsection{Word2Vec}
+      \begin{description}
+        \item .
+      \end{description}
+      \end{description}
+
+    \end{description}
 
   \chapter{Probabilistic Graphical Models (PGM)}
   \section{Introduction}
@@ -1175,6 +1203,58 @@
   \item given two observations of the input features X, we can define the ratio probability of outcome of two observation: $$
     \frac{P(C=c^1 | x_1,\dots,x_n)}{P(C=c^2 | x_1,\dots,x_n)} = \frac{P(C=c^1)}{P(C=c^2)}\prod_{i=1}^n\frac{P(x_i|C=c^1)}{P(x_i|C=c^2)}$$ (note the first term denoted by the prior, and the second is the odd ratio).
 
+  \end{description}
+  \section{Template Model}
+  \begin{description}
+  \item in real world phenomenons, it's always the case that Bayesian representation of a single isolated example is part of larger interconnected network, with shared features, or parameters, for example in NLP sequence model, the previous word, or character influences the current word/character, even the following sequence can resolve the function of current verb, or identity of the none (in named entity recognition for example), similarly in genetic inheritance model, the phenotypes, and genotypes are shared between different branches of wider family, in robot localization, the current position is influenced by control input, prior speed, and position, in image recognition, it's redundant to create a model for each pixel, but rather through is build off the principle of super pixels, where a blob of pixels with shared features are mapped together into a single network.
+  \item A template variable $X(u_1,\dots,u_k)$ is instantiated multiple times, for example the location in robot localization at specific time step, person's genotypes, pixel in a blob, or segment, etc.
+    \subsection{Distribution over Trajectories}
+    \begin{description}
+    \item  the Template Model is based of time sequence, or distribution over the trajectory as function of time, with time granularity $\Delta$, such that $X^{(t)}$ is the value of X at time $\Delta{t}$. $X^{(t:t')} = { X^{(t)},\dots,X^{(t')}} (t \leq t')$
+    \end{description}
+    \subsection{Markov chain}
+    \begin{description}
+    \item  in a network with trajectory of time $\Delta{t}$ at state $X^{(0:T)}$ with probability: $$P(X^{(0:T)}=P(X^{(0)})\prod_{t=0}^{T-1}P(X^{(t+1)}|X^{(0:t)})$$
+    \item the markov assumption is that the state at time $t+1$ is independent of previous states in the interval $[0\text{-}(t-1)]$ given the state at time t, or $$(X^{(t+1)}\perp X^{(0:t-1)} | X^{(t)})$$.
+    \item  this assumption can be generalized in the following statement \textbf{``once you Know your present, the past doesn't Matter!''}
+    \item thus we can simplify the first equation into: $$P(X^{(0:T)}=P(X^{(0)})\prod_{t=0}^{T-1}P(X^{(t+1)}|X^{(t)})$$
+    \item but you should accept this assumption with a grain of salt, so if the current state doesn't capture he past in full, in this case, this assumption breaks, for example future state of robot position is dependent not just of the position, but velocity as well.
+    \item so only the likelihood $P(X^{(t+1)}|X^{(t)})=P(X'|X)$ and the prior $P(X^{(0)})$ on the interval $[0\text{-}T]$ determine the following state, being \textbf{Invariant to the time}.
+    \item the edges between different time steps are coined:\begin{enumerate}
+    \item \textbf{Intra-time slice: } the edges the the same time $t$
+    \item \textbf{inter-time slice: } the edges between time t, and time t+1.
+    \item \textbf{persistence-time slice: } is inter-time slice but between the same state variables.
+    \end{enumerate}
+      \subsection{Dynamic Bayesian Network DBN}
+      \begin{description}
+      \item Dynamics network is a generalization of a template model Bayesian network defined in trajectory of time steps of arbitrary range, where next state model defined in terms of current states, and priors.
+      \end{description}
+    \end{description}
+    \subsection{Hidden Markov Model (HMM)}
+    \begin{description}
+    \item \textbf{HMMs} are subclass of \textbf{DBNS} with hidden edges either from each state to itself, or from the state at time $t_i$ to arbitrary time $t_j$.
+    \item HMM start from state X to X' through a transition state, and outputs an observation at X', through the HMM network, transition, and observation are wrapped in two matrices Transition, and Observation matrices. (we will elaborate more on that in following chapters)
+    \item (TODO add a graph)
+    \end{description}
+
+  \end{description}
+  \section{Structured CPD}
+  \begin{description}
+  \item previously used tabular representation of the CPD isn't suitable for large network, with node parented by large number of parent nodes, any representation satisfies the general definition would suffice.
+  \item a general CPD $P(X|Y_1,\dots,Y_n)$ specifies distribution over X, for each assignment $Y_1,\dots,Y_2$ can use any function to specify a factor $\phi(X,Y_1,\dots,Y_n)$ such that $\sum_x\phi(X,Y_1,\dots,Y_n)=1$ for all $Y_i,\dots,Y_n$.
+  \item under the general form, usually there are different models used for example:\begin{enumerate}
+  \item Deterministic: is set of $Y_1,\dots,Y_2$  random variables.
+  \item Tree-structured: is conditional CPD.
+  \item Logistic: logistic activation of the variables.
+  \item Noise OR/AND: noise CPD variables.
+  \item Linear Gaussian: continuous variable CPD.
+
+  \end{enumerate}
+  \item context-specific independence: for two independent variables X, Y given Z, are called context independent given context c, where the context is some condition, defined by a function, then CPD satisfies: $$ (X\perp_c Y | Z,c) $$.
+    \subsection{Tree CPD}
+    \begin{description}
+      \item (TODO add graph)
+      \end{description}
   \end{description}
 
   \chapter{Natural language processing}

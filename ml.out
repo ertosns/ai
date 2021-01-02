@@ -132,55 +132,67 @@
 \BOOKMARK [2][-]{subsection.6.9.4}{Back-propagation}{section.6.9}% 132
 \BOOKMARK [2][-]{subsection.6.9.5}{Bidirectional RNN}{section.6.9}% 133
 \BOOKMARK [1][-]{section.6.10}{Deep RNNs}{chapter.6}% 134
-\BOOKMARK [0][-]{chapter.7}{Probabilistic Graphical Models \(PGM\)}{}% 135
-\BOOKMARK [1][-]{section.7.1}{Introduction}{chapter.7}% 136
-\BOOKMARK [2][-]{subsection.7.1.1}{preliminaries}{section.7.1}% 137
-\BOOKMARK [2][-]{subsection.7.1.2}{factors}{section.7.1}% 138
-\BOOKMARK [1][-]{section.7.2}{Bayesian Network Fundamentals}{chapter.7}% 139
-\BOOKMARK [2][-]{subsection.7.2.1}{constructing dependencies}{section.7.2}% 140
-\BOOKMARK [1][-]{section.7.3}{Reasoning Patterns on BN}{chapter.7}% 141
-\BOOKMARK [1][-]{section.7.4}{Flow of Probabilistic Influence}{chapter.7}% 142
-\BOOKMARK [1][-]{section.7.5}{d-separation}{chapter.7}% 143
-\BOOKMARK [2][-]{subsection.7.5.1}{I-map}{section.7.5}% 144
-\BOOKMARK [1][-]{section.7.6}{Naive Bayes Model}{chapter.7}% 145
-\BOOKMARK [0][-]{chapter.8}{Natural language processing}{}% 146
-\BOOKMARK [1][-]{section.8.1}{pre-processing}{chapter.8}% 147
-\BOOKMARK [1][-]{section.8.2}{Example: positive, negative classifier}{chapter.8}% 148
-\BOOKMARK [1][-]{section.8.3}{Logistic regression classifier}{chapter.8}% 149
-\BOOKMARK [1][-]{section.8.4}{Naive Bayes classifier}{chapter.8}% 150
-\BOOKMARK [1][-]{section.8.5}{cosine similaritis}{chapter.8}% 151
-\BOOKMARK [2][-]{subsection.8.5.1}{Euclidean distance}{section.8.5}% 152
-\BOOKMARK [1][-]{section.8.6}{Principle Component Analysis \(PCA\)}{chapter.8}% 153
-\BOOKMARK [1][-]{section.8.7}{Machine Translation}{chapter.8}% 154
-\BOOKMARK [2][-]{subsection.8.7.1}{Loss function L}{section.8.7}% 155
-\BOOKMARK [2][-]{subsection.8.7.2}{gradient descent}{section.8.7}% 156
-\BOOKMARK [2][-]{subsection.8.7.3}{fixed number of iterations}{section.8.7}% 157
-\BOOKMARK [2][-]{subsection.8.7.4}{k-Nearest neighbors algorithm}{section.8.7}% 158
-\BOOKMARK [2][-]{subsection.8.7.5}{Searching for the translation embedding}{section.8.7}% 159
-\BOOKMARK [2][-]{subsection.8.7.6}{LSH and document search}{section.8.7}% 160
-\BOOKMARK [2][-]{subsection.8.7.7}{Bag-of-words \(BOW\) document models}{section.8.7}% 161
-\BOOKMARK [2][-]{subsection.8.7.8}{ Choosing the number of planes}{section.8.7}% 162
-\BOOKMARK [2][-]{subsection.8.7.9}{ Getting the hash number for a vector}{section.8.7}% 163
-\BOOKMARK [1][-]{section.8.8}{Probabilistic model of pronounciation and spelling}{chapter.8}% 164
-\BOOKMARK [2][-]{subsection.8.8.1}{auto-correction}{section.8.8}% 165
-\BOOKMARK [2][-]{subsection.8.8.2}{Bayesian inference model}{section.8.8}% 166
-\BOOKMARK [2][-]{subsection.8.8.3}{Minimum edit distance}{section.8.8}% 167
-\BOOKMARK [1][-]{section.8.9}{Grammar Weighted Automata}{chapter.8}% 168
-\BOOKMARK [2][-]{subsection.8.9.1}{Markov chain}{section.8.9}% 169
-\BOOKMARK [2][-]{subsection.8.9.2}{Hidden Markov Models HMMs}{section.8.9}% 170
-\BOOKMARK [2][-]{subsection.8.9.3}{Viterbi Algorithm}{section.8.9}% 171
-\BOOKMARK [2][-]{subsection.8.9.4}{Part of Speech tagging \(POS\)}{section.8.9}% 172
-\BOOKMARK [1][-]{section.8.10}{N-grams}{chapter.8}% 173
-\BOOKMARK [2][-]{subsection.8.10.1}{Smoothing}{section.8.10}% 174
-\BOOKMARK [2][-]{subsection.8.10.2}{Back-off}{section.8.10}% 175
-\BOOKMARK [2][-]{subsection.8.10.3}{Interpolation}{section.8.10}% 176
-\BOOKMARK [0][-]{section*.3}{Appendices}{}% 177
-\BOOKMARK [0][-]{appendix.a.A}{Introduction to probabilities}{}% 178
-\BOOKMARK [1][-]{section.a.A.1}{probabilities chain rule}{appendix.a.A}% 179
-\BOOKMARK [1][-]{section.a.A.2}{Naive Bayes}{appendix.a.A}% 180
-\BOOKMARK [0][-]{appendix.a.B}{Covariance}{}% 181
-\BOOKMARK [0][-]{appendix.a.C}{Single Value Decomposition}{}% 182
-\BOOKMARK [0][-]{appendix.a.D}{Exponentially weighted averages}{}% 183
-\BOOKMARK [1][-]{subsection.a.D.0.1}{How to choose the value \040?}{appendix.a.D}% 184
-\BOOKMARK [0][-]{appendix.a.E}{smoothing \(add-k, and add-one Laplacian\)}{}% 185
-\BOOKMARK [0][-]{appendix.a.F}{Kernels, and Convolution functions}{}% 186
+\BOOKMARK [1][-]{section.6.11}{Word Representation}{chapter.6}% 135
+\BOOKMARK [2][-]{subsection.6.11.1}{Word Embedding}{section.6.11}% 136
+\BOOKMARK [2][-]{subsection.6.11.2}{Named Entity recognition}{section.6.11}% 137
+\BOOKMARK [2][-]{subsection.6.11.3}{Learning word embedding}{section.6.11}% 138
+\BOOKMARK [2][-]{subsection.6.11.4}{Word2Vec}{section.6.11}% 139
+\BOOKMARK [0][-]{chapter.7}{Probabilistic Graphical Models \(PGM\)}{}% 140
+\BOOKMARK [1][-]{section.7.1}{Introduction}{chapter.7}% 141
+\BOOKMARK [2][-]{subsection.7.1.1}{preliminaries}{section.7.1}% 142
+\BOOKMARK [2][-]{subsection.7.1.2}{factors}{section.7.1}% 143
+\BOOKMARK [1][-]{section.7.2}{Bayesian Network Fundamentals}{chapter.7}% 144
+\BOOKMARK [2][-]{subsection.7.2.1}{constructing dependencies}{section.7.2}% 145
+\BOOKMARK [1][-]{section.7.3}{Reasoning Patterns on BN}{chapter.7}% 146
+\BOOKMARK [1][-]{section.7.4}{Flow of Probabilistic Influence}{chapter.7}% 147
+\BOOKMARK [1][-]{section.7.5}{d-separation}{chapter.7}% 148
+\BOOKMARK [2][-]{subsection.7.5.1}{I-map}{section.7.5}% 149
+\BOOKMARK [1][-]{section.7.6}{Naive Bayes Model}{chapter.7}% 150
+\BOOKMARK [1][-]{section.7.7}{Template Model}{chapter.7}% 151
+\BOOKMARK [2][-]{subsection.7.7.1}{Distribution over Trajectories}{section.7.7}% 152
+\BOOKMARK [2][-]{subsection.7.7.2}{Markov chain}{section.7.7}% 153
+\BOOKMARK [2][-]{subsection.7.7.3}{Dynamic Bayesian Network DBN}{section.7.7}% 154
+\BOOKMARK [2][-]{subsection.7.7.4}{Hidden Markov Model \(HMM\)}{section.7.7}% 155
+\BOOKMARK [1][-]{section.7.8}{Structured CPD}{chapter.7}% 156
+\BOOKMARK [2][-]{subsection.7.8.1}{Tree CPD}{section.7.8}% 157
+\BOOKMARK [0][-]{chapter.8}{Natural language processing}{}% 158
+\BOOKMARK [1][-]{section.8.1}{pre-processing}{chapter.8}% 159
+\BOOKMARK [1][-]{section.8.2}{Example: positive, negative classifier}{chapter.8}% 160
+\BOOKMARK [1][-]{section.8.3}{Logistic regression classifier}{chapter.8}% 161
+\BOOKMARK [1][-]{section.8.4}{Naive Bayes classifier}{chapter.8}% 162
+\BOOKMARK [1][-]{section.8.5}{cosine similaritis}{chapter.8}% 163
+\BOOKMARK [2][-]{subsection.8.5.1}{Euclidean distance}{section.8.5}% 164
+\BOOKMARK [1][-]{section.8.6}{Principle Component Analysis \(PCA\)}{chapter.8}% 165
+\BOOKMARK [1][-]{section.8.7}{Machine Translation}{chapter.8}% 166
+\BOOKMARK [2][-]{subsection.8.7.1}{Loss function L}{section.8.7}% 167
+\BOOKMARK [2][-]{subsection.8.7.2}{gradient descent}{section.8.7}% 168
+\BOOKMARK [2][-]{subsection.8.7.3}{fixed number of iterations}{section.8.7}% 169
+\BOOKMARK [2][-]{subsection.8.7.4}{k-Nearest neighbors algorithm}{section.8.7}% 170
+\BOOKMARK [2][-]{subsection.8.7.5}{Searching for the translation embedding}{section.8.7}% 171
+\BOOKMARK [2][-]{subsection.8.7.6}{LSH and document search}{section.8.7}% 172
+\BOOKMARK [2][-]{subsection.8.7.7}{Bag-of-words \(BOW\) document models}{section.8.7}% 173
+\BOOKMARK [2][-]{subsection.8.7.8}{ Choosing the number of planes}{section.8.7}% 174
+\BOOKMARK [2][-]{subsection.8.7.9}{ Getting the hash number for a vector}{section.8.7}% 175
+\BOOKMARK [1][-]{section.8.8}{Probabilistic model of pronounciation and spelling}{chapter.8}% 176
+\BOOKMARK [2][-]{subsection.8.8.1}{auto-correction}{section.8.8}% 177
+\BOOKMARK [2][-]{subsection.8.8.2}{Bayesian inference model}{section.8.8}% 178
+\BOOKMARK [2][-]{subsection.8.8.3}{Minimum edit distance}{section.8.8}% 179
+\BOOKMARK [1][-]{section.8.9}{Grammar Weighted Automata}{chapter.8}% 180
+\BOOKMARK [2][-]{subsection.8.9.1}{Markov chain}{section.8.9}% 181
+\BOOKMARK [2][-]{subsection.8.9.2}{Hidden Markov Models HMMs}{section.8.9}% 182
+\BOOKMARK [2][-]{subsection.8.9.3}{Viterbi Algorithm}{section.8.9}% 183
+\BOOKMARK [2][-]{subsection.8.9.4}{Part of Speech tagging \(POS\)}{section.8.9}% 184
+\BOOKMARK [1][-]{section.8.10}{N-grams}{chapter.8}% 185
+\BOOKMARK [2][-]{subsection.8.10.1}{Smoothing}{section.8.10}% 186
+\BOOKMARK [2][-]{subsection.8.10.2}{Back-off}{section.8.10}% 187
+\BOOKMARK [2][-]{subsection.8.10.3}{Interpolation}{section.8.10}% 188
+\BOOKMARK [0][-]{section*.3}{Appendices}{}% 189
+\BOOKMARK [0][-]{appendix.a.A}{Introduction to probabilities}{}% 190
+\BOOKMARK [1][-]{section.a.A.1}{probabilities chain rule}{appendix.a.A}% 191
+\BOOKMARK [1][-]{section.a.A.2}{Naive Bayes}{appendix.a.A}% 192
+\BOOKMARK [0][-]{appendix.a.B}{Covariance}{}% 193
+\BOOKMARK [0][-]{appendix.a.C}{Single Value Decomposition}{}% 194
+\BOOKMARK [0][-]{appendix.a.D}{Exponentially weighted averages}{}% 195
+\BOOKMARK [1][-]{subsection.a.D.0.1}{How to choose the value \040?}{appendix.a.D}% 196
+\BOOKMARK [0][-]{appendix.a.E}{smoothing \(add-k, and add-one Laplacian\)}{}% 197
+\BOOKMARK [0][-]{appendix.a.F}{Kernels, and Convolution functions}{}% 198

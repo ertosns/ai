@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.12.2)  1 JAN 2021 16:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.12.2)  2 JAN 2021 12:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -853,53 +853,53 @@ Overfull \hbox (9.0504pt too wide) in paragraph at lines 954--955
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [65]
-[66] [67] [68] [69] [70]
-Chapter 7.
-[71
+[66] [67] [68] [69] [70] [71] [72
 
 ]
-Overfull \hbox (8.82083pt too wide) in paragraph at lines 1038--1039
+Chapter 7.
+[73]
+Overfull \hbox (8.82083pt too wide) in paragraph at lines 1066--1067
 \OT1/cmr/m/n/12 con-di-tions for sub-set of the ran-dom vari-ables for ex-am-pl
 e $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 I; D; G[]\OT1/cmr/m/n/12
  )$
  []
 
 
-Overfull \hbox (8.77403pt too wide) in paragraph at lines 1046--1047
+Overfull \hbox (8.77403pt too wide) in paragraph at lines 1074--1075
 []\OT1/cmr/bx/n/12 factor marginal-iza-tion\OT1/cmr/m/n/12 : from dis-tri-bu-ti
 on $\OML/cmm/m/it/12 ^^^[]$\OT1/cmr/m/n/12 , $\OML/cmm/m/it/12 ^^^[] \OT1/cmr/m
 /n/12 =
  []
 
 
-Overfull \hbox (32.52115pt too wide) in paragraph at lines 1047--1048
+Overfull \hbox (32.52115pt too wide) in paragraph at lines 1075--1076
 []\OT1/cmr/bx/n/12 reduced fac-tor\OT1/cmr/m/n/12 : re-duced fac-tor over $\OML
 /cmm/m/it/12 C[]$ \OT1/cmr/m/n/12 is $\OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/12 = 
 \OML/cmm/m/it/12 ^^^[] \OMS/cmsy/m/n/12  
  []
 
 
-Overfull \hbox (26.07617pt too wide) in paragraph at lines 1049--1050
+Overfull \hbox (26.07617pt too wide) in paragraph at lines 1077--1078
 \OT1/cmr/m/n/12 prob-a-bil-ity with a joint prob-a-bil-ity dis-tri-bu-tion, for
  ex-am-ple $\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 G\OMS/cmsy/m/n/
 12 j\OML/cmm/m/it/12 I; D\OT1/cmr/m/n/12 )$. 
  []
 
 
-Overfull \hbox (2.01534pt too wide) in paragraph at lines 1054--1055
+Overfull \hbox (2.01534pt too wide) in paragraph at lines 1082--1083
 \OT1/cmr/m/n/12 dif-fi-culity),I(intelligence),S(sat score),L(reference rec-om-
 men-da-tion
  []
 
-[72]
-Overfull \hbox (46.53305pt too wide) in paragraph at lines 1068--1069
+[74]
+Overfull \hbox (46.53305pt too wide) in paragraph at lines 1096--1097
 \OT1/cmr/m/n/12 structed graph, fac-tor-iza-tion of the joint dis-tri-bu-tion $
 \OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 D; I; G; S; L\OT1/cmr/m/n/1
 2 ) =
  []
 
 
-Overfull \hbox (54.22307pt too wide) in paragraph at lines 1068--1069
+Overfull \hbox (54.22307pt too wide) in paragraph at lines 1096--1097
 \OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 L\OMS/cmsy/m/n/12 j\OML/cmm
 /m/it/12 G\OT1/cmr/m/n/12 )$, there-for $\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OM
 L/cmm/m/it/12 D; I; G; S; L\OT1/cmr/m/n/12 ) = \OML/cmm/m/it/12 P\OT1/cmr/m/n/1
@@ -912,22 +912,22 @@ OML/cmm/m/it/12 G\OT1/cmr/m/n/12 )$.
  []
 
 
-Overfull \hbox (66.17967pt too wide) in paragraph at lines 1069--1117
+Overfull \hbox (66.17967pt too wide) in paragraph at lines 1097--1145
 []\OT1/cmr/m/n/12 , P(G) [], P(L) [] 
  []
 
 
 Underfull \vbox (badness 7944) has occurred while \output is active []
 
- [73]
-[74]
-Overfull \hbox (6.59328pt too wide) in paragraph at lines 1137--1138
+ [75]
+[76]
+Overfull \hbox (6.59328pt too wide) in paragraph at lines 1165--1166
 []\OT1/cmr/m/n/12 to look for ac-tive trails, we search the graph from V-struct
 ures. 
  []
 
 
-Overfull \hbox (168.80397pt too wide) in paragraph at lines 1140--1140
+Overfull \hbox (168.80397pt too wide) in paragraph at lines 1168--1168
 []\OT1/cmr/m/n/12 chain rule ex-pan-sion of $\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 
 (\OML/cmm/m/it/12 D; I; G; S; L\OT1/cmr/m/n/12 ) = \OML/cmm/m/it/12 P\OT1/cmr/m
 /n/12 (\OML/cmm/m/it/12 D\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\O
@@ -939,12 +939,27 @@ msy/m/n/12 j\OML/cmm/m/it/12 G; I; D\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 P\OT1/cmr
 r/m/n/12 )$
  []
 
-[75] [76] [77] [78
+[77] [78] [79]
+Overfull \hbox (0.8702pt too wide) in paragraph at lines 1222--1223
+[]\OT1/cmr/m/n/12 so only the like-li-hood $\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (
+\OML/cmm/m/it/12 X[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 X[]\OT1/cmr/m/n/12 ) = \
+OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 X[]\OMS/cmsy/m/n/12 j\OML/cm
+m/m/it/12 X\OT1/cmr/m/n/12 )$ and the prior $\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 
+(\OML/cmm/m/it/12 X[]\OT1/cmr/m/n/12 )$
+ []
 
-]
+
+Overfull \hbox (7.46806pt too wide) in paragraph at lines 1230--1231
+[]\OT1/cmr/m/n/12 Dynamics net-work is a gen-er-al-iza-tion of a tem-plate mode
+l Bayesian
+ []
+
+[80] [81] [82]
 Chapter 8.
-[79] [80] [81] [82]
-Overfull \hbox (33.14264pt too wide) in paragraph at lines 1254--1255
+[83
+
+] [84] [85] [86]
+Overfull \hbox (33.14264pt too wide) in paragraph at lines 1334--1335
 []\OT1/cmr/m/n/12 Recall that con-di-tional prob-a-bil-ity $\OML/cmm/m/it/12 p\
 OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 pos\OT1/
 cmr/m/n/12 ) = []$, $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 pos\OT
@@ -953,104 +968,111 @@ cmr/m/n/12 ) = []$, $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 pos\OT
  []
 
 
-Overfull \hbox (16.12262pt too wide) in paragraph at lines 1256--1257
+Overfull \hbox (16.12262pt too wide) in paragraph at lines 1336--1337
 \OT1/cmr/m/n/12 us-ing the so-called 'lapla-cian smooth-ing': $\OML/cmm/m/it/12
  p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 class
 \OT1/cmr/m/n/12 ) = []$,
  []
 
-[83] [84] [85] [86] [87] [88] [89] [90] [91]
-Overfull \hbox (4.80772pt too wide) in paragraph at lines 1452--1452
+[87] [88] [89] [90] [91] [92] [93] [94] [95]
+Overfull \hbox (4.80772pt too wide) in paragraph at lines 1532--1532
 []\OT1/cmr/bx/n/17.28 Probabilistic model of pro-noun-ci-a-tion and
  []
 
-[92]
+[96]
 Overfull \hbox (14.25706pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 8.8.  PROBABILISTIC MODEL OF PRONOUNCIATION AND SPELLING \OT1/
-cmr/m/n/12 93
+cmr/m/n/12 97
  []
 
-[93]
-Overfull \hbox (40.14713pt too wide) detected at line 1480
+[97]
+Overfull \hbox (40.14713pt too wide) detected at line 1560
 \OML/cmm/m/it/12 dstance\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 i; j\OT1/cmr/m/n/12 ]
  \OMS/cmsy/m/n/12   \OML/cmm/m/it/12 Min []
  []
 
-[94] [95] [96] [97] [98]
+[98] [99] [100] [101] [102]
 
-Package natbib Warning: Citation `xyz2' on page 99 undefined on input line 1566
-.
+Package natbib Warning: Citation `xyz2' on page 103 undefined on input line 164
+6.
 
 No file ml.bbl.
-[99] [100
+[103] [104
 
-] [101
+] [105
 
-] [102]
+] [106]
 Appendix A.
-[103
+[107
 
-] [104
+] [108
 
 ]
 Appendix B.
-[105] [106
+[109] [110
 
 ]
 Appendix C.
-[107] [108
+[111] [112
 
 ]
 Appendix D.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 1581.
+(hyperref)                than one, level fixed on input line 1661.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 1581.
+(hyperref)                removing `math shift' on input line 1661.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\beta' on input line 1581.
+(hyperref)                removing `\beta' on input line 1661.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 1581.
+(hyperref)                removing `math shift' on input line 1661.
 
-[109] [110]
+[113] [114]
 Appendix E.
-[111
+[115
 
 ]
 Overfull \hbox (1.63107pt too wide) has occurred while \output is active
-\OT1/cmr/m/n/12 112 \OT1/cmr/m/sl/12 APPENDIX E.  SMOOTHING (ADD-K, AND ADD-ONE
+\OT1/cmr/m/n/12 116 \OT1/cmr/m/sl/12 APPENDIX E.  SMOOTHING (ADD-K, AND ADD-ONE
  LAPLACIAN)
  []
 
-[112
+[116
 
 ]
 Appendix F.
 
 Package natbib Warning: There were undefined citations.
 
-[113]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1599.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1599.
+[117]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1679.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1679.
  (./ml.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1599.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1599.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1679.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1679.
 
-Package rerunfilecheck Info: File `ml.out' has not changed.
-(rerunfilecheck)             Checksum: FF72709059E96A25D1CDE103677DE08E;13326.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1599.
+
+
+Package rerunfilecheck Warning: File `ml.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `ml.out':
+(rerunfilecheck)             Before: F537BA0334CCAC4D966B7E6B5F5F5EBE;14130
+(rerunfilecheck)             After:  033E616CE55877435201BD96493DB9D0;14195.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1679.
  ) 
 Here is how much of TeX's memory you used:
- 18055 strings out of 482663
- 332531 string characters out of 5955139
- 568954 words of memory out of 5000000
- 32512 multiletter control sequences out of 15000+600000
+ 18092 strings out of 482663
+ 333002 string characters out of 5955139
+ 568963 words of memory out of 5000000
+ 32523 multiletter control sequences out of 15000+600000
  544936 words of font info for 71 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
  60i,12n,77p,1196b,1205s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1070,10 +1092,10 @@ r8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ml.pdf (113 pages, 416080 bytes).
+Output written on ml.pdf (117 pages, 428107 bytes).
 PDF statistics:
- 1624 PDF objects out of 1728 (max. 8388607)
- 1477 compressed objects within 15 object streams
- 352 named destinations out of 1000 (max. 500000)
- 1501 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1713 PDF objects out of 1728 (max. 8388607)
+ 1561 compressed objects within 16 object streams
+ 378 named destinations out of 1000 (max. 500000)
+ 1589 words of extra memory for PDF output out of 10000 (max. 10000000)
 
