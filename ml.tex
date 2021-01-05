@@ -706,7 +706,7 @@
         \item even if the object stretches on multiple grid cells, it's only assigned to a single cell.
         \item to specify the bounding box inside a grid, the center of the detected object is coordinated with respect to the origin(0,0) of the cell on the top most left, and the bottom right assigned to (1,1), therefore the center$(b_x,b_y)$ must be between 0,1, where as the $b_w,b_h$ can be greater than 1 if it wraps multiple cells, and it's measured by the ratio with respect to the cell width, or height respectively.
         \end{description}
-        \subsection{Intersection over Union IOU function}
+        \subsection{Jaccard distance, or Intersection over Union IOU function}
         \begin{description}
           \item it's an accuracy metric for how well the model is performing, and defined by the area of intersection between the prediction, and the labeled bounding boxes, over the prediction area. indicating how far this predicted bounding box fits into the ground truth table.
         \end{description}
@@ -1037,17 +1037,48 @@
 
       \end{description}
       \item for a Vocabulary of V words, the \textbf{Matrix Embedding} $E$ of N-dimensional features, is consistent of V word embedding, for example for word $w^i$, if it's embedding it's $e_{w^i}$, then $EO_{w^i}=e_{w^i}$ of size N.
-      \subsection{Learning word embedding}
-      \begin{description}
-        \item .
-      \end{description}
-      \subsection{Word2Vec}
-      \begin{description}
-        \item .
-      \end{description}
-      \end{description}
+        \subsection{Learning word embedding}
+        \begin{description}
+        \item How word embedding is generated for a new word? given Matrix Embedding?
+          %TODO add a graph representation
+        \item In a sequence of words $w_1,w_2,\dots,w_{n_1}$, prediction of the \textbf{nth} word $w_n$ can be the output of a Neural Network, feed by window \textbf{W} of preceding word embedding, given a Matrix Embedding E of N features, and sentence, with corresponding one-hot vector representation of \textbf{V} words vocabulary  , each vector work embedding $e_{w^i}$ is calculated, and feed as input to the neural network. the final neural network would be of input size $W\times{N}$, feed to neural network of L layers (usually 1 layer), with final SOFTMAX output of length V, and produces the predicted one-hot vector representation of the \textbf{nth} word $w_n$.
+          \subsection{Word2Vec}
+            \subsection{Skip gram}
+            \begin{description}
+            \item skip-gram word embedding generation fixated a target word $w_t$, or for simplicity, rather than feeding the preceding sequence in window W, it randomly samples a context word $w_c$, or c for simplicity, from a window of length \textbf{W}, with equal length input/output layers, with middle SOFTMAX activation layer.
 
+              \subsection{hierarchical SOFTMAX}
+              \begin{description}
+                %TODO elaborate more! check the paper.
+              \item for a small vocabulary V of even 10k words, generating a word embedding for each words $P(w_t|w_c)$ can be quite expensive summing over the entire vocabulary for each target word: $$ p(w_t|w_c) = \frac{e^{\theta_t^Te_c}}{\sum_{j=1}^Ve^{\theta_j^Te_c}}$$ notice here the bias term is ignored, where $\theta_k$ is the weight parameter associated with word $w_k$ for i $\in$ [1\text{-}V]. so instead the hierarchical SOFTMAX sorts the context words in tree, and uses a binary-search-like algorithms to narrow down the search to closest word region.
+                %thus summing over smaller range
+                \item
+              \item secondly in the random sampling, the heuristic is not to choice uniformly, ending up repeating the calculation for the most frequent words for example the STOP words ``the'', or ``of'' as context words.
+                \end{description}
+            \end{description}
+            \subsection{Negative Sampling}
+            \begin{description}
+            \item another variant, yet faster than SOFTMAX embedding generation network is Negative Sampling, it solves the expensive activation, so instead of summing over the whole Vocabulary, the window of K words from a data-set of input X context/target words map, and output binary vector Y, $$ \begin{cases} 1 \leftarrow \text{context and target matches}\\ 0 \leftarrow \text{otherwise} \end{cases} $$
+            \item the sampling of the k words is chosen from the distribution: $$ P(w_i) = \frac{f(w_i)^{\frac{3}{4}}}{\sum_{j=1}^{V}f(w_j)^{\frac{3}{4}}} $$ for f being the frequency function, (this proven to be efficient).
+            \item k is changed depending on the size of the data-set for a small data-set it usually 5-20, for large-dataset, it's less then 5, for example the input vector for the target word $w_t$ from randomly chosen context words with X-Y being for example: $$\begin{vmatrix}w_c^1\\w_c^2\\ \vdots\\w_c^k\end{vmatrix}  \rightarrow \begin{vmatrix}1\\0\\ \vdots\\0\end{vmatrix}$$,
+              \item for a given data-set, it's possible to randomly choose words from the dictionary, and assign it as negative (with value zero), and added it to the X-Y mapping,
+              \item then similar to the skip-gram algorithm, the embedding of each word vector is feed to the neural network, but instead of softmax activation, logistic activation used instead: $$ P(y=1|c,t) = \sigma(\theta_t^Te_c) $$
+            \end{description}
+            \subsection{GloVe (global vector for word representation)}
+            \begin{description}
+            \item even simpler word representation is the GloVe algorithm, a descent of the neural word embedding, and skip-gram.
+            \item for a specific context function, input X, is the frequency of the one target word appearing in the context of another, such that $X_{ij}$ is the frequency of the $w_j$ appearing in the context of $w_i$.
+            \item Glove cost function is thus defined as follows $$ J(\theta, e) = \sum_{i=1}^V\sum_{j=1}^Vf(X_{ij})(\theta_i^Te_j + b_i + b_j - log(X_{ij}))^2 $$
+            \item in gradient descent both the weight $\theta$, and the embedding e are updated, moreover after each word, the embedding is normalized as follows $e_w=\frac{e_w+\theta_w}{2}$
+            \item it's worth noting that for invertible matrix A, a transformation over the vector space of the embedding $(A\theta_i)^T(A^{-T}e_j)=\theta_i^Te_j$, meaning different transformation over the embedding vector can lead to the same evaluation of the cost, and therefore with different interpretations on the single vector space, that doesn't guarantee that specific embedding will be human-interpretable.
+            \end{description}
+        \end{description}
     \end{description}
+    \section{Example: Sentiment Classification}
+    \begin{description}
+    \item for a sequence of N words review, for example a review of a product, ignoring the sequence order, the problem can be modeled in a simple SOFTMAX activation layer of the average, or sum of the embedding of the sequence words $ z = \sum_{i=1}^Ne_i $, while Y is a 5 star classification vector of length 5, $\hat{y} = softmax(z)$ the problem with this model, it fails to accurately classify long sentences, sentences that aren't straight-forward, to maintain the sequence, many-to-one RNN is used instead, and feed with the word embedding as the input,  with output softmax layer.
+    \end{description}
+  \end{description}
 
   \chapter{Probabilistic Graphical Models (PGM)}
   \section{Introduction}
