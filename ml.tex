@@ -5,9 +5,24 @@
 \usepackage[toc,page]{appendix}
 \usepackage{hyperref}
 \usepackage[semicolon,round,sort&compress,sectionbib]{natbib}
+\usepackage{graphicx,accents}
 \usepackage{chapterbib}
 \usepackage{tikz}
-\usetikzlibrary{positioning,chains}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+%\usepackage[demo]{graphicx}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{external}
+
+% Define \figref as abbreviation of "Figure~\ref{...}"
+\newcommand\figref{Figure~\ref}
+%\usetikzlibrary{positioning}
+\usetikzlibrary{positioning, fit, arrows.meta, shapes, chains}
+
+% used to avoid putting the same thing several times...
+% Command \empt{var1}{var2}
+\newcommand{\empt}[2]{$#1^{\langle #2 \rangle}$}
+
 \makeindex
 
 
@@ -27,7 +42,7 @@
 \tableofcontents
 
 \chapter*{Introduction}
-0\addcontentsline{toc}{chapter}{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
 
 \section{notation}
 \begin{description}
@@ -404,6 +419,86 @@
   \item softmax is a probabilistic activation function, run over $z^{[L]}$ is defined as: $$
     a^{[L]}=\frac{e^{z^{[l]}}}{\sum_{i=1}^{n^{[L]}}t_i},$$  where $t=e^{z^{[L]}} $.
     \item the resultant $\sum_{i=1}^{n^{[L]}}{a_i^{[L]}}=1$, where $n^{[L]}$ is the number of neurons, or nodes in the final layer, which is the same as the number of classes at output \textbf{y}.
+  \end{description}
+  \section{Support Vector Machine (SVM)}
+  \begin{description}
+  \item so far the cost function with regularization is $$\frac{1}{m}[\sum_{i=1}^my^{(i)}(-log(\text( h_{\theta})(x^{(i)})) + (1-y^{(i)}) ((-log(1-h_{\theta}(x^{(i)})))] + \frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2 $$
+  \item a historical, and widely used alternative yet similar algorithm is support vector machine or SVM, but first let's delve deeper inside the sigmoid function.
+
+  \item \begin{tikzpicture}
+      \begin{axis}
+        %\addplot[color=red]{log(x)};
+        \addplot[color=red]{1/(1+exp(-x))};
+        \legend{$\sigma(x)$}
+      \end{axis}
+    \end{tikzpicture}
+    %Here ends the furst plot
+    \hskip 5pt
+    %Here begins the 3d plot
+    %\begin{tikzpicture}
+     % \begin{axis}
+      %  \addplot3[surf,] {1/(1+exp(-x))};
+       % \legend{$\sigma(x)$}
+      %\end{axis}
+    %\end{tikzpicture}
+  \item to get $y=1$ when $z\gg0$, on the other end for $y=0$ then $z\ll0$.
+  \item if we generalize our look to the logistic cost function, if $y=0$ then the equation reduces to  $$\frac{1}{m}[\sum_{i=1}^my^{(i)}(-log(\text( h_{\theta}(x^{(i)}))] + \frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2 $$, we cant define a define $cost_1=-log(\text( h_{\theta})(x^{(i)})=-log(\theta^TX)$
+%%
+  \item \begin{tikzpicture}
+    \begin{axis}
+      %TODO fix this graph!!
+      \addplot[red,smooth] {-ln(1/(1+exp(-x)))};
+      \addlegendentry{$-log(\frac{1}{(1+e(-\theta^TX)))}$}
+      \addplot[blue, smooth] {(\x<=1) * (\x*-1) };
+      \addlegendentry{$cost_1$}
+    \end{axis}
+  \end{tikzpicture}
+    \begin{tikzpicture}
+      \begin{axis}
+        %TODO fix this graph!!
+      \addplot[red,smooth] {-ln(1-1/(1+exp(-x)))};
+      \addlegendentry{$-log(1- \frac{1}{(1+e(-\theta^TX)))}$}
+      \addplot[blue] {(\x>=-1) * (\x*1) };
+      \addlegendentry{$cost_0$}
+    \end{axis}
+    \end{tikzpicture}
+%%
+  \item $cost_1$: the linear lower bound of $-log(\text( h_{\theta})(x^{(i)})$ term, when y=1, and $\theta^TX>=1$
+  \item $cost_0$: the linear lower bound of $-log(1-h_{\theta}(x^{(i)})))$ term, when y=0, and $\theta^TX<=-1$
+  \item penalization term $\lambda$ is added to the first term instead,  $C \approx \frac{1}{\lambda}$, and finally, and averaging by m can be ignored since we multiply by large value C, and can also be ignored from the regularization term, since the $\theta$ is adjusted in the first term, note that the regularization term is just the Euclidean norm $\lVert \theta \rVert_2$
+  \item the final SVM: $$C\sum_{i=1}^m[y^{(i)}(cost_1(\theta^TX^{(i)})) + (1-y^{(i)}) (cost_0(\theta^TX^{(i)})] + \frac{1}{2} \lVert \theta \rVert_2$$
+  \item and the intuition for this is the first term get trained such that when $y=1$ then $cost_1=0$, if $y=0$, then $cost_0=0$, thus the first term is set to zero, and then SVM thrinks down to minimizing $$\frac{1}{2} \lVert \theta \rVert_2$$.
+    \subsection{Large Margins in linear Decision Boundaries}
+    \begin{description}
+    \item it turns out that SVM do a pretty good job in decision boundary for given data-set, assume we classify class A against class B in the given data-set, first in a linear classification, it draw a line in between the two blobs of data, with nearly equal margins in both sides, the reason is in the hypothesis constrains $z=\theta^TX$, for $y=1$ then $z>=1$, and if $y=0$ then $z<=-1$, thus the model is trained to classify classes A,B outside the Large margin [-1\text{-}1], also note that the $\theta^Tx^i$ is the dot product (degree of alignment) between the weight parameter, and the training example $x^i$, and since z in required to be outside the defined range, thus z need to be a large value, meaning that both $\vec{x}$, $\vec{\theta}$ need to be aligned, otherwise z shrinks to zero at perpendicular angle $90^{\degree}$. if for example $\vec{\theta}$ is inclined w.r.t $\vec{x^{i}}$ by $\Theta^{\degree}$, then $\vec{\theta}$ need to be pretty large in order for z to lay outside ]-1\text{-}1[, but since we using penalizing factor $C$, then $\vec{\theta}$ is maintained to reasonable value, and thus the SVM model converges to the optimal decision boundary with large margins.
+    \end{description}
+    \subsection{Non-linear Decision Boundaries}
+    \begin{description}
+    \item previous hypothesis $\theta^TX$ is linear, in case of non-linear features, for example extracting faces for pictures, the problem is no longer classification of two categories, but rather features extraction of non-linear features from n-Dimensional example of n features. for example $ f(x) = \theta_1x_1 + \theta_2x_2+ \theta_3x_1^2 + \theta_4x_2^2 + \theta_5x_1x_2 + \theta_6x_1^2x_2^2 + \dots $ can be a good representative for capturing the non-linear boundaries for training example $x^i$ for all i in n. for a problem with large number of features is equation can be very expensive to train, instead choosing a appropriate polynomial of k-degree, to suits our problem decision boundary can be easier to train.
+      \subsection{Gaussian kernel}
+      \begin{description}
+      \item in a non linear boundaries, where class A is surrounded by the class B scattered plots, the most appropriate used function is the normal, or Gaussian distribution function $$f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$ yet instead of $\mu$ we use locality points (we will discuss this in the convolution neural network chapter), and since we deal with vector the numerator is the Euclidean distance $\lVert x^{(i)} - l^{(i)} \rVert$.
+      \item so for each training example $x^{(i)}$ if it exists in the neighbourhood of the locality point $l^{(j)}$ for i,j $\in$ m. with computational cost $O(m^2)$ then f(x)=0, otherwise if the distance is too far, f(x)=1, thus SVM with Gaussian kernel hypothesis: $$C\sum_{i=1}^m[y^{(i)}(cost_1(\theta^Tf^{(i)})) + (1-y^{(i)}) (cost_0(\theta^Tf^{(i)})] + \frac{1}{2} \lVert \theta \rVert_2$$
+      \end{description}
+    \end{description}
+  \end{description}
+  \section{Unsupervised Learning (Introduction)}
+  \begin{description}
+  \item in \textbf{supervised learning}, given structure data-set of input X, and output Y, and the model has to be trained to map X $\rightarrow$ Y, in \textbf{unsupervised learning}, given only input X, the model has to be trained to extract similarities between input examples, thus classifying them into different coherent classes, for example in NLP, using clustering k-mean algorithm to compute word embedding similarity, or another more interesting example is identification of galaxies, and stars from astronomical pictures, another example is market segmentation, even when the data doesn't fit into separate coherent clusters, cut extend over a long range, it can be divided onto K number of classes/clusters
+    \subsection{k-mean algorithm}
+    \begin{description}
+    \item given and input $X={x^1,x^2,\dots,x^m}$, randomly sample the K centroids (cluster centroids) over X, secondly is the assignment step, in which for each example $x^i$ for all i $\in$ m, $c^{(i)}$ is assigned  to the centroid with the shortest distance, thus taking the values $[1\text{-}k]$, so if $x^i$ is closest to $k^{\textbf{th}}$ then $c^{(i)}=k$, thirdly, and final step is the centroid movement, in which for each centroid $\mu_k$ for k $\in$ K, is relocated to the average of all points assigned to it.
+    \item the cost function $$ J=1/m\sum_{i=0}^m\lVert x^{(i)} - \mu^{(i)} \rVert^2 $$
+    \item to avoid falling into a local optima, multiple instantiation of the algorithm with different random initialization is advised, at the end the lowest cost is chosen.
+    \item finally, if the number of clusters is unknown, and set arbitrary, then it need to commit to the constraint that $K <= m$, and whenever a centroid isn't assigned with any example, then K can be reduced by this number of unassigned centroids, or number of clusters can be plotted against the cost function, and we choose the pivotal k where the slop of cost changes significantly if any exist called \textbf{Elbow method}.
+    \end{description}
+    \subsection{Principle Component Analysis  PCA}
+    \begin{description}
+    \item another technique that will come useful later on in the NLP chapter is dimensionality reduction, having high-dimensional input data-set, with potentially redundant features, reducing the dimensions can be useful for both understanding data, and getting rid of redundancy, so for training data set with m training examples, of n features, let's assume that the input X $\in$ $R^{n}$ is projected into smaller subspace $R^{k}$, ignoring the bias feature term for simplicity.
+    \item a straight forward algorithm is the Principle component Analysis, or PCA, for input features $X_{m\times{n}}$, $\Sigma=X^TX$ is the input for the single value decomposition SVD algorithm to de-factor it into $\textbf{U }\textbf{S }\textbf{V}$, for U being the Eigen vectors representing the n Dimensional space, and S is the Eigen values multiplied by $I_n$, in which the orthogonal matrices U, V have the property that any subset of U column for example first k columns denoted $U_k$ satisfy $U_k^TU_k=I_k$, therefore the projection into the k-Dimentional subspace spanning X is $U_kX$, or the projection of X on the subspace $U_k$.
+    \item reduction shouldn't be done without losing much of the useful data, so it's wise to pick k, such that the lose of variance $<$ negligible value $\epsilon$, and can be estimated by the sum of the reduced eigen values, over the total sum in n dimension, so as to say $$\frac{\sum_{i=1}^kS_{ii}}{\sum_{i=1}^nS_{ii}} >= 1-\epsilon$$.
+
+    \end{description}
   \end{description}
 
   \chapter{Structuring machine learning}
@@ -907,6 +1002,7 @@
       \path (AL.west) ++ (-1em,2em) coordinate (aux);
       \foreach \X in {0,1,2,t} {
         \draw[very thick,-latex] (A\X.north) -- ++ (0,2em) node[above,item,fill=gray!10]  (y\X) {$y^{<\X>}$};
+
       }
 
       \draw[very thick,latex-] (A0.south) -- ++ (0,-2em) node[below,item,fill=gray!10]  (x0) {$x$};
@@ -996,6 +1092,110 @@
     \end{description}
     \subsection{Long Short Term Memory (LSTM)}
     \begin{description}
+    \item \begin{tikzpicture}[
+        % GLOBAL CFG
+        font=\sf \scriptsize,
+        >=LaTeX,
+        % Styles
+        cell/.style={% For the main box
+          rectangle,
+          rounded corners=5mm,
+          draw,
+          very thick,
+        },
+        operator/.style={%For operators like +  and  x
+          circle,
+          draw,
+          inner sep=-0.5pt,
+          minimum height =.2cm,
+        },
+        function/.style={%For functions
+          ellipse,
+          draw,
+          inner sep=1pt
+        },
+        ct/.style={% For external inputs and outputs
+          circle,
+          draw,
+          line width = .75pt,
+          minimum width=1cm,
+          inner sep=1pt,
+        },
+        gt/.style={% For internal inputs
+          rectangle,
+          draw,
+          minimum width=4mm,
+          minimum height=3mm,
+          inner sep=1pt
+        },
+        mylabel/.style={% something new that I have learned
+          font=\scriptsize\sffamily
+        },
+        ArrowC1/.style={% Arrows with rounded corners
+          rounded corners=.25cm,
+          thick,
+        },
+        ArrowC2/.style={% Arrows with big rounded corners
+          rounded corners=.5cm,
+          thick,
+        },
+      ]
+
+      %Start drawing the thing...
+      % Draw the cell:
+      \node [cell, minimum height =4cm, minimum width=6cm] at (0,0){} ;
+
+      % Draw inputs named ibox#
+      \node [gt] (ibox1) at (-2,-0.75) {$\sigma$};
+      \node [gt] (ibox2) at (-1.5,-0.75) {$\sigma$};
+      \node [gt, minimum width=1cm] (ibox3) at (-0.5,-0.75) {Tanh};
+      \node [gt] (ibox4) at (0.5,-0.75) {$\sigma$};
+
+   % Draw opérators   named mux# , add# and func#
+    \node [operator] (mux1) at (-2,1.5) {$\times$};
+    \node [operator] (add1) at (-0.5,1.5) {+};
+    \node [operator] (mux2) at (-0.5,0) {$\times$};
+    \node [operator] (mux3) at (1.5,0) {$\times$};
+    \node [function] (func1) at (1.5,0.75) {Tanh};
+
+    % Draw External inputs? named as basis c,h,x
+    \node[ct, label={[mylabel]Cell}] (c) at (-4,1.5) {\empt{c}{t-1}};
+    \node[ct, label={[mylabel]Hidden}] (h) at (-4,-1.5) {\empt{h}{t-1}};
+    \node[ct, label={[mylabel]left:Input}] (x) at (-2.5,-3) {\empt{x}{t}};
+
+    % Draw External outputs? named as basis c2,h2,x2
+    \node[ct, label={[mylabel]}] (c2) at (4,1.5) {\empt{c}{t}};
+    \node[ct, label={[mylabel]output}] (h2) at (4,-1.5) {\empt{h}{t}};
+    \node[ct, label={[mylabel]left:output}] (x2) at (2.5,3) {\empt{h}{t}};
+
+% Start connecting all.
+    %Intersections and displacements are used.
+    % Drawing arrows
+    \draw [ArrowC1] (c) -- (mux1) -- (add1) -- (c2);
+
+    % Inputs
+    \draw [ArrowC2] (h) -| (ibox4);
+    \draw [ArrowC1] (h -| ibox1)++(-0.5,0) -| (ibox1);
+    \draw [ArrowC1] (h -| ibox2)++(-0.5,0) -| (ibox2);
+    \draw [ArrowC1] (h -| ibox3)++(-0.5,0) -| (ibox3);
+    \draw [ArrowC1] (x) -- (x |- h)-| (ibox3);
+
+    % Internal
+    \draw [->, ArrowC2] (ibox1) -- (mux1);
+    \draw [->, ArrowC2] (ibox2) |- (mux2);
+    \draw [->, ArrowC2] (ibox3) -- (mux2);
+    \draw [->, ArrowC2] (ibox4) |- (mux3);
+    \draw [->, ArrowC2] (mux2) -- (add1);
+    \draw [->, ArrowC1] (add1 -| func1)++(-0.5,0) -| (func1);
+    \draw [->, ArrowC2] (func1) -- (mux3);
+
+    %Outputs
+    \draw [-, ArrowC2] (mux3) |- (h2);
+    \draw (c2 -| x2) ++(0,-0.1) coordinate (i1);
+    \draw [-, ArrowC2] (h2 -| x2)++(-0.5,0) -| (i1);
+    \draw [-, ArrowC2] (i1)++(0,0.2) -- (x2);
+
+\end{tikzpicture}
     \item $$\tilde{C^{<t>}}=tanh(W_c[c^{<t-1>},X^{<t>}]+b_c) $$
     \item $$ \Gamma_u = \sigma(W_u[a^{<t-1>},X^{<t>}]+b_u) $$
     \item $$ \Gamma_f = \sigma(W_f[a^{<t-1>},X^{<t>}]+b_f) $$ is the forget gate used instead of $(1-\Gamma_u)$.
@@ -1005,13 +1205,81 @@
     \item one notice here is that in $\Gamma_o$ instead of $X^{<t>}$ you could use $C^{<t-1>}$ instead, and known as \textbf{peephole connection}
       \subsection{Back-propagation}
       \begin{description}
-        \item (TODO add derivation)
-        \end{description}
+      \item (TODO add derivation)
+      \end{description}
     \end{description}
     \subsection{Bidirectional RNN}
     \begin{description}
-    \item (TODO insert the graph here)
-    \item bidirectional RNN runs forward propagation both forward, and backward, utilizing two activation unites $a_f^{<t>}$, and $a_b^{<t>}$, in stead of just $a^{<t>}$, where the propagation flows from $a_f^{<i>} \rightarrow a_f^{<i+1>}$, at the same time, from $a_b^{<i+1>} \leftarrow a_b^{<i>}$, to estimate $$\hat{y^{<t>}} = g(W_y\begin{vmatrix}a_f^{<t>}\\a_b^{<t>}\end{vmatrix} + b_y)$$.
+      \item bidirectional RNN runs forward propagation both forward, and backward, utilizing two activation unites $a_f^{<t>}$, and $a_b^{<t>}$, instead of just $a^{<t>}$, where the propagation flows from $a_f^{<i>} \rightarrow a_f^{<i+1>}$, at the same time, from $a_b^{<i+1>} \leftarrow a_b^{<i>}$, to estimate $$\hat{y^{<t>}} = g(W_y\begin{vmatrix}a_f^{<t>}\\a_b^{<t>}\end{vmatrix} + b_y)$$.
+      \item \begin{tikzpicture}
+	\node[rectangle] (Y0) at (0, 0) {$\dots$};
+	\node[rectangle, draw, right=2em of Y0, minimum height=1cm, minimum width=1cm] (RNN) {LSTM$_\rightarrow$};
+	\node[rectangle, right=of RNN, draw, minimum height=1cm, minimum width=1cm] (RNN2) {LSTM$_\rightarrow$};
+	\node[rectangle, right=of RNN2, draw, minimum height=1cm, minimum width=1cm] (RNN3) {LSTM$_\rightarrow$};
+
+	\node[rectangle, right= of RNN3, draw, minimum height=1cm, minimum width=1cm] (RNN4) {LSTM$_\rightarrow$};
+	\node[rectangle, right=2em of RNN4] (RNN5) {$\dots$};
+
+
+	\node[rectangle, above=of RNN4, draw, minimum height=1cm, minimum width=1cm] (R25) {LSTM$_\leftarrow$};
+	\node[rectangle, left=of R25, minimum height=1cm, minimum width=1cm, draw] (R24) {LSTM$_\leftarrow$};
+	\node[rectangle, left=of R24, draw, minimum height=1cm, minimum width=1cm] (R23) {LSTM$_\leftarrow$};
+	\node[rectangle, left=of R23, draw, minimum height=1cm, minimum width=1cm] (R22) {LSTM$_\leftarrow$};
+	\node[rectangle, left=2em of R22] (R21) {$\dots$};
+	\node[right=2em of R25] (Y20) {$\dots$};
+
+	\node[below=of RNN] (X1) {$x^{<t>}$};
+	\node[below=of RNN2] (X2) {$x^{<t+1>}$};
+	\node[below=of RNN3] (X3) {$x^{<t+2>}$};
+	\node[below=of RNN4] (X4) {$x^{<t+3>}$};
+	\node[above=of R25] (Y5) {$\hat{y}^{<t+3>}$};
+	\node[above=of R24] (Y4) {$\hat{y}^{<t+2>}$};
+	\node[above=of R23] (Y3) {$\hat{y}^{<t+1>}$};
+	\node[above=of R22] (Y2) {$\hat{y}^{<t>}$};
+
+	\draw[-stealth, thick] (X1) -- (RNN);
+	\draw[-stealth, thick] (X2) -- (RNN2);
+	\draw[-stealth, thick] (X3) -- (RNN3);
+	\draw[-stealth, thick] (X4) -- (RNN4);
+	\draw[-stealth, thick, densely dotted] (Y0) -- (RNN);
+	\draw[-stealth, thick] (RNN) -- node[above, pos=0.35] {$a_f^{t+1}$} (RNN2);
+	\draw[-stealth, thick] (RNN2) -- node[above, pos=0.35] {$a_f^{t+2}$} (RNN3);
+	\draw[-stealth, thick] (RNN3) -- node[above, pos=0.35] {$a_f^{t+3}$} (RNN4);
+	\draw[-stealth, densely dotted, thick] (RNN4) -- (RNN5);
+	\node[below=4em of Y0] (d) {\dots};
+	\node[below=4em of RNN5] (d) {\dots};
+
+	\path[-stealth, ultra thick, white] (X1) edge[bend left=45] (R22);
+	\path[-stealth, thick] (X1) edge[bend left=45] (R22);
+	\path[-stealth, ultra thick, white] (X2) edge[bend left=45] (R23);
+	\path[-stealth, thick] (X2) edge[bend left=45] (R23);
+	\path[-stealth, ultra thick, white] (X3) edge[bend left=45] (R24);
+	\path[-stealth, thick] (X3) edge[bend left=45] (R24);
+	\path[-stealth, ultra thick, white] (X4) edge[bend left=45] (R25);
+	\path[-stealth, thick] (X4) edge[bend left=45] (R25);
+	\draw[-stealth, densely dotted, thick] (Y20) -- (R25);
+
+	\draw[-stealth, thick] (R22) -- (Y2);
+	\draw[-stealth, thick] (R23) -- (Y3);
+	\draw[-stealth, thick] (R24) -- (Y4);
+	\draw[-stealth, thick] (R25) -- (Y5);
+
+	\draw[stealth-, densely dotted, thick] (R21) -- (R22);
+	\draw[stealth-, thick] (R22) -- node[above, pos=0.65] {$a_b^{t+1}$} (R23);
+	\draw[stealth-, thick] (R23) -- node[above, pos=0.65] {$a_b^{t+2}$} (R24);
+	\draw[stealth-, thick] (R24) -- node[above, pos=0.65] {$a_b^{t+3}$} (R25);
+	\draw[-stealth, densely dotted, thick] (Y20) -- (R25);
+
+	\path[-stealth, ultra thick, white] (RNN) edge[bend right=45] (Y2);
+	\path[-stealth, thick] (RNN) edge[bend right=45] (Y2);
+	\path[-stealth, ultra thick, white] (RNN2) edge[bend right=45] (Y3);
+	\path[-stealth, thick] (RNN2) edge[bend right=45] (Y3);
+	\path[-stealth, ultra thick, white] (RNN3) edge[bend right=45] (Y4);
+	\path[-stealth, thick] (RNN3) edge[bend right=45] (Y4);
+	\path[-stealth, ultra thick, white] (RNN4) edge[bend right=45] (Y5);
+	\path[-stealth, thick] (RNN4) edge[bend right=45] (Y5);
+      \end{tikzpicture}
+
     \item this model require first processing all the sequence input, before generating any output, with advantage of both backward, and forward contextual semantics awareness, and disadvantage that output is generated after processing all the input X.
     \end{description}
     \section{Deep RNNs}
@@ -1076,9 +1344,54 @@
     \end{description}
     \section{Example: Sentiment Classification}
     \begin{description}
-    \item for a sequence of N words review, for example a review of a product, ignoring the sequence order, the problem can be modeled in a simple SOFTMAX activation layer of the average, or sum of the embedding of the sequence words $ z = \sum_{i=1}^Ne_i $, while Y is a 5 star classification vector of length 5, $\hat{y} = softmax(z)$ the problem with this model, it fails to accurately classify long sentences, sentences that aren't straight-forward, to maintain the sequence, many-to-one RNN is used instead, and feed with the word embedding as the input,  with output softmax layer.
+    \item for a sequence of N words review, for example a review of a product, ignoring the sequence order, the problem can be modeled in a simple SOFTMAX activation layer of the average, or sum of the embedding of the sequence words $ z = \sum_{i=1}^Ne_i $, while Y is a 5 star classification vector of length 5, $Z=W^Taverage(X) + b$, $\hat{y} = softmax(Z)$, $L=Y.log(\hat{Y)}$ the problem with this model, it fails to accurately classify long sentences, sentences that aren't straight-forward, to maintain the sequence, many-to-one RNN is used instead, and feed with the word embedding as the input,  with output softmax layer.
+    \end{description}
+    \section{Sequence To Sequence Model}
+    \begin{description}
+      % TODO does beam search reduces the computational cost?!
+      % if the beam length=1, then it's a greedy search!
+      % it seams the it increase the cost, but
+      % a gready search is V^{sentence length}, while
+      % beam search is 3*V*{sentence length}, or i'm wrong?!
+      % if i'm right then 1*V*{sentence length} is the computational cost, and that is a contradiction, so something is wring in those assumptions 1,2.
+    \item sequence to sequence model is a generative model, generating an output sequence $y^{<1>}\text{-}y^{<T_y>}$, or $$P(y^{<1>},\dots,y^{<Ty>}|x^{<1>},\dots,x^{<Tx>})$$ from input sequence $x^{<1>}\text{-}x^{<T_x>}$, an interesting example is image captioning, taking Alexnet network SOFTMAX output, can fit as a an input sequence, to be trained on captioning data-set. for example $T_x$ can be softmax of length 4096, and $T_x$ is the captioning length can be set to 10 words.
+    \item a single input sequence \textbf{X} can map to different possible output sequence \textbf{Y}, sequence to sequence model aim for the maximum probability $$\underset{y^{<1>},\dots,y^{<T_Y>}}{\operatorname{argmax}}\prod_{t=1}^{T_y}P(y^{<t>}|X,y^{<1>},\dots,y^{<t-1>})$$.
+    \item to explain the complexity analysis, let's pick an example, for example in NLP machine translation, the greedy search approach for this argmax has complexity of $O(V^{T_y})$, where V is the vocabulary size, for example in a output as small as 10 sequence words, from a moderate vocabulary of length 100k, then the sample space is $100000^{10}$ ! which is infeasible for a moderate application, instead a non-optimal heuristic search algorithm is usually employed for example  \textbf{beam search}.
+      \subsection{Beam search}
+      \begin{description}
+      \item noticing in the previous example the in almost all cases, in machine translation example from a vocabulary of size V, only a small fraction of words can have reasonable probability, so it's possible to set a Window/Width \textbf{W} for example of $W=5$ words to search instead of the whole vocabulary at the initial step, so to instantiate the network N times, so at first sequence $Y^{<1>}$ there are only W possibilities are fit  $P(y^{<1>}|X)$, similarly at second step $Y^{<2>}$ there are equivalently maximum W words $P(y^{<1>},y^{<2>}|X)$, at the second step another instantiation of the network , leading to step 3, for sequence  $Y^{<3>}$, $P(y^{<1>},y^{<2>},y^{<3>}|X)$, and so on, this shrink down the complexity to $O(W\times{V}\times{T_y})$.
+        \subsection{normalization}
+        \begin{description}
+        \item in a long sequence model, the argmax output for a small values of X,Y can quickly diminishes to zero, to prevent this, the mean the log of the likelihood is implemented instead: $$
+          \underset{y^{<1>},\dots,y^{<T_Y>}}{\operatorname{argmax}}\frac{1}{T_y^{\alpha}}\sum_{t=1}^{T_y}logP(y^{<t>}|X,y^{<1>},\dots,y^{<t-1>})$$ (note that $\alpha$ is tuning parameter).
+        \end{description}
+        \item beam search is non-optimal compared to DFS, or BFS algorithms, but with advantage of being faster, and the reason for that, is it never search the whole sequence space.
+        \item how to choose the beam Width? beam width is a trade-off between speed, and accuracy, in practice it's usually in the range 5\textbf{-}10.
+          \subsection{Error Analysis}
+          \begin{description}
+          \item in many-to-many RNN network employing Beam search, it could be that the window/width of beams search at fault, or the RNN at fault, to decide it wise to keep a boolean flag for the following to look at during development, given an input sequence X, and ground truth table output Y, the beam search is at fault, if for the output $\hat{Y}$, $P(Y|X)>P(\hat{Y}|X)$, otherwise, then the RNN is at fault.
+          \end{description}
+          \subsection{Bleu Score}
+          \begin{description}
+          \item the previous example still proceeds to explain Bleu Score metric which is essential for such example where the output sequence can take different valid output, for example for input sentence, from English language, the Spanish translation, can varies, to evaluate the machine translation MT, against human translation references, through combined bleu score: $$ Bp\textbf{ exp}(\frac{1}{4}\sum_{n=1}^4P_n) $$ where \textbf{Bp} is coined brevity penalty, and defined as $$\begin{cases} 1 | \text{  if length of MT $>$ reference length} \\ exp(\frac{1-\text{reference length}}{\text{MT length}}) | \text{  otherwise}\end{cases}$$
+          \item bleu score $p_n$ for set for references output, and MT output, defined using two function, count for counting the n-grams in the MT combined, and references, and $count_{clip}$ for counting the number of \text{n-grams} in any of the references, and thus defined as: $$ p_n = \frac{\sum_{\text{n-gram} \in \hat{y}} Count_{clip}(\text{n-gram})}{\sum_{\text{n-gram} \in \hat{y}} Count(\text{n-gram})} $$
+          \end{description}
+      \end{description}
     \end{description}
   \end{description}
+  \section{Attention Model}
+  \begin{description}
+    \item first let the bi-directional RNN output for time step t be $a^{<t>}=(a_f^{<t>},a_b^{<t>})$
+    \item attention model takes the output sequence of a bi-directional RNN $a^{<1>},a^{<2>},\dots,a^{<T_x>}$ as the input sequence of a second layer LSTM-RNN (called hidden state S) , where each output is associated with attention/weights given to K input sequences $a^{<t>},a^{<t+1>},\dots,a^{<t+k>}$, and output sequences, $\begin{bmatrix}\alpha^{<t,t`>} \\ \alpha^{<t,t`+1>}\\ \vdots \\ \alpha^{<t,t`+k>}\end{bmatrix}$ the first layer is initialized with $a^{<0>}$, and second hidden state layer is initialized with $s^{<0>}$ (note the second index is for input sequence, and first index is the index of the second LSTM layer index).
+      \subsection{Attention}
+      \begin{description}
+    \item the attention commit to  the following constraints, $\sum_t\alpha^{<t`,t>}=1$ for all t` time steps. and the input to the second RNN layer $c^{<t>}=\sum_t\alpha^{<t,t`>}a^{<t>}$ for all $t`$.
+    \item since the attention is dependent on the current state at time $t`$ for the output of first LSTM layer, and the previous state of the hidden layer, and since this parameter isn't known, a softmax activation is used to train, and estimate this parameter $e^{<t,t`>}$, in order to calculate $$\alpha^{<t,t`>} = \frac{exp(e^{<t,t`>})}{\sum_{t`=1}^{T_x}exp(e^{<t,t`>})} $$ and the parameter $e^{<t,t`>}(a^{<t`>}, s^{<t-1>})$ is estimated for each time step.
+      \end{description}
+
+
+    \end{description}
+
 
   \chapter{Probabilistic Graphical Models (PGM)}
   \section{Introduction}

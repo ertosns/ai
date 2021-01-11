@@ -46,159 +46,173 @@
 \BOOKMARK [2][-]{subsection.3.7.3}{Batch normalization on test sets}{section.3.7}% 46
 \BOOKMARK [1][-]{section.3.8}{Multi-class classification}{chapter.3}% 47
 \BOOKMARK [2][-]{subsection.3.8.1}{Softmax activation}{section.3.8}% 48
-\BOOKMARK [0][-]{chapter.4}{Structuring machine learning}{}% 49
-\BOOKMARK [1][-]{section.4.1}{Machine learning strategy}{chapter.4}% 50
-\BOOKMARK [1][-]{section.4.2}{orthogonality}{chapter.4}% 51
-\BOOKMARK [1][-]{section.4.3}{Set up your Goal}{chapter.4}% 52
-\BOOKMARK [2][-]{subsection.4.3.1}{Evaluation metric}{section.4.3}% 53
-\BOOKMARK [2][-]{subsection.4.3.2}{Precision vs accuracy}{section.4.3}% 54
-\BOOKMARK [2][-]{subsection.4.3.3}{F1-score}{section.4.3}% 55
-\BOOKMARK [2][-]{subsection.4.3.4}{Satisfying-Optimizing metric}{section.4.3}% 56
-\BOOKMARK [1][-]{section.4.4}{train/dev/test sets}{chapter.4}% 57
-\BOOKMARK [2][-]{subsection.4.4.1}{dev/test metric}{section.4.4}% 58
-\BOOKMARK [1][-]{section.4.5}{Human-level performance}{chapter.4}% 59
-\BOOKMARK [2][-]{subsection.4.5.1}{human\(bayes\) error}{section.4.5}% 60
-\BOOKMARK [1][-]{section.4.6}{Error analysis}{chapter.4}% 61
-\BOOKMARK [2][-]{subsection.4.6.1}{Mislabeled data}{section.4.6}% 62
-\BOOKMARK [1][-]{section.4.7}{Mismatched training dev/test sets}{chapter.4}% 63
-\BOOKMARK [2][-]{subsection.4.7.1}{Addressing data mismatch}{section.4.7}% 64
-\BOOKMARK [2][-]{subsection.4.7.2}{Artificial data synthesis}{section.4.7}% 65
-\BOOKMARK [1][-]{section.4.8}{Multiple tasks learning}{chapter.4}% 66
-\BOOKMARK [2][-]{subsection.4.8.1}{Transfer learning}{section.4.8}% 67
-\BOOKMARK [2][-]{subsection.4.8.2}{Multitask learning}{section.4.8}% 68
-\BOOKMARK [1][-]{section.4.9}{End-to-End Machine Learning}{chapter.4}% 69
-\BOOKMARK [0][-]{chapter.5}{Computer Vision}{}% 70
-\BOOKMARK [1][-]{section.5.1}{Object Detection}{chapter.5}% 71
-\BOOKMARK [2][-]{subsection.5.1.1}{Edge Detection}{section.5.1}% 72
-\BOOKMARK [2][-]{subsection.5.1.2}{Padding}{section.5.1}% 73
-\BOOKMARK [2][-]{subsection.5.1.3}{striding}{section.5.1}% 74
-\BOOKMARK [2][-]{subsection.5.1.4}{Convolution on RGB channels}{section.5.1}% 75
-\BOOKMARK [2][-]{subsection.5.1.5}{Multiple filters Convolution}{section.5.1}% 76
-\BOOKMARK [2][-]{subsection.5.1.6}{Example ConvNet}{section.5.1}% 77
-\BOOKMARK [2][-]{subsection.5.1.7}{Pooling Convolutions}{section.5.1}% 78
-\BOOKMARK [2][-]{subsection.5.1.8}{Max Pooling}{section.5.1}% 79
-\BOOKMARK [2][-]{subsection.5.1.9}{Average Pooling}{section.5.1}% 80
-\BOOKMARK [1][-]{section.5.2}{Examples}{chapter.5}% 81
-\BOOKMARK [2][-]{subsection.5.2.1}{LeNet-5 Network}{section.5.2}% 82
-\BOOKMARK [2][-]{subsection.5.2.2}{AlexNet Network}{section.5.2}% 83
-\BOOKMARK [2][-]{subsection.5.2.3}{VGG-16 Network}{section.5.2}% 84
-\BOOKMARK [2][-]{subsection.5.2.4}{ResNet \(Residual Block\)}{section.5.2}% 85
-\BOOKMARK [1][-]{section.5.3}{Inception}{chapter.5}% 86
-\BOOKMARK [2][-]{subsection.5.3.1}{11 Convolutions}{section.5.3}% 87
-\BOOKMARK [2][-]{subsection.5.3.2}{Inception Block}{section.5.3}% 88
-\BOOKMARK [2][-]{subsection.5.3.3}{Inception Branches}{section.5.3}% 89
-\BOOKMARK [1][-]{section.5.4}{Object Detection}{chapter.5}% 90
-\BOOKMARK [2][-]{subsection.5.4.1}{Localization and Detection}{section.5.4}% 91
-\BOOKMARK [2][-]{subsection.5.4.2}{classification with localization}{section.5.4}% 92
-\BOOKMARK [2][-]{subsection.5.4.3}{Landmark detection}{section.5.4}% 93
-\BOOKMARK [2][-]{subsection.5.4.4}{Object Detection}{section.5.4}% 94
-\BOOKMARK [2][-]{subsection.5.4.5}{Convolutional sliding windows}{section.5.4}% 95
-\BOOKMARK [2][-]{subsection.5.4.6}{Example:}{section.5.4}% 96
-\BOOKMARK [1][-]{section.5.5}{Bounding Box prediction}{chapter.5}% 97
-\BOOKMARK [2][-]{subsection.5.5.1}{YOLO}{section.5.5}% 98
-\BOOKMARK [2][-]{subsection.5.5.2}{Jaccard distance, or Intersection over Union IOU function}{section.5.5}% 99
-\BOOKMARK [2][-]{subsection.5.5.3}{Non-Max Suppression}{section.5.5}% 100
-\BOOKMARK [2][-]{subsection.5.5.4}{Anchor Boxes}{section.5.5}% 101
-\BOOKMARK [2][-]{subsection.5.5.5}{Region Proposal R-CNN, Fast R-CNN}{section.5.5}% 102
-\BOOKMARK [1][-]{section.5.6}{Face Recognition }{chapter.5}% 103
-\BOOKMARK [2][-]{subsection.5.6.1}{Recognition vs. Verification}{section.5.6}% 104
-\BOOKMARK [2][-]{subsection.5.6.2}{One-Shot learning}{section.5.6}% 105
-\BOOKMARK [2][-]{subsection.5.6.3}{Similarity learning function}{section.5.6}% 106
-\BOOKMARK [2][-]{subsection.5.6.4}{Siamese Network}{section.5.6}% 107
-\BOOKMARK [2][-]{subsection.5.6.5}{Triplet Loss}{section.5.6}% 108
-\BOOKMARK [2][-]{subsection.5.6.6}{Binary Classification}{section.5.6}% 109
-\BOOKMARK [1][-]{section.5.7}{Neural Style Transfer}{chapter.5}% 110
-\BOOKMARK [2][-]{subsection.5.7.1}{Generated image descent}{section.5.7}% 111
-\BOOKMARK [2][-]{subsection.5.7.2}{Content cost}{section.5.7}% 112
-\BOOKMARK [2][-]{subsection.5.7.3}{Style cost}{section.5.7}% 113
-\BOOKMARK [2][-]{subsection.5.7.4}{Gram Matrix\(style\)}{section.5.7}% 114
-\BOOKMARK [0][-]{chapter.6}{Recurrent Neural Networks RNN}{}% 115
-\BOOKMARK [1][-]{section.6.1}{Introduction}{chapter.6}% 116
-\BOOKMARK [1][-]{section.6.2}{Notation}{chapter.6}% 117
-\BOOKMARK [1][-]{section.6.3}{RNN}{chapter.6}% 118
-\BOOKMARK [2][-]{subsection.6.3.1}{RNN model}{section.6.3}% 119
-\BOOKMARK [1][-]{section.6.4}{uni-directional RNN Forward propagation}{chapter.6}% 120
-\BOOKMARK [1][-]{section.6.5}{uni-directional RNN backward propagation through time}{chapter.6}% 121
-\BOOKMARK [1][-]{section.6.6}{Variations of RNN models}{chapter.6}% 122
-\BOOKMARK [2][-]{subsection.6.6.1}{many-to-one RNN}{section.6.6}% 123
-\BOOKMARK [2][-]{subsection.6.6.2}{One-to-Many RNN}{section.6.6}% 124
-\BOOKMARK [2][-]{subsection.6.6.3}{Many-to-Many of different input/output length}{section.6.6}% 125
-\BOOKMARK [1][-]{section.6.7}{Language Model and sequence generation}{chapter.6}% 126
-\BOOKMARK [1][-]{section.6.8}{Sampling novel sequences}{chapter.6}% 127
-\BOOKMARK [1][-]{section.6.9}{Vanishing/Exploding gradients}{chapter.6}% 128
-\BOOKMARK [2][-]{subsection.6.9.1}{Gated Recurrent Unit \(GRU\)}{section.6.9}% 129
-\BOOKMARK [2][-]{subsection.6.9.2}{GRU simplified}{section.6.9}% 130
-\BOOKMARK [2][-]{subsection.6.9.3}{Long Short Term Memory \(LSTM\)}{section.6.9}% 131
-\BOOKMARK [2][-]{subsection.6.9.4}{Back-propagation}{section.6.9}% 132
-\BOOKMARK [2][-]{subsection.6.9.5}{Bidirectional RNN}{section.6.9}% 133
-\BOOKMARK [1][-]{section.6.10}{Deep RNNs}{chapter.6}% 134
-\BOOKMARK [1][-]{section.6.11}{Word Representation}{chapter.6}% 135
-\BOOKMARK [2][-]{subsection.6.11.1}{Word Embedding}{section.6.11}% 136
-\BOOKMARK [2][-]{subsection.6.11.2}{Named Entity recognition}{section.6.11}% 137
-\BOOKMARK [2][-]{subsection.6.11.3}{Learning word embedding}{section.6.11}% 138
-\BOOKMARK [2][-]{subsection.6.11.4}{Word2Vec}{section.6.11}% 139
-\BOOKMARK [2][-]{subsection.6.11.5}{Skip gram}{section.6.11}% 140
-\BOOKMARK [2][-]{subsection.6.11.6}{hierarchical SOFTMAX}{section.6.11}% 141
-\BOOKMARK [2][-]{subsection.6.11.7}{Negative Sampling}{section.6.11}% 142
-\BOOKMARK [2][-]{subsection.6.11.8}{GloVe \(global vector for word representation\)}{section.6.11}% 143
-\BOOKMARK [1][-]{section.6.12}{Example: Sentiment Classification}{chapter.6}% 144
-\BOOKMARK [0][-]{chapter.7}{Probabilistic Graphical Models \(PGM\)}{}% 145
-\BOOKMARK [1][-]{section.7.1}{Introduction}{chapter.7}% 146
-\BOOKMARK [2][-]{subsection.7.1.1}{preliminaries}{section.7.1}% 147
-\BOOKMARK [2][-]{subsection.7.1.2}{factors}{section.7.1}% 148
-\BOOKMARK [1][-]{section.7.2}{Bayesian Network Fundamentals}{chapter.7}% 149
-\BOOKMARK [2][-]{subsection.7.2.1}{constructing dependencies}{section.7.2}% 150
-\BOOKMARK [1][-]{section.7.3}{Reasoning Patterns on BN}{chapter.7}% 151
-\BOOKMARK [1][-]{section.7.4}{Flow of Probabilistic Influence}{chapter.7}% 152
-\BOOKMARK [1][-]{section.7.5}{d-separation}{chapter.7}% 153
-\BOOKMARK [2][-]{subsection.7.5.1}{I-map}{section.7.5}% 154
-\BOOKMARK [1][-]{section.7.6}{Naive Bayes Model}{chapter.7}% 155
-\BOOKMARK [1][-]{section.7.7}{Template Model}{chapter.7}% 156
-\BOOKMARK [2][-]{subsection.7.7.1}{Distribution over Trajectories}{section.7.7}% 157
-\BOOKMARK [2][-]{subsection.7.7.2}{Markov chain}{section.7.7}% 158
-\BOOKMARK [2][-]{subsection.7.7.3}{Dynamic Bayesian Network DBN}{section.7.7}% 159
-\BOOKMARK [2][-]{subsection.7.7.4}{Hidden Markov Model \(HMM\)}{section.7.7}% 160
-\BOOKMARK [1][-]{section.7.8}{Structured CPD}{chapter.7}% 161
-\BOOKMARK [2][-]{subsection.7.8.1}{Tree CPD}{section.7.8}% 162
-\BOOKMARK [2][-]{subsection.7.8.2}{Multiplexer CPD}{section.7.8}% 163
-\BOOKMARK [0][-]{chapter.8}{Natural language processing}{}% 164
-\BOOKMARK [1][-]{section.8.1}{pre-processing}{chapter.8}% 165
-\BOOKMARK [1][-]{section.8.2}{Example: positive, negative classifier}{chapter.8}% 166
-\BOOKMARK [1][-]{section.8.3}{Logistic regression classifier}{chapter.8}% 167
-\BOOKMARK [1][-]{section.8.4}{Naive Bayes classifier}{chapter.8}% 168
-\BOOKMARK [1][-]{section.8.5}{cosine similaritis}{chapter.8}% 169
-\BOOKMARK [2][-]{subsection.8.5.1}{Euclidean distance}{section.8.5}% 170
-\BOOKMARK [1][-]{section.8.6}{Principle Component Analysis \(PCA\)}{chapter.8}% 171
-\BOOKMARK [1][-]{section.8.7}{Machine Translation}{chapter.8}% 172
-\BOOKMARK [2][-]{subsection.8.7.1}{Loss function L}{section.8.7}% 173
-\BOOKMARK [2][-]{subsection.8.7.2}{gradient descent}{section.8.7}% 174
-\BOOKMARK [2][-]{subsection.8.7.3}{fixed number of iterations}{section.8.7}% 175
-\BOOKMARK [2][-]{subsection.8.7.4}{k-Nearest neighbors algorithm}{section.8.7}% 176
-\BOOKMARK [2][-]{subsection.8.7.5}{Searching for the translation embedding}{section.8.7}% 177
-\BOOKMARK [2][-]{subsection.8.7.6}{LSH and document search}{section.8.7}% 178
-\BOOKMARK [2][-]{subsection.8.7.7}{Bag-of-words \(BOW\) document models}{section.8.7}% 179
-\BOOKMARK [2][-]{subsection.8.7.8}{ Choosing the number of planes}{section.8.7}% 180
-\BOOKMARK [2][-]{subsection.8.7.9}{ Getting the hash number for a vector}{section.8.7}% 181
-\BOOKMARK [1][-]{section.8.8}{Probabilistic model of pronounciation and spelling}{chapter.8}% 182
-\BOOKMARK [2][-]{subsection.8.8.1}{auto-correction}{section.8.8}% 183
-\BOOKMARK [2][-]{subsection.8.8.2}{Bayesian inference model}{section.8.8}% 184
-\BOOKMARK [2][-]{subsection.8.8.3}{Minimum edit distance}{section.8.8}% 185
-\BOOKMARK [1][-]{section.8.9}{Grammar Weighted Automata}{chapter.8}% 186
-\BOOKMARK [2][-]{subsection.8.9.1}{Markov chain}{section.8.9}% 187
-\BOOKMARK [2][-]{subsection.8.9.2}{Hidden Markov Models HMMs}{section.8.9}% 188
-\BOOKMARK [2][-]{subsection.8.9.3}{Viterbi Algorithm}{section.8.9}% 189
-\BOOKMARK [2][-]{subsection.8.9.4}{Part of Speech tagging \(POS\)}{section.8.9}% 190
-\BOOKMARK [1][-]{section.8.10}{N-grams}{chapter.8}% 191
-\BOOKMARK [2][-]{subsection.8.10.1}{Smoothing}{section.8.10}% 192
-\BOOKMARK [2][-]{subsection.8.10.2}{Back-off}{section.8.10}% 193
-\BOOKMARK [2][-]{subsection.8.10.3}{Interpolation}{section.8.10}% 194
-\BOOKMARK [0][-]{section*.3}{Appendices}{}% 195
-\BOOKMARK [0][-]{appendix.a.A}{Introduction to probabilities}{}% 196
-\BOOKMARK [1][-]{section.a.A.1}{probabilities chain rule}{appendix.a.A}% 197
-\BOOKMARK [1][-]{section.a.A.2}{Naive Bayes}{appendix.a.A}% 198
-\BOOKMARK [0][-]{appendix.a.B}{Covariance}{}% 199
-\BOOKMARK [0][-]{appendix.a.C}{Single Value Decomposition}{}% 200
-\BOOKMARK [0][-]{appendix.a.D}{Exponentially weighted averages}{}% 201
-\BOOKMARK [1][-]{subsection.a.D.0.1}{How to choose the value \040?}{appendix.a.D}% 202
-\BOOKMARK [0][-]{appendix.a.E}{smoothing \(add-k, and add-one Laplacian\)}{}% 203
-\BOOKMARK [0][-]{appendix.a.F}{Kernels, and Convolution functions}{}% 204
+\BOOKMARK [1][-]{section.3.9}{Support Vector Machine \(SVM\)}{chapter.3}% 49
+\BOOKMARK [2][-]{subsection.3.9.1}{Large Margins in linear Decision Boundaries}{section.3.9}% 50
+\BOOKMARK [2][-]{subsection.3.9.2}{Non-linear Decision Boundaries}{section.3.9}% 51
+\BOOKMARK [2][-]{subsection.3.9.3}{Gaussian kernel}{section.3.9}% 52
+\BOOKMARK [1][-]{section.3.10}{Unsupervised Learning \(Introduction\)}{chapter.3}% 53
+\BOOKMARK [2][-]{subsection.3.10.1}{k-mean algorithm}{section.3.10}% 54
+\BOOKMARK [2][-]{subsection.3.10.2}{Principle Component Analysis PCA}{section.3.10}% 55
+\BOOKMARK [0][-]{chapter.4}{Structuring machine learning}{}% 56
+\BOOKMARK [1][-]{section.4.1}{Machine learning strategy}{chapter.4}% 57
+\BOOKMARK [1][-]{section.4.2}{orthogonality}{chapter.4}% 58
+\BOOKMARK [1][-]{section.4.3}{Set up your Goal}{chapter.4}% 59
+\BOOKMARK [2][-]{subsection.4.3.1}{Evaluation metric}{section.4.3}% 60
+\BOOKMARK [2][-]{subsection.4.3.2}{Precision vs accuracy}{section.4.3}% 61
+\BOOKMARK [2][-]{subsection.4.3.3}{F1-score}{section.4.3}% 62
+\BOOKMARK [2][-]{subsection.4.3.4}{Satisfying-Optimizing metric}{section.4.3}% 63
+\BOOKMARK [1][-]{section.4.4}{train/dev/test sets}{chapter.4}% 64
+\BOOKMARK [2][-]{subsection.4.4.1}{dev/test metric}{section.4.4}% 65
+\BOOKMARK [1][-]{section.4.5}{Human-level performance}{chapter.4}% 66
+\BOOKMARK [2][-]{subsection.4.5.1}{human\(bayes\) error}{section.4.5}% 67
+\BOOKMARK [1][-]{section.4.6}{Error analysis}{chapter.4}% 68
+\BOOKMARK [2][-]{subsection.4.6.1}{Mislabeled data}{section.4.6}% 69
+\BOOKMARK [1][-]{section.4.7}{Mismatched training dev/test sets}{chapter.4}% 70
+\BOOKMARK [2][-]{subsection.4.7.1}{Addressing data mismatch}{section.4.7}% 71
+\BOOKMARK [2][-]{subsection.4.7.2}{Artificial data synthesis}{section.4.7}% 72
+\BOOKMARK [1][-]{section.4.8}{Multiple tasks learning}{chapter.4}% 73
+\BOOKMARK [2][-]{subsection.4.8.1}{Transfer learning}{section.4.8}% 74
+\BOOKMARK [2][-]{subsection.4.8.2}{Multitask learning}{section.4.8}% 75
+\BOOKMARK [1][-]{section.4.9}{End-to-End Machine Learning}{chapter.4}% 76
+\BOOKMARK [0][-]{chapter.5}{Computer Vision}{}% 77
+\BOOKMARK [1][-]{section.5.1}{Object Detection}{chapter.5}% 78
+\BOOKMARK [2][-]{subsection.5.1.1}{Edge Detection}{section.5.1}% 79
+\BOOKMARK [2][-]{subsection.5.1.2}{Padding}{section.5.1}% 80
+\BOOKMARK [2][-]{subsection.5.1.3}{striding}{section.5.1}% 81
+\BOOKMARK [2][-]{subsection.5.1.4}{Convolution on RGB channels}{section.5.1}% 82
+\BOOKMARK [2][-]{subsection.5.1.5}{Multiple filters Convolution}{section.5.1}% 83
+\BOOKMARK [2][-]{subsection.5.1.6}{Example ConvNet}{section.5.1}% 84
+\BOOKMARK [2][-]{subsection.5.1.7}{Pooling Convolutions}{section.5.1}% 85
+\BOOKMARK [2][-]{subsection.5.1.8}{Max Pooling}{section.5.1}% 86
+\BOOKMARK [2][-]{subsection.5.1.9}{Average Pooling}{section.5.1}% 87
+\BOOKMARK [1][-]{section.5.2}{Examples}{chapter.5}% 88
+\BOOKMARK [2][-]{subsection.5.2.1}{LeNet-5 Network}{section.5.2}% 89
+\BOOKMARK [2][-]{subsection.5.2.2}{AlexNet Network}{section.5.2}% 90
+\BOOKMARK [2][-]{subsection.5.2.3}{VGG-16 Network}{section.5.2}% 91
+\BOOKMARK [2][-]{subsection.5.2.4}{ResNet \(Residual Block\)}{section.5.2}% 92
+\BOOKMARK [1][-]{section.5.3}{Inception}{chapter.5}% 93
+\BOOKMARK [2][-]{subsection.5.3.1}{11 Convolutions}{section.5.3}% 94
+\BOOKMARK [2][-]{subsection.5.3.2}{Inception Block}{section.5.3}% 95
+\BOOKMARK [2][-]{subsection.5.3.3}{Inception Branches}{section.5.3}% 96
+\BOOKMARK [1][-]{section.5.4}{Object Detection}{chapter.5}% 97
+\BOOKMARK [2][-]{subsection.5.4.1}{Localization and Detection}{section.5.4}% 98
+\BOOKMARK [2][-]{subsection.5.4.2}{classification with localization}{section.5.4}% 99
+\BOOKMARK [2][-]{subsection.5.4.3}{Landmark detection}{section.5.4}% 100
+\BOOKMARK [2][-]{subsection.5.4.4}{Object Detection}{section.5.4}% 101
+\BOOKMARK [2][-]{subsection.5.4.5}{Convolutional sliding windows}{section.5.4}% 102
+\BOOKMARK [2][-]{subsection.5.4.6}{Example:}{section.5.4}% 103
+\BOOKMARK [1][-]{section.5.5}{Bounding Box prediction}{chapter.5}% 104
+\BOOKMARK [2][-]{subsection.5.5.1}{YOLO}{section.5.5}% 105
+\BOOKMARK [2][-]{subsection.5.5.2}{Jaccard distance, or Intersection over Union IOU function}{section.5.5}% 106
+\BOOKMARK [2][-]{subsection.5.5.3}{Non-Max Suppression}{section.5.5}% 107
+\BOOKMARK [2][-]{subsection.5.5.4}{Anchor Boxes}{section.5.5}% 108
+\BOOKMARK [2][-]{subsection.5.5.5}{Region Proposal R-CNN, Fast R-CNN}{section.5.5}% 109
+\BOOKMARK [1][-]{section.5.6}{Face Recognition }{chapter.5}% 110
+\BOOKMARK [2][-]{subsection.5.6.1}{Recognition vs. Verification}{section.5.6}% 111
+\BOOKMARK [2][-]{subsection.5.6.2}{One-Shot learning}{section.5.6}% 112
+\BOOKMARK [2][-]{subsection.5.6.3}{Similarity learning function}{section.5.6}% 113
+\BOOKMARK [2][-]{subsection.5.6.4}{Siamese Network}{section.5.6}% 114
+\BOOKMARK [2][-]{subsection.5.6.5}{Triplet Loss}{section.5.6}% 115
+\BOOKMARK [2][-]{subsection.5.6.6}{Binary Classification}{section.5.6}% 116
+\BOOKMARK [1][-]{section.5.7}{Neural Style Transfer}{chapter.5}% 117
+\BOOKMARK [2][-]{subsection.5.7.1}{Generated image descent}{section.5.7}% 118
+\BOOKMARK [2][-]{subsection.5.7.2}{Content cost}{section.5.7}% 119
+\BOOKMARK [2][-]{subsection.5.7.3}{Style cost}{section.5.7}% 120
+\BOOKMARK [2][-]{subsection.5.7.4}{Gram Matrix\(style\)}{section.5.7}% 121
+\BOOKMARK [0][-]{chapter.6}{Recurrent Neural Networks RNN}{}% 122
+\BOOKMARK [1][-]{section.6.1}{Introduction}{chapter.6}% 123
+\BOOKMARK [1][-]{section.6.2}{Notation}{chapter.6}% 124
+\BOOKMARK [1][-]{section.6.3}{RNN}{chapter.6}% 125
+\BOOKMARK [2][-]{subsection.6.3.1}{RNN model}{section.6.3}% 126
+\BOOKMARK [1][-]{section.6.4}{uni-directional RNN Forward propagation}{chapter.6}% 127
+\BOOKMARK [1][-]{section.6.5}{uni-directional RNN backward propagation through time}{chapter.6}% 128
+\BOOKMARK [1][-]{section.6.6}{Variations of RNN models}{chapter.6}% 129
+\BOOKMARK [2][-]{subsection.6.6.1}{many-to-one RNN}{section.6.6}% 130
+\BOOKMARK [2][-]{subsection.6.6.2}{One-to-Many RNN}{section.6.6}% 131
+\BOOKMARK [2][-]{subsection.6.6.3}{Many-to-Many of different input/output length}{section.6.6}% 132
+\BOOKMARK [1][-]{section.6.7}{Language Model and sequence generation}{chapter.6}% 133
+\BOOKMARK [1][-]{section.6.8}{Sampling novel sequences}{chapter.6}% 134
+\BOOKMARK [1][-]{section.6.9}{Vanishing/Exploding gradients}{chapter.6}% 135
+\BOOKMARK [2][-]{subsection.6.9.1}{Gated Recurrent Unit \(GRU\)}{section.6.9}% 136
+\BOOKMARK [2][-]{subsection.6.9.2}{GRU simplified}{section.6.9}% 137
+\BOOKMARK [2][-]{subsection.6.9.3}{Long Short Term Memory \(LSTM\)}{section.6.9}% 138
+\BOOKMARK [2][-]{subsection.6.9.4}{Back-propagation}{section.6.9}% 139
+\BOOKMARK [2][-]{subsection.6.9.5}{Bidirectional RNN}{section.6.9}% 140
+\BOOKMARK [1][-]{section.6.10}{Deep RNNs}{chapter.6}% 141
+\BOOKMARK [1][-]{section.6.11}{Word Representation}{chapter.6}% 142
+\BOOKMARK [2][-]{subsection.6.11.1}{Word Embedding}{section.6.11}% 143
+\BOOKMARK [2][-]{subsection.6.11.2}{Named Entity recognition}{section.6.11}% 144
+\BOOKMARK [2][-]{subsection.6.11.3}{Learning word embedding}{section.6.11}% 145
+\BOOKMARK [2][-]{subsection.6.11.4}{Word2Vec}{section.6.11}% 146
+\BOOKMARK [2][-]{subsection.6.11.5}{Skip gram}{section.6.11}% 147
+\BOOKMARK [2][-]{subsection.6.11.6}{hierarchical SOFTMAX}{section.6.11}% 148
+\BOOKMARK [2][-]{subsection.6.11.7}{Negative Sampling}{section.6.11}% 149
+\BOOKMARK [2][-]{subsection.6.11.8}{GloVe \(global vector for word representation\)}{section.6.11}% 150
+\BOOKMARK [1][-]{section.6.12}{Example: Sentiment Classification}{chapter.6}% 151
+\BOOKMARK [1][-]{section.6.13}{Sequence To Sequence Model}{chapter.6}% 152
+\BOOKMARK [2][-]{subsection.6.13.1}{Beam search}{section.6.13}% 153
+\BOOKMARK [2][-]{subsection.6.13.2}{normalization}{section.6.13}% 154
+\BOOKMARK [2][-]{subsection.6.13.3}{Error Analysis}{section.6.13}% 155
+\BOOKMARK [2][-]{subsection.6.13.4}{Bleu Score}{section.6.13}% 156
+\BOOKMARK [1][-]{section.6.14}{Attention Model}{chapter.6}% 157
+\BOOKMARK [2][-]{subsection.6.14.1}{Attention}{section.6.14}% 158
+\BOOKMARK [0][-]{chapter.7}{Probabilistic Graphical Models \(PGM\)}{}% 159
+\BOOKMARK [1][-]{section.7.1}{Introduction}{chapter.7}% 160
+\BOOKMARK [2][-]{subsection.7.1.1}{preliminaries}{section.7.1}% 161
+\BOOKMARK [2][-]{subsection.7.1.2}{factors}{section.7.1}% 162
+\BOOKMARK [1][-]{section.7.2}{Bayesian Network Fundamentals}{chapter.7}% 163
+\BOOKMARK [2][-]{subsection.7.2.1}{constructing dependencies}{section.7.2}% 164
+\BOOKMARK [1][-]{section.7.3}{Reasoning Patterns on BN}{chapter.7}% 165
+\BOOKMARK [1][-]{section.7.4}{Flow of Probabilistic Influence}{chapter.7}% 166
+\BOOKMARK [1][-]{section.7.5}{d-separation}{chapter.7}% 167
+\BOOKMARK [2][-]{subsection.7.5.1}{I-map}{section.7.5}% 168
+\BOOKMARK [1][-]{section.7.6}{Naive Bayes Model}{chapter.7}% 169
+\BOOKMARK [1][-]{section.7.7}{Template Model}{chapter.7}% 170
+\BOOKMARK [2][-]{subsection.7.7.1}{Distribution over Trajectories}{section.7.7}% 171
+\BOOKMARK [2][-]{subsection.7.7.2}{Markov chain}{section.7.7}% 172
+\BOOKMARK [2][-]{subsection.7.7.3}{Dynamic Bayesian Network DBN}{section.7.7}% 173
+\BOOKMARK [2][-]{subsection.7.7.4}{Hidden Markov Model \(HMM\)}{section.7.7}% 174
+\BOOKMARK [1][-]{section.7.8}{Structured CPD}{chapter.7}% 175
+\BOOKMARK [2][-]{subsection.7.8.1}{Tree CPD}{section.7.8}% 176
+\BOOKMARK [2][-]{subsection.7.8.2}{Multiplexer CPD}{section.7.8}% 177
+\BOOKMARK [0][-]{chapter.8}{Natural language processing}{}% 178
+\BOOKMARK [1][-]{section.8.1}{pre-processing}{chapter.8}% 179
+\BOOKMARK [1][-]{section.8.2}{Example: positive, negative classifier}{chapter.8}% 180
+\BOOKMARK [1][-]{section.8.3}{Logistic regression classifier}{chapter.8}% 181
+\BOOKMARK [1][-]{section.8.4}{Naive Bayes classifier}{chapter.8}% 182
+\BOOKMARK [1][-]{section.8.5}{cosine similaritis}{chapter.8}% 183
+\BOOKMARK [2][-]{subsection.8.5.1}{Euclidean distance}{section.8.5}% 184
+\BOOKMARK [1][-]{section.8.6}{Principle Component Analysis \(PCA\)}{chapter.8}% 185
+\BOOKMARK [1][-]{section.8.7}{Machine Translation}{chapter.8}% 186
+\BOOKMARK [2][-]{subsection.8.7.1}{Loss function L}{section.8.7}% 187
+\BOOKMARK [2][-]{subsection.8.7.2}{gradient descent}{section.8.7}% 188
+\BOOKMARK [2][-]{subsection.8.7.3}{fixed number of iterations}{section.8.7}% 189
+\BOOKMARK [2][-]{subsection.8.7.4}{k-Nearest neighbors algorithm}{section.8.7}% 190
+\BOOKMARK [2][-]{subsection.8.7.5}{Searching for the translation embedding}{section.8.7}% 191
+\BOOKMARK [2][-]{subsection.8.7.6}{LSH and document search}{section.8.7}% 192
+\BOOKMARK [2][-]{subsection.8.7.7}{Bag-of-words \(BOW\) document models}{section.8.7}% 193
+\BOOKMARK [2][-]{subsection.8.7.8}{ Choosing the number of planes}{section.8.7}% 194
+\BOOKMARK [2][-]{subsection.8.7.9}{ Getting the hash number for a vector}{section.8.7}% 195
+\BOOKMARK [1][-]{section.8.8}{Probabilistic model of pronounciation and spelling}{chapter.8}% 196
+\BOOKMARK [2][-]{subsection.8.8.1}{auto-correction}{section.8.8}% 197
+\BOOKMARK [2][-]{subsection.8.8.2}{Bayesian inference model}{section.8.8}% 198
+\BOOKMARK [2][-]{subsection.8.8.3}{Minimum edit distance}{section.8.8}% 199
+\BOOKMARK [1][-]{section.8.9}{Grammar Weighted Automata}{chapter.8}% 200
+\BOOKMARK [2][-]{subsection.8.9.1}{Markov chain}{section.8.9}% 201
+\BOOKMARK [2][-]{subsection.8.9.2}{Hidden Markov Models HMMs}{section.8.9}% 202
+\BOOKMARK [2][-]{subsection.8.9.3}{Viterbi Algorithm}{section.8.9}% 203
+\BOOKMARK [2][-]{subsection.8.9.4}{Part of Speech tagging \(POS\)}{section.8.9}% 204
+\BOOKMARK [1][-]{section.8.10}{N-grams}{chapter.8}% 205
+\BOOKMARK [2][-]{subsection.8.10.1}{Smoothing}{section.8.10}% 206
+\BOOKMARK [2][-]{subsection.8.10.2}{Back-off}{section.8.10}% 207
+\BOOKMARK [2][-]{subsection.8.10.3}{Interpolation}{section.8.10}% 208
+\BOOKMARK [0][-]{section*.3}{Appendices}{}% 209
+\BOOKMARK [0][-]{appendix.a.A}{Introduction to probabilities}{}% 210
+\BOOKMARK [1][-]{section.a.A.1}{probabilities chain rule}{appendix.a.A}% 211
+\BOOKMARK [1][-]{section.a.A.2}{Naive Bayes}{appendix.a.A}% 212
+\BOOKMARK [0][-]{appendix.a.B}{Covariance}{}% 213
+\BOOKMARK [0][-]{appendix.a.C}{Single Value Decomposition}{}% 214
+\BOOKMARK [0][-]{appendix.a.D}{Exponentially weighted averages}{}% 215
+\BOOKMARK [1][-]{subsection.a.D.0.1}{How to choose the value \040?}{appendix.a.D}% 216
+\BOOKMARK [0][-]{appendix.a.E}{smoothing \(add-k, and add-one Laplacian\)}{}% 217
+\BOOKMARK [0][-]{appendix.a.F}{Kernels, and Convolution functions}{}% 218
