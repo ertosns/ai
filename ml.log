@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.1.7)  11 JAN 2021 16:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.1.27)  5 FEB 2021 11:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**/home/poetry/recovery/ML/ml.tex
-(/home/poetry/recovery/ML/ml.tex
+**/home/zerin/prj/ai/ml.tex
+(/home/zerin/prj/ai/ml.tex
 LaTeX2e <2020-02-02> patch level 2
 L3 programming layer <2020-02-14>
 (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
@@ -1043,28 +1043,28 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 752.
 
-[59] [60] [61] [62] [63] [64] [65] [66] [67] [68
+[59] [60] [61] [62] [63] [64] [65] [66] [67] [68]
+Chapter 6.
+[69
 
 ]
-Chapter 6.
-[69]
-Overfull \hbox (6.51205pt too wide) in paragraph at lines 947--947
+Overfull \hbox (6.51205pt too wide) in paragraph at lines 954--954
 []\OT1/cmr/bx/n/17.28 uni-directional RNN For-ward prop-
  []
 
 [70]
-Overfull \hbox (18.4126pt too wide) in paragraph at lines 962--963
+Overfull \hbox (18.4126pt too wide) in paragraph at lines 969--970
 []\OT1/cmr/m/n/12 in the pre-vi-ous fig-ure we dis-cussed many-to-many uni-dire
 ctional
  []
 
 
-Overfull \hbox (29.02515pt too wide) in paragraph at lines 987--988
+Overfull \hbox (29.02515pt too wide) in paragraph at lines 994--995
 [][] 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1546) has occurred while \output is active []
 
 
 Overfull \hbox (51.03723pt too wide) has occurred while \output is active
@@ -1073,7 +1073,7 @@ T1/cmr/m/n/12 71
  []
 
 [71]
-Overfull \hbox (29.02515pt too wide) in paragraph at lines 1020--1021
+Overfull \hbox (29.02515pt too wide) in paragraph at lines 1027--1028
 [][] 
  []
 
@@ -1081,12 +1081,12 @@ Overfull \hbox (29.02515pt too wide) in paragraph at lines 1020--1021
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [72]
-Overfull \hbox (19.22946pt too wide) in paragraph at lines 1024--1024
+Overfull \hbox (19.22946pt too wide) in paragraph at lines 1031--1031
 []\OT1/cmr/bx/n/14.4 Many-to-Many of dif-fer-ent in-put/output
  []
 
 
-Overfull \hbox (9.0504pt too wide) in paragraph at lines 1050--1051
+Overfull \hbox (9.0504pt too wide) in paragraph at lines 1057--1058
 [][] 
  []
 
@@ -1099,18 +1099,18 @@ Underfull \vbox (badness 2486) has occurred while \output is active []
 
  [76]
 [77]
-Overfull \hbox (26.67271pt too wide) in paragraph at lines 1281--1282
+Overfull \hbox (26.67271pt too wide) in paragraph at lines 1288--1289
 [][] 
  []
 
 [78] [79] [80] [81]
-Overfull \hbox (12.86473pt too wide) in paragraph at lines 1341--1342
+Overfull \hbox (12.86473pt too wide) in paragraph at lines 1348--1349
 \OT1/cmr/m/n/12 tion over the vec-tor space of the em-bed-ding $(\OML/cmm/m/it/
 12 A^^R[]\OT1/cmr/m/n/12 )[](\OML/cmm/m/it/12 A[]e[]\OT1/cmr/m/n/12 ) =
  []
 
 [82] [83] [84] [85]
-Overfull \hbox (60.41893pt too wide) in paragraph at lines 1385--1386
+Overfull \hbox (60.41893pt too wide) in paragraph at lines 1392--1393
 []\OT1/cmr/m/n/12 attention model takes the out-put se-quence of a bi-direction
 al RNN $\OML/cmm/m/it/12 a[]; a[]; [] ; a[]$
  []
@@ -1120,47 +1120,47 @@ Chapter 7.
 [87
 
 ]
-Overfull \hbox (8.82083pt too wide) in paragraph at lines 1410--1411
+Overfull \hbox (8.82083pt too wide) in paragraph at lines 1417--1418
 \OT1/cmr/m/n/12 con-di-tions for sub-set of the ran-dom vari-ables for ex-am-pl
 e $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 I; D; G[]\OT1/cmr/m/n/12
  )$
  []
 
 
-Overfull \hbox (18.88203pt too wide) in paragraph at lines 1418--1419
+Overfull \hbox (18.88203pt too wide) in paragraph at lines 1425--1426
 []\OT1/cmr/bx/n/12 factor marginal-iza-tion\OT1/cmr/m/n/12 : from dis-tri-bu-ti
 on $\OML/cmm/m/it/12 ^^^[]$\OT1/cmr/m/n/12 , to marginal-
  []
 
 
-Overfull \hbox (32.52115pt too wide) in paragraph at lines 1419--1420
+Overfull \hbox (32.52115pt too wide) in paragraph at lines 1426--1427
 []\OT1/cmr/bx/n/12 reduced fac-tor\OT1/cmr/m/n/12 : re-duced fac-tor over $\OML
 /cmm/m/it/12 C[]$ \OT1/cmr/m/n/12 is $\OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/12 = 
 \OML/cmm/m/it/12 ^^^[] \OMS/cmsy/m/n/12  
  []
 
 
-Overfull \hbox (26.07617pt too wide) in paragraph at lines 1421--1422
+Overfull \hbox (26.07617pt too wide) in paragraph at lines 1428--1429
 \OT1/cmr/m/n/12 prob-a-bil-ity with a joint prob-a-bil-ity dis-tri-bu-tion, for
  ex-am-ple $\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 G\OMS/cmsy/m/n/
 12 j\OML/cmm/m/it/12 I; D\OT1/cmr/m/n/12 )$. 
  []
 
 
-Overfull \hbox (2.01534pt too wide) in paragraph at lines 1426--1427
+Overfull \hbox (2.01534pt too wide) in paragraph at lines 1433--1434
 \OT1/cmr/m/n/12 dif-fi-culity),I(intelligence),S(sat score),L(reference rec-om-
 men-da-tion
  []
 
 [88]
-Overfull \hbox (46.53305pt too wide) in paragraph at lines 1440--1441
+Overfull \hbox (46.53305pt too wide) in paragraph at lines 1447--1448
 \OT1/cmr/m/n/12 structed graph, fac-tor-iza-tion of the joint dis-tri-bu-tion $
 \OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 D; I; G; S; L\OT1/cmr/m/n/1
 2 ) =
  []
 
 
-Overfull \hbox (54.22307pt too wide) in paragraph at lines 1440--1441
+Overfull \hbox (54.22307pt too wide) in paragraph at lines 1447--1448
 \OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 L\OMS/cmsy/m/n/12 j\OML/cmm
 /m/it/12 G\OT1/cmr/m/n/12 )$, there-for $\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OM
 L/cmm/m/it/12 D; I; G; S; L\OT1/cmr/m/n/12 ) = \OML/cmm/m/it/12 P\OT1/cmr/m/n/1
@@ -1173,7 +1173,7 @@ OML/cmm/m/it/12 G\OT1/cmr/m/n/12 )$.
  []
 
 
-Overfull \hbox (66.17967pt too wide) in paragraph at lines 1441--1489
+Overfull \hbox (66.17967pt too wide) in paragraph at lines 1448--1496
 []\OT1/cmr/m/n/12 , P(G) [], P(L) [] 
  []
 
@@ -1182,13 +1182,13 @@ Underfull \vbox (badness 7944) has occurred while \output is active []
 
  [89]
 [90]
-Overfull \hbox (6.59328pt too wide) in paragraph at lines 1509--1510
+Overfull \hbox (6.59328pt too wide) in paragraph at lines 1516--1517
 []\OT1/cmr/m/n/12 to look for ac-tive trails, we search the graph from V-struct
 ures. 
  []
 
 
-Overfull \hbox (168.80397pt too wide) in paragraph at lines 1512--1512
+Overfull \hbox (168.80397pt too wide) in paragraph at lines 1519--1519
 []\OT1/cmr/m/n/12 chain rule ex-pan-sion of $\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 
 (\OML/cmm/m/it/12 D; I; G; S; L\OT1/cmr/m/n/12 ) = \OML/cmm/m/it/12 P\OT1/cmr/m
 /n/12 (\OML/cmm/m/it/12 D\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\O
@@ -1201,7 +1201,7 @@ r/m/n/12 )$
  []
 
 [91] [92] [93]
-Overfull \hbox (0.8702pt too wide) in paragraph at lines 1566--1567
+Overfull \hbox (0.8702pt too wide) in paragraph at lines 1573--1574
 []\OT1/cmr/m/n/12 so only the like-li-hood $\OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (
 \OML/cmm/m/it/12 X[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 X[]\OT1/cmr/m/n/12 ) = \
 OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 X[]\OMS/cmsy/m/n/12 j\OML/cm
@@ -1210,7 +1210,7 @@ m/m/it/12 X\OT1/cmr/m/n/12 )$ and the prior $\OML/cmm/m/it/12 P\OT1/cmr/m/n/12
  []
 
 
-Overfull \hbox (7.46806pt too wide) in paragraph at lines 1574--1575
+Overfull \hbox (7.46806pt too wide) in paragraph at lines 1581--1582
 []\OT1/cmr/m/n/12 Dynamics net-work is a gen-er-al-iza-tion of a tem-plate mode
 l Bayesian
  []
@@ -1220,7 +1220,7 @@ l Bayesian
 ]
 Chapter 8.
 [99] [100] [101] [102]
-Overfull \hbox (33.14264pt too wide) in paragraph at lines 1750--1751
+Overfull \hbox (33.14264pt too wide) in paragraph at lines 1757--1758
 []\OT1/cmr/m/n/12 Recall that con-di-tional prob-a-bil-ity $\OML/cmm/m/it/12 p\
 OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 pos\OT1/
 cmr/m/n/12 ) = []$, $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 pos\OT
@@ -1229,14 +1229,14 @@ cmr/m/n/12 ) = []$, $\OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 pos\OT
  []
 
 
-Overfull \hbox (16.12262pt too wide) in paragraph at lines 1752--1753
+Overfull \hbox (16.12262pt too wide) in paragraph at lines 1759--1760
 \OT1/cmr/m/n/12 us-ing the so-called 'lapla-cian smooth-ing': $\OML/cmm/m/it/12
  p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 class
 \OT1/cmr/m/n/12 ) = []$,
  []
 
 [103] [104] [105] [106] [107] [108] [109] [110] [111]
-Overfull \hbox (4.80772pt too wide) in paragraph at lines 1948--1948
+Overfull \hbox (4.80772pt too wide) in paragraph at lines 1955--1955
 []\OT1/cmr/bx/n/17.28 Probabilistic model of pro-noun-ci-a-tion and
  []
 
@@ -1247,7 +1247,7 @@ cmr/m/n/12 113
  []
 
 [113]
-Overfull \hbox (40.14713pt too wide) detected at line 1976
+Overfull \hbox (40.14713pt too wide) detected at line 1983
 \OML/cmm/m/it/12 dstance\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 i; j\OT1/cmr/m/n/12 ]
  \OMS/cmsy/m/n/12   \OML/cmm/m/it/12 Min []
  []
@@ -1255,10 +1255,13 @@ Overfull \hbox (40.14713pt too wide) detected at line 1976
 [114] [115] [116] [117] [118]
 
 Package natbib Warning: Citation `xyz2' on page 119 undefined on input line 206
-2.
+9.
 
-No file ml.bbl.
-[119] [120
+(./ml.bbl
+
+Package natbib Warning: Empty `thebibliography' environment on input line 3.
+
+) [119] [120
 
 ] [121
 
@@ -1280,19 +1283,19 @@ Appendix C.
 Appendix D.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 2077.
+(hyperref)                than one, level fixed on input line 2084.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 2077.
+(hyperref)                removing `math shift' on input line 2084.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\beta' on input line 2077.
+(hyperref)                removing `\beta' on input line 2084.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 2077.
+(hyperref)                removing `math shift' on input line 2084.
 
 [129] [130]
 Appendix E.
@@ -1312,24 +1315,24 @@ Appendix F.
 Package natbib Warning: There were undefined citations.
 
 [133]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2095.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2095.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2102.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2102.
  (./ml.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2095.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2095.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2102.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2102.
 
 Package rerunfilecheck Info: File `ml.out' has not changed.
-(rerunfilecheck)             Checksum: EB246BEC53C817296539360F5C646C84;15750.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2095.
+(rerunfilecheck)             Checksum: 4FE13627438529FE13CD5593ABD9DC72;15750.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2102.
  ) 
 Here is how much of TeX's memory you used:
- 32444 strings out of 481239
- 779500 string characters out of 5920378
- 1150491 words of memory out of 5000000
+ 32447 strings out of 481239
+ 779506 string characters out of 5920377
+ 1150492 words of memory out of 5000000
  46732 multiletter control sequences out of 15000+600000
  545543 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,18n,100p,1245b,2125s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,18n,100p,1239b,2125s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist
@@ -1348,10 +1351,10 @@ nts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/s
 frm1200.pfb>
-Output written on ml.pdf (133 pages, 495803 bytes).
+Output written on ml.pdf (133 pages, 498120 bytes).
 PDF statistics:
- 1902 PDF objects out of 2073 (max. 8388607)
- 1731 compressed objects within 18 object streams
- 417 named destinations out of 1000 (max. 500000)
+ 1903 PDF objects out of 2073 (max. 8388607)
+ 1732 compressed objects within 18 object streams
+ 418 named destinations out of 1000 (max. 500000)
  1757 words of extra memory for PDF output out of 10000 (max. 10000000)
 

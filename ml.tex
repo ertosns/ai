@@ -830,6 +830,7 @@
   \subsection{One-Shot learning}
   \begin{description}
   \item addressing the following criteria given a single input image for a person, as a single entry in the training-set, our model need to have accuracy approaching 100\%. for new inputs to the trained model, how to scale?
+    \item also the shortcomming of the use of classification, is that it's trained on specific number of classes, or identities, but in the case of new input, the clssification is expected to match the input to one of the softmax outputs, thus reducing the accuracy, to maintain the accuracy the model need to be trained for each new input, instead a siamese network is used to calculate the simiarity of new input against database records.
     \subsection{Similarity learning function}
     \begin{description}
     \item given two images $I_1,I_2$, then similarity function $d(I_1,I_2)$ calculates the distance, and the distance inverse is how identical the two images are, such that $d=0$ if $I_1=I_2$, and verification is acceptable under negligible distance threshold $\tau$: $$
@@ -843,7 +844,8 @@
     \subsection{Siamese Network}
   \item how to calculate the similarity distance?
     \begin{description}
-    \item for an convolution network ending with fully-connected with N nodes [FCN] layer, then for each data-set entry $x^{(i)}$, we define $f(x^{(i)})$ to be the output of [FCN] on the entry $x^{(i)}$.
+      \item .
+    \item for an convolution network ending with fully-connected with N nodes [FCN] layer, for each data-set entry $x^{(i)}$, we define $f(x^{(i)})$ to be the output of [FCN] on the entry $x^{(i)}$.
     \item for two input images $x^i, x^j$ from the data-set, the similarity function: $$ \|f(x^{(i)}) - f(x^{(j)})\|_2^2 $$.
     \item so, how to define the loss function? using what is called a \textbf{Triplet Loss}
       \subsection{Triplet Loss}
@@ -853,16 +855,20 @@
          \sum_i^N {\|f(x_i^a) - f(x_i^p)\|_2^2  - \|f(x_i^a) - f(x_i^n)\|_2^2} + \alpha
         $$
       \end{description}
-    \item  what to do in case of new input images?!
+    %TODO (res) \item  what to do in case of new input images?!
       \subsection{Binary Classification}
       \begin{description}
-      \item another variation is binary classification into ``match'', or ``not match'', can be performed into pair of images $x^i, x^j$, and label 0 (for different persons), or 1(for the same person), with Sigmoid activation, defined as of [FC] layer of size F: $$
+      \item another variation is binary classification into ``match'', or ``not match'', can be performed into pair of images $x^i, x^j$, and label 0 (for different persons), or 1(for the same person), with Sigmoid activation, defined as [FC] layer of size F: $$
         \hat{y}=\sigma (\sum_k^{F} w_i \|f(x^{i})_k - f(x^{j})_k \| + b)
         $$ where $w_i, b_i$ are training parameters.
       \item or using the qui-square formula $$
         \frac{(f(x^i)_k - f(x^j)_k)^2}{(f(x^i)_k + f(x^j)_k}
         $$
-        \end{description}
+      \end{description}
+      %TODO (res) the parallel architecture of the network, and shed light on siamese in NLP
+    \item note that in NLP, the siamese network is used to match two different sentences, for example two search queries, with input being the embedding of the sentence, running through LSTM layer, and the distance is the cosine similarity function between the output, while the triplet function is defined with anchor vector of corresponding sentence, and positive, and negative vectors, such that $diff = d(A,P) - d(A,N)$, since the difference can be negative, cost function is required to be non-negative, a rectifier over the diff function is employed, and to capture the negative value difference, such that if the output for each negative difference is proportional to a positive value, and shift over the loss axis by adding small constant $\alpha$ (similar to triplet loss in CNN), the final lost function is $ relu(diff+\alpha) $, and the cost is the overall lost over all the training example $\sum_{i=1}^mL(A^{(i)},P^{(i)},N^{(i)})$.
+
+    \item training on hard triplet (are those satisfying $d(A,P) - d(A,N) = \epsilon$) are better for training to adjust the parameters to detect small differences, and the loss function is replaced by $L_{full}=L_1+L_2$, $L_1 = relu(\text{mean Negative } - d(A,P) + \alpha)$, $L_2 = relu(\text{closest negative} - d(A,P) + \alpha)$, where \text{mean Negative} is the different with the negative values in the embedding matrix, and \text{closest negative} is the different with the closest negative in the embedding values.
     \end{description}
     \section{Neural Style Transfer}
     \begin{description}
@@ -944,6 +950,7 @@
     \end{tikzpicture}
     \item and the network is often initialized by random $A^{<0>}$ at the start of the network
     \item this type of model are called unidirection RNN, compared to bidirectional RNN where the paths moves both ways.
+    \item the cost function is defined as the average of all output losses $$ J = \frac{1}{T}\sum_{i=1}^T\sum_{j=1}^{T_Y}y_j^{<t>}log(\hat{y_j^{<t>}}) $$
       \section{uni-directional RNN Forward propagation}
       \begin{description}
       \item $$a^{<t>} = g(W_{aa}a^{<t-1>} + W_{ax}X^{<t>} + b_a) $$
@@ -1884,7 +1891,7 @@ Euclidean distance is defined as:
 \item $$d_{\text{cos}}(u,v)=1-\cos(u,v)$$
 
   \subsection{LSH and document search}
-\item In this part of the assignment, you will implement a more efficient version of k-nearest neighbors using locality sensitive hashing. You will then apply this to document search.
+\item first implement a more efficient version of k-nearest neighbors using locality sensitive hashing.  then apply this to document search.
 
 \item Process the tweets and represent each tweet as a vector (represent a document with a vector embedding).
 \item Use locality sensitive hashing and k nearest neighbors to find tweets that are similar to a given tweet.
