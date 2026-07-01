@@ -1,0 +1,35 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.dvi
+*.ps
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# pgfplots / tikz externalization
+*.auxlock
+*-figure*.pdf
+*-figure*.md5
+*-figure*.dpth
+*-figure*.log
+
+# editor / OS junk
+*~
+*.swp
+.DS_Store
+
+# NOTE: ml.pdf is intentionally tracked so it can be linked/hosted from the README.

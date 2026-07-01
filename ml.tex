@@ -17,7 +17,7 @@
 % Define \figref as abbreviation of "Figure~\ref{...}"
 \newcommand\figref{Figure~\ref}
 %\usetikzlibrary{positioning}
-\usetikzlibrary{positioning, fit, arrows.meta, shapes, chains}
+\usetikzlibrary{positioning, fit, arrows.meta, shapes, chains, calc}
 
 % used to avoid putting the same thing several times...
 % Command \empt{var1}{var2}
@@ -30,6 +30,30 @@
 % for mathematical symbols
 %\usepackage{amsfonts}
 \usepackage{amssymb}
+
+% source code listings
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.5,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.55,0,0.4}
+\definecolor{codeback}{rgb}{0.96,0.96,0.96}
+\lstdefinestyle{py}{
+  language=Python,
+  backgroundcolor=\color{codeback},
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{blue},
+  stringstyle=\color{codepurple},
+  numberstyle=\tiny\color{codegray},
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  numbers=left,
+  numbersep=6pt,
+  showstringspaces=false,
+  frame=single,
+  captionpos=b
+}
+\lstset{style=py}
 
 
 \begin{document}
@@ -57,8 +81,8 @@
 \section{definitions}
 
 \begin{description}
-\item we need an estimate function $\hat{y}$ for the input x, and weight prameters w$\in R^{n_x}, b\in R$.
-\item logstic function is $\hat{y}=p(y=1|x)$, and can be defined as follows: $\hat{y}=\sigma(w^Tx+b)$, where the sigma function is defined by $\sigma(z)=\frac{1}{1+e^{-z}}$, and notice when z $\to \infty, \sigma = 1, z \to -\infty, \sigma =0$.
+\item we need an estimate function $\hat{y}$ for the input x, and weight parameters w$\in R^{n_x}, b\in R$.
+\item logistic function is $\hat{y}=p(y=1|x)$, and can be defined as follows: $\hat{y}=\sigma(w^Tx+b)$, where the sigma function is defined by $\sigma(z)=\frac{1}{1+e^{-z}}$, and notice when z $\to \infty, \sigma = 1, z \to -\infty, \sigma =0$.
 \item
 \end{description}
 
@@ -66,13 +90,13 @@
 
 \begin{description}
 \item starting with a estimation linear forward model $\hat{y}$, we calculate the difference between our estimate, and the real value $y$, and through optimization we try to minimize the difference, or loss/cost through gradient descent, then we update our model's parameters.
-  \item loss function is minimizing the difference between estimation ${\hat{y}, y}$, and can be defined as least squre $L(\hat{y}, y)=\frac{1}{2}(\hat{y} - y)$, but least squares leads to non-convex loss function(with multiple local minimums).
+  \item loss function is minimizing the difference between estimation ${\hat{y}, y}$, and can be defined as least square $L(\hat{y}, y)=\frac{1}{2}(\hat{y} - y)^2$, but least squares leads to non-convex loss function(with multiple local minimums).
 \item there are different loss functions, but the most efficient is that which maximize the difference. we can define $P(y|x^{(i)}, \theta) = h(x^{(i)},\theta)^{y^{(i)}}(1-h(x^{(i)},\theta)^{1-y^{(i)}}$, to increase the sensitivity to the training set we take the likelihood function, as the loss, $L(\theta)=\prod_{i=1}^mP(y|x^{(i)}, \theta)$ see $\mathbf{(AppendixA)}$.
 \item one final step in our model is that as m get larger L tend to go to zero, to solve this we define the average sum of log-likelihood, or loss function to be our Cost function.
 \item we multiply by -1 since the sum of the log-likelihood function is negative.
 \item the Cost function  $J(\theta)=\frac{1}{m}\sum_{i=1}^{m}log(h(x^{(i)},\theta)^{y^{(i)}}(1-h(x^{(i)},\theta)^{1-y^{(i)}})$
 
-\item loss function is defined as $L(\hat{y}, y)=-[ylog(\hat{y}) - (1-y)log(1-\hat{y})]$, L$\in[0-1]$.
+\item loss function is defined as $L(\hat{y}, y)=-[ylog(\hat{y}) + (1-y)log(1-\hat{y})]$, L$\in[0-1]$.
 
 \item cost function is defined as the average of loss function $J(w,b)=\frac{1}{m}\sum_{i=1}^{m}L(\hat{y^{(i)}}, y)$
 \end{description}
@@ -153,24 +177,53 @@
 
 \section{Summary}
 \begin{description}
-  \item
+\item logistic regression fits parameters $w,b$ so that $\hat{y}=\sigma(w^Tx+b)$ estimates $P(y=1|x)$. training minimizes the cross-entropy cost $J(w,b)=\frac{1}{m}\sum_i L(\hat{y}^{(i)},y^{(i)})$ by gradient descent, whose vectorized gradients reduce to $\partial w=\frac{1}{m}X(\hat{y}-y)^T$ and $\partial b=\frac{1}{m}\sum_i(\hat{y}^{(i)}-y^{(i)})$, repeated until convergence.
 \end{description}
 
 \section{Logistic Regression in Python}
 \begin{description}
-  \item
+\item the whole model is a few lines of vectorized \texttt{numpy}: a sigmoid, one forward pass, one backward pass, and a gradient-descent loop.
 \end{description}
+\begin{lstlisting}[caption={logistic regression with numpy}]
+import numpy as np
+
+def sigmoid(z):
+    return 1.0 / (1.0 + np.exp(-z))
+
+def train(X, y, alpha=0.01, iterations=2000):
+    # X: (n_x, m) features, y: (1, m) labels
+    n_x, m = X.shape
+    w = np.zeros((n_x, 1))
+    b = 0.0
+    for _ in range(iterations):
+        # forward propagation
+        yhat = sigmoid(np.dot(w.T, X) + b)      # (1, m)
+        # cost (cross-entropy)
+        cost = -np.mean(y * np.log(yhat) + (1 - y) * np.log(1 - yhat))
+        # backward propagation
+        dz = yhat - y                           # (1, m)
+        dw = np.dot(X, dz.T) / m                 # (n_x, 1)
+        db = np.sum(dz) / m
+        # update parameters
+        w -= alpha * dw
+        b -= alpha * db
+    return w, b
+
+def predict(X, w, b):
+    return sigmoid(np.dot(w.T, X) + b) > 0.5
+\end{lstlisting}
 
 \section{References}
 \begin{description}
-  \item
+\item Andrew Ng, \textit{Neural Networks and Deep Learning}, deeplearning.ai / Coursera.
+\item this chapter follows the standard maximum-likelihood derivation of logistic regression; see also the appendix on the likelihood function.
 \end{description}
 
 \chapter{Neural Networks}
 \section {Lingua franca}
 
 \begin{itemize}
-\item RELU Activation Function: It turns out that using the Tanh function in hidden layers is far more better. (Because of the zero mean of the function). Tanh activation function range is [-1,1] (Shifted version of sigmoid function). Sigmoid or Tanh function disadvantage is that if the input is too small or too high, the slope will be near zero which will cause us the gradient decent problem. RELU stands for rectified linear unit, it's a rectifier Activation function and can be defined as $f(x)=x^+=max(0,x)$ or $\begin{cases} 0 & x\leq 0 \\ x & x > 0 \end{cases}$ relu shows to be better replacement to sigmoid function $\sigma$ for the reason that it help in vanquishing gradient problem.
+\item RELU Activation Function: It turns out that using the Tanh function in hidden layers is far more better. (Because of the zero mean of the function). Tanh activation function range is [-1,1] (Shifted version of sigmoid function). Sigmoid or Tanh function disadvantage is that if the input is too small or too high, the slope will be near zero which will cause us the gradient decent problem. RELU stands for rectified linear unit, it's a rectifier Activation function and can be defined as $f(x)=x^+=max(0,x)$ or $\begin{cases} 0 & x\leq 0 \\ x & x > 0 \end{cases}$ relu shows to be better replacement to sigmoid function $\sigma$ for the reason that it help in avoiding the vanishing gradient problem.
 \item Neuron: is a linear regression algorithm denoted by z, or a, $z= W^TX + b$, such that W is the the weight vector of the network.
 \item Shallow Layers: also known as Hidden Layers, is a set of neurons, for example of the network of composed of input $X$, and output $Y$, with at least a single layer $L1$, and at most 2 layers, then the forward propagation will be as follows: we calculate the logistic function for the first layer $(1)$,  $z^{1}_i=w^TX_i+b_i$, $\hat{Y}^{(1)}=\sigma{(z^{1}_i)}$ , then we proceed to calculate the final logistic evaluation for the output layer with $\hat{Y}^{(1)}$ as an input instead of $X$, and so on we proceed replacing $\hat{Y}^{(i)}$ instead of X as new input.
 \item Layer: layer $L_{(i)}$ is $\hat{Y}^{(i)}=[\hat{y}^{(i)}_1, \hat{y}^{(i)}_2, ..., \hat{y}^{(i)}_n]$ such that n is the length of the layer $L_{(i)}$. each $\hat{y}^{(i)}_{j}$ is weighted with unique weight vector with previous layer $L_{(i-1)}$.
@@ -248,13 +301,64 @@
 
 \section{Summary}
 \begin{description}
-\item
+\item a deep network stacks $L$ layers, each applying an affine map followed by a non-linearity: $z^{[l]}=W^{[l]}A^{[l-1]}+b^{[l]}$, $A^{[l]}=g^{[l]}(z^{[l]})$, with \textbf{relu} in the hidden layers and \textbf{sigmoid} (or softmax) at the output.
+\item training repeats three steps: a \textbf{forward pass} caching every $z^{[l]},A^{[l]}$; a \textbf{backward pass} propagating $dz^{[l]}=dA^{[l]}*g'^{[l]}(z^{[l]})$, $dW^{[l]}=\frac{1}{m}dz^{[l]}A^{[l-1]T}$, $db^{[l]}=\frac{1}{m}\sum dz^{[l]}$, $dA^{[l-1]}=W^{[l]T}dz^{[l]}$; and a \textbf{parameter update} $W^{[l]}\!:=\!W^{[l]}-\alpha\,dW^{[l]}$.
+\item unlike logistic regression the weights must be initialized randomly (small values) so the hidden units learn distinct features.
 \end{description}
 
 \section{Deep neural networks in Python}
 \begin{description}
-\item
+\item the same three steps generalize to $L$ layers by iterating over a list of weight matrices; the forward pass caches activations that the backward pass consumes.
 \end{description}
+\begin{lstlisting}[caption={an L-layer feed-forward network with numpy}]
+import numpy as np
+
+def relu(z):        return np.maximum(0, z)
+def relu_grad(z):   return (z > 0).astype(float)
+def sigmoid(z):     return 1.0 / (1.0 + np.exp(-z))
+
+def init_params(dims):
+    # dims = [n_x, n_1, ..., n_L]
+    params = {}
+    for l in range(1, len(dims)):
+        params["W" + str(l)] = np.random.randn(dims[l], dims[l-1]) * 0.01
+        params["b" + str(l)] = np.zeros((dims[l], 1))
+    return params
+
+def forward(X, params, L):
+    cache = {"A0": X}
+    A = X
+    for l in range(1, L + 1):
+        Z = np.dot(params["W" + str(l)], A) + params["b" + str(l)]
+        A = sigmoid(Z) if l == L else relu(Z)   # sigmoid on the output layer
+        cache["Z" + str(l)], cache["A" + str(l)] = Z, A
+    return A, cache
+
+def backward(y, params, cache, L, m):
+    grads = {}
+    AL = cache["A" + str(L)]
+    dZ = AL - y                                 # sigmoid + cross-entropy
+    for l in range(L, 0, -1):
+        A_prev = cache["A" + str(l-1)]
+        grads["dW" + str(l)] = np.dot(dZ, A_prev.T) / m
+        grads["db" + str(l)] = np.sum(dZ, axis=1, keepdims=True) / m
+        if l > 1:
+            dA_prev = np.dot(params["W" + str(l)].T, dZ)
+            dZ = dA_prev * relu_grad(cache["Z" + str(l-1)])
+    return grads
+
+def train(X, y, dims, alpha=0.01, iterations=3000):
+    L = len(dims) - 1
+    m = X.shape[1]
+    params = init_params(dims)
+    for _ in range(iterations):
+        AL, cache = forward(X, params, L)
+        grads = backward(y, params, cache, L, m)
+        for l in range(1, L + 1):
+            params["W" + str(l)] -= alpha * grads["dW" + str(l)]
+            params["b" + str(l)] -= alpha * grads["db" + str(l)]
+    return params
+\end{lstlisting}
 
 \chapter {Neural Networks hyperparameters}
 \begin{description}
@@ -300,12 +404,12 @@
 \item with un-normalized input the gradient descend tends to take long time, and longer way down to the local minima, but if the input is normalized (demeaned, and divided by the standard deviation of the input) we end up with circular counter, and smooth, and faster gradient descent.
 
 \subsection{Vanishing/Exploding gradients}
-\item let's look deeper inside a deeper network, through L layers, such that L is large, $\hat{y}=(W^LW^{(L-1)}W^{(L-2)}...W^1)X$ if we assume $b=0$ for simplicity, and that $W^L$ is the transpose of $w^L$, in case entries of similar weight matrices in values, if the values of each $W^i$ matrix below the 1, then the overall $(W^LW^{(L-1)}W^{(L-2)}...W^1)$ term will be very small, and gradient descent will take forever, on the other hand, if those entries greater than 1, then the overall term will be huge, and the gradient descend will overshot(exploding).
+\item let's look deeper inside a deeper network, through L layers, such that L is large, $\hat{y}=(W^LW^{(L-1)}W^{(L-2)}...W^1)X$ if we assume $b=0$ for simplicity, and that $W^L$ is the transpose of $w^L$, in case entries of similar weight matrices in values, if the values of each $W^i$ matrix below the 1, then the overall $(W^LW^{(L-1)}W^{(L-2)}...W^1)$ term will be very small, and gradient descent will take forever, on the other hand, if those entries greater than 1, then the overall term will be huge, and the gradient descend will overshoot(exploding).
 
 \item a well chosen initialization parameters can Speed up the convergence of gradient descent, and Increase the odds of gradient descent converging to a lower training (and generalization) error.
 
-    %TODO name the formula, and elaborate.
 \item to solve vanishing/exploding gradients problem we take two steps in weight parameters initialization, first the values are choosing at random through normal distribution, secondly, setting up the variance of $w^i$ to $\frac{1}{k}$  such that k is the number of the neurons in layer $i-1$. and it's by multiplying of $w^i$ by $\sqrt{\frac{1}{k}}$, this ratio shows to fit better with relu activation if replaced with $\sqrt{\frac{2}{k}}$
+\item the first variant $W^{[l]}\sim\mathcal{N}(0,1)\cdot\sqrt{\frac{1}{n^{[l-1]}}}$ is \textbf{Xavier (Glorot) initialization}, derived so that the variance of the activations is preserved from one layer to the next for a tanh non-linearity; the relu variant $\sqrt{\frac{2}{n^{[l-1]}}}$ is \textbf{He initialization}, the extra factor of 2 compensating for relu zeroing out half of its inputs. keeping the per-layer variance near 1 is exactly what stops the product $W^{[L]}\cdots W^{[1]}$ from decaying to zero or blowing up.
 
 \item back to inverted dropout algorithm, due to the vanishing/exploding gradients problem we fix a threshold $P_{keep}$ and compare each entry in $W_i$ (taken from uniform distribution [0-1], unlike previously we choose W at random from normal/Gaussian distribution), so.
 \item back propagation step we run the same masking algorithm over $\partial{A^{l}}$ and divide it by the same factor.
@@ -385,7 +489,7 @@
 \item learning rate decay initial value \textbf{$\alpha_0$}.
 \item ADAM's $\beta_1$, $\beta_2$, $\epsilon$.
   \end{enumerate}
-\item so we have 7 parameters so far, the permutation of those 7 variables even in a narrow range of discrete values, can take for ever, and an old-practice was to pick random permutation on a grid, meaning that $hyper-parameter_i$, against $hyper-parameter_j$, such that each cell map two different parameters, but since we are solving a stochastic search problem, it's more efficient to set the values at random in both dimension so for example for each $hyper-parameter_i$  is projected on the $hyper-parameter_j$ at each point, and texted, this opens more possibilities.
+\item so we have 7 parameters so far, the permutation of those 7 variables even in a narrow range of discrete values, can take for ever, and an old-practice was to pick random permutation on a grid, meaning that $hyper-parameter_i$, against $hyper-parameter_j$, such that each cell map two different parameters, but since we are solving a stochastic search problem, it's more efficient to set the values at random in both dimension so for example for each $hyper-parameter_i$  is projected on the $hyper-parameter_j$ at each point, and tested, this opens more possibilities.
 
  \subsection{coarse to fine search}
   \subsection{panda vs caviar training approaches}
@@ -420,6 +524,8 @@
     a^{[L]}=\frac{e^{z^{[l]}}}{\sum_{i=1}^{n^{[L]}}t_i},$$  where $t=e^{z^{[L]}} $.
     \item the resultant $\sum_{i=1}^{n^{[L]}}{a_i^{[L]}}=1$, where $n^{[L]}$ is the number of neurons, or nodes in the final layer, which is the same as the number of classes at output \textbf{y}.
   \end{description}
+
+  \chapter{Classical Machine Learning}
   \section{Support Vector Machine (SVM)}
   \begin{description}
   \item so far the cost function with regularization is $$\frac{1}{m}[\sum_{i=1}^my^{(i)}(-log(\text( h_{\theta})(x^{(i)})) + (1-y^{(i)}) ((-log(1-h_{\theta}(x^{(i)})))] + \frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2 $$
@@ -432,7 +538,7 @@
         \legend{$\sigma(x)$}
       \end{axis}
     \end{tikzpicture}
-    %Here ends the furst plot
+    %Here ends the first plot
     \hskip 5pt
     %Here begins the 3d plot
     %\begin{tikzpicture}
@@ -445,20 +551,20 @@
   \item if we generalize our look to the logistic cost function, if $y=0$ then the equation reduces to  $$\frac{1}{m}[\sum_{i=1}^my^{(i)}(-log(\text( h_{\theta}(x^{(i)}))] + \frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2 $$, we cant define a define $cost_1=-log(\text( h_{\theta})(x^{(i)})=-log(\theta^TX)$
 %%
   \item \begin{tikzpicture}
-    \begin{axis}
-      %TODO fix this graph!!
+    \begin{axis}[xlabel={$z=\theta^TX$}, ylabel={cost}, domain=-3:3, samples=200,
+        legend pos=north east, ymin=-0.2, ymax=3]
       \addplot[red,smooth] {-ln(1/(1+exp(-x)))};
-      \addlegendentry{$-log(\frac{1}{(1+e(-\theta^TX)))}$}
-      \addplot[blue, smooth] {(\x<=1) * (\x*-1) };
+      \addlegendentry{$-log(\frac{1}{1+e^{-\theta^TX}})$}
+      \addplot[blue] {(1-x)*(x<1)};
       \addlegendentry{$cost_1$}
     \end{axis}
   \end{tikzpicture}
     \begin{tikzpicture}
-      \begin{axis}
-        %TODO fix this graph!!
+      \begin{axis}[xlabel={$z=\theta^TX$}, ylabel={cost}, domain=-3:3, samples=200,
+          legend pos=north west, ymin=-0.2, ymax=3]
       \addplot[red,smooth] {-ln(1-1/(1+exp(-x)))};
-      \addlegendentry{$-log(1- \frac{1}{(1+e(-\theta^TX)))}$}
-      \addplot[blue] {(\x>=-1) * (\x*1) };
+      \addlegendentry{$-log(1-\frac{1}{1+e^{-\theta^TX}})$}
+      \addplot[blue] {(1+x)*(x>-1)};
       \addlegendentry{$cost_0$}
     \end{axis}
     \end{tikzpicture}
@@ -467,7 +573,7 @@
   \item $cost_0$: the linear lower bound of $-log(1-h_{\theta}(x^{(i)})))$ term, when y=0, and $\theta^TX<=-1$
   \item penalization term $\lambda$ is added to the first term instead,  $C \approx \frac{1}{\lambda}$, and finally, and averaging by m can be ignored since we multiply by large value C, and can also be ignored from the regularization term, since the $\theta$ is adjusted in the first term, note that the regularization term is just the Euclidean norm $\lVert \theta \rVert_2$
   \item the final SVM: $$C\sum_{i=1}^m[y^{(i)}(cost_1(\theta^TX^{(i)})) + (1-y^{(i)}) (cost_0(\theta^TX^{(i)})] + \frac{1}{2} \lVert \theta \rVert_2$$
-  \item and the intuition for this is the first term get trained such that when $y=1$ then $cost_1=0$, if $y=0$, then $cost_0=0$, thus the first term is set to zero, and then SVM thrinks down to minimizing $$\frac{1}{2} \lVert \theta \rVert_2$$.
+  \item and the intuition for this is the first term get trained such that when $y=1$ then $cost_1=0$, if $y=0$, then $cost_0=0$, thus the first term is set to zero, and then SVM shrinks down to minimizing $$\frac{1}{2} \lVert \theta \rVert_2$$.
     \subsection{Large Margins in linear Decision Boundaries}
     \begin{description}
     \item it turns out that SVM do a pretty good job in decision boundary for given data-set, assume we classify class A against class B in the given data-set, first in a linear classification, it draw a line in between the two blobs of data, with nearly equal margins in both sides, the reason is in the hypothesis constrains $z=\theta^TX$, for $y=1$ then $z>=1$, and if $y=0$ then $z<=-1$, thus the model is trained to classify classes A,B outside the Large margin [-1\text{-}1], also note that the $\theta^Tx^i$ is the dot product (degree of alignment) between the weight parameter, and the training example $x^i$, and since z in required to be outside the defined range, thus z need to be a large value, meaning that both $\vec{x}$, $\vec{\theta}$ need to be aligned, otherwise z shrinks to zero at perpendicular angle $90^{\degree}$. if for example $\vec{\theta}$ is inclined w.r.t $\vec{x^{i}}$ by $\Theta^{\degree}$, then $\vec{\theta}$ need to be pretty large in order for z to lay outside ]-1\text{-}1[, but since we using penalizing factor $C$, then $\vec{\theta}$ is maintained to reasonable value, and thus the SVM model converges to the optimal decision boundary with large margins.
@@ -504,7 +610,7 @@
   \chapter{Structuring machine learning}
   \section{Machine learning strategy}
   \begin{description}
-  \item we discussed in previous chapter how, and when to use optimization, regularization techniques, in practice, such decision making is crucial, and can save months of development time if we know to choose the right direction, and make the right decision to help our model work more effectively, doing regularization when the system need optimization in the case of high-bias is time consuming process, and spending months getting more data-set in highly biased model can be a total wast of time.
+  \item we discussed in previous chapter how, and when to use optimization, regularization techniques, in practice, such decision making is crucial, and can save months of development time if we know to choose the right direction, and make the right decision to help our model work more effectively, doing regularization when the system need optimization in the case of high-bias is time consuming process, and spending months getting more data-set in highly biased model can be a total waste of time.
     \section{orthogonality}
   \item tuning process isn't done arbitrarily  but we must know which hyper-parameters to tune to get the most desired effect.
   \item modeling a process or a problem with as many features, we need to be able to fit our model to capture all data-set features. in the set of hyper-parameters it's easier if we can tune one parameter from the set of hyper-parameters and only take an effect on the corresponding purpose without avalanche effect, so for example in a car we can choose the adjust speed separately from the steering, although steering and speed are related in a single function, yet we can change one without affecting the other, therefor the name \textbf{orthogonality}
@@ -855,17 +961,17 @@
          \sum_i^N {\|f(x_i^a) - f(x_i^p)\|_2^2  - \|f(x_i^a) - f(x_i^n)\|_2^2} + \alpha
         $$
       \end{description}
-    %TODO (res) \item  what to do in case of new input images?!
+    \item this is exactly what makes the approach \textbf{one-shot}: enrolling a new person needs only a single reference image --- we run it once through the trained network $f$ and store its embedding, then recognition is a nearest-neighbour comparison of distances $d$. no retraining of the network is required when new identities are added.
       \subsection{Binary Classification}
       \begin{description}
       \item another variation is binary classification into ``match'', or ``not match'', can be performed into pair of images $x^i, x^j$, and label 0 (for different persons), or 1(for the same person), with Sigmoid activation, defined as [FC] layer of size F: $$
         \hat{y}=\sigma (\sum_k^{F} w_i \|f(x^{i})_k - f(x^{j})_k \| + b)
         $$ where $w_i, b_i$ are training parameters.
-      \item or using the qui-square formula $$
+      \item or using the chi-square formula $$
         \frac{(f(x^i)_k - f(x^j)_k)^2}{(f(x^i)_k + f(x^j)_k}
         $$
       \end{description}
-      %TODO (res) the parallel architecture of the network, and shed light on siamese in NLP
+    \item the two branches share one set of weights --- the same network $f$ is applied to each input in parallel and only the embeddings are compared; this weight-tied ``twin'' design is what is called a \textbf{siamese network}, and it transfers directly from vision to NLP.
     \item note that in NLP, the siamese network is used to match two different sentences, for example two search queries, with input being the embedding of the sentence, running through LSTM layer, and the distance is the cosine similarity function between the output, while the triplet function is defined with anchor vector of corresponding sentence, and positive, and negative vectors, such that $diff = d(A,P) - d(A,N)$, since the difference can be negative, cost function is required to be non-negative, a rectifier over the diff function is employed, and to capture the negative value difference, such that if the output for each negative difference is proportional to a positive value, and shift over the loss axis by adding small constant $\alpha$ (similar to triplet loss in CNN), the final lost function is $ relu(diff+\alpha) $, and the cost is the overall lost over all the training example $\sum_{i=1}^mL(A^{(i)},P^{(i)},N^{(i)})$.
 
     \item training on hard triplet (are those satisfying $d(A,P) - d(A,N) = \epsilon$) are better for training to adjust the parameters to detect small differences, and the loss function is replaced by $L_{full}=L_1+L_2$, $L_1 = relu(\text{mean Negative } - d(A,P) + \alpha)$, $L_2 = relu(\text{closest negative} - d(A,P) + \alpha)$, where \text{mean Negative} is the different with the negative values in the embedding matrix, and \text{closest negative} is the different with the closest negative in the embedding values.
@@ -1055,10 +1161,9 @@
       \draw[very thick,latex-] (AL.south) -- ++ (0,-2em)
       node[below,item,fill=gray!10] {$x^{<t>}$};
         \end{tikzpicture}
-          \item (TODO fix the spacing)
         \item in the case of machine translation, the model in composed of encoder consisting of the first input $X^{<0>}$ to $X^{<n>}$, and output decoder consisting of the last output $y^{<n+1>}$ to $y^{<t>}$.
         \end{description}
-      \item (TODO add attention based architecture)
+      \item the plain encoder--decoder squeezes the entire input sequence into one fixed context vector, which degrades on long sentences; the \textbf{attention} mechanism (see the Attention Model section at the end of this chapter) lets each decoder step attend to a weighted combination of all encoder states instead of a single summary.
 
       \end{description}
 
@@ -1082,7 +1187,31 @@
       \begin{description}
       \item starting with an example from NLP, in English language, verbs are conjugated w.r.t the subject in the sentence, in a very long text, keeping track of the subject is essential, but in the RNN which flows from the left to right can be substantially long, such  forward, and backward propagation influences the advanced nodes is very negligible thus leading to vanishing gradients problems, to solve this, keeping a record of the such pivotal words is essential, for this GRU was invented.
 
-      \item (TODO draw GRU graph)
+      \item the GRU cell takes the previous memory $c^{<t-1>}$ and the input $x^{<t>}$, computes a candidate memory $\tilde{c}^{<t>}$ and an update gate $\Gamma_u$, and blends the old and candidate memories to produce $c^{<t>}$:
+      \item \begin{tikzpicture}[>=Latex, node distance=1.6cm,
+          gate/.style={draw, rounded corners, minimum height=2.2em, minimum width=3.2em, fill=blue!8, font=\small},
+          op/.style={draw, circle, inner sep=0pt, minimum size=1.7em},
+          io/.style={font=\small}]
+        \node[io] (cprev) {$c^{<t-1>}$};
+        \node[io, below=1.4cm of cprev] (x) {$x^{<t>}$};
+        \node[gate, right=1.7cm of cprev] (cand) {$\tanh$};
+        \node[gate, below=0.7cm of cand] (gu) {$\sigma$};
+        \node[op, right=1.6cm of cand] (m1) {$\times$};
+        \node[op, right=1.6cm of gu] (m2) {$\times$};
+        \node[op, right=1.1cm of m1] (sum) {$+$};
+        \node[io, right=1.2cm of sum] (out) {$c^{<t>}=a^{<t>}$};
+        \draw[->] (cprev.east) -- (cand.west);
+        \draw[->] (cprev.east) -| ($(gu.west)+(-0.4,0)$) -- (gu.west);
+        \draw[->] (x.east) -| ($(cand.west)+(-0.5,0)$) -- (cand.west);
+        \draw[->] (x.east) -| ($(gu.west)+(-0.7,0)$) -- (gu.west);
+        \draw[->] (cand) -- (m1) node[midway, above, font=\scriptsize] {$\tilde{c}^{<t>}$};
+        \draw[->] (gu) -- (m2) node[midway, above, font=\scriptsize] {$\Gamma_u$};
+        \draw[->] (m1) -- (sum);
+        \draw[->] (m2) -| (sum);
+        \draw[->] (cprev.north) |- ($(sum.north)+(0,0.6)$) -| (sum.north)
+          node[pos=0.25, above, font=\scriptsize] {$(1-\Gamma_u)$};
+        \draw[->] (sum) -- (out);
+      \end{tikzpicture}
         \subsection{GRU simplified}
         \begin{description}
         \item define memory cell C, $C^{<t-i>} = a^{<t-i>}$.
@@ -1212,7 +1341,11 @@
     \item one notice here is that in $\Gamma_o$ instead of $X^{<t>}$ you could use $C^{<t-1>}$ instead, and known as \textbf{peephole connection}
       \subsection{Back-propagation}
       \begin{description}
-      \item (TODO add derivation)
+      \item back-propagation through an LSTM cell receives the incoming gradients $da^{<t>}$ (from the output/next layer) and $dc^{<t>}$ (from the next time-step), and produces the gate gradients together with $da^{<t-1>}$, $dc^{<t-1>}$ passed to the previous step.
+      \item the output gate first routes $da^{<t>}$ into the cell state, so the cell gradient accumulates $$dc^{<t>} \mathrel{+}= da^{<t>} * \Gamma_o * (1-\tanh^2(c^{<t>})).$$
+      \item the pre-activation gradients of the four gates (each folding in the derivative of its own non-linearity) are $$d\tilde{c}^{<t>}=dc^{<t>}*\Gamma_u*(1-\tilde{c}^{<t>2}),$$ $$d\Gamma_u=dc^{<t>}*\tilde{c}^{<t>}*\Gamma_u(1-\Gamma_u),$$ $$d\Gamma_f=dc^{<t>}*c^{<t-1>}*\Gamma_f(1-\Gamma_f),$$ $$d\Gamma_o=da^{<t>}*\tanh(c^{<t>})*\Gamma_o(1-\Gamma_o).$$
+      \item stacking the concatenated input $[a^{<t-1>},x^{<t>}]$, each weight matrix gradient is the outer product of the corresponding gate gradient with that input, e.g. $$dW_c=d\tilde{c}^{<t>}[a^{<t-1>},x^{<t>}]^T,\quad db_c=\textstyle\sum d\tilde{c}^{<t>},$$ and similarly for $W_u,W_f,W_o$.
+      \item finally the gradients handed to the previous step are $$dc^{<t-1>}=dc^{<t>}*\Gamma_f,\qquad da^{<t-1>}=W_c^T d\tilde{c}^{<t>}+W_u^T d\Gamma_u+W_f^T d\Gamma_f+W_o^T d\Gamma_o$$ (keeping only the rows of each $W_*$ that multiply the $a^{<t-1>}$ block of the concatenation).
       \end{description}
     \end{description}
     \subsection{Bidirectional RNN}
@@ -1291,8 +1424,9 @@
     \end{description}
     \section{Deep RNNs}
     \begin{description}
-    \item (TODO insert the graph)
-    \item (TODO add forward/backward propagation)
+    \item a deep RNN stacks several recurrent layers: the activation of layer $l$ at time $t$, written $a^{[l]<t>}$, is fed both forward in time (to $a^{[l]<t+1>}$) and upward in depth (to $a^{[l+1]<t>}$). because each layer is already unrolled over the whole sequence, RNNs are rarely stacked more than 3 deep.
+    \item \textbf{forward propagation}: for each layer $l\in[1,L]$ and step $t$, $$a^{[l]<t>}=g\!\left(W_a^{[l]}\big[a^{[l]<t-1>},\,a^{[l-1]<t>}\big]+b_a^{[l]}\right),$$ where $a^{[0]<t>}=x^{<t>}$ is the input and $a^{[l]<0>}$ is the (usually zero) initial state of layer $l$; the top-layer output feeds the usual per-step prediction $\hat{y}^{<t>}=\text{softmax}(W_y a^{[L]<t>}+b_y)$.
+    \item \textbf{backward propagation} is back-propagation through time applied to the stack: at each $(l,t)$ the gradient $da^{[l]<t>}$ collects two contributions --- one from the same layer at the next time-step and one from the layer above at the same step --- and is then pushed through $g'$ to accumulate $dW_a^{[l]},db_a^{[l]}$, exactly as in the single-layer case.
     \end{description}
   \end{description}
   \section{Word Representation}
@@ -1314,8 +1448,7 @@
       \item for a Vocabulary of V words, the \textbf{Matrix Embedding} $E$ of N-dimensional features, is consistent of V word embedding, for example for word $w^i$, if it's embedding it's $e_{w^i}$, then $EO_{w^i}=e_{w^i}$ of size N.
         \subsection{Learning word embedding}
         \begin{description}
-        \item How word embedding is generated for a new word? given Matrix Embedding?
-          %TODO add a graph representation
+        \item How word embedding is generated for a new word? given Matrix Embedding? the standard trick is to set up a fake prediction task (predict a word from its context, or a context word from a target) and read the learned weight matrix $E$ as the embedding --- the embedding is a by-product of training that language-model-like network.
         \item In a sequence of words $w_1,w_2,\dots,w_{n_1}$, prediction of the \textbf{nth} word $w_n$ can be the output of a Neural Network, feed by window \textbf{W} of preceding word embedding, given a Matrix Embedding E of N features, and sentence, with corresponding one-hot vector representation of \textbf{V} words vocabulary  , each vector work embedding $e_{w^i}$ is calculated, and feed as input to the neural network. the final neural network would be of input size $W\times{N}$, feed to neural network of L layers (usually 1 layer), with final SOFTMAX output of length V, and produces the predicted one-hot vector representation of the \textbf{nth} word $w_n$.
           \subsection{Word2Vec}
             \subsection{Skip gram}
@@ -1324,10 +1457,8 @@
 
               \subsection{hierarchical SOFTMAX}
               \begin{description}
-                %TODO elaborate more! check the paper.
               \item for a small vocabulary V of even 10k words, generating a word embedding for each words $P(w_t|w_c)$ can be quite expensive summing over the entire vocabulary for each target word: $$ p(w_t|w_c) = \frac{e^{\theta_t^Te_c}}{\sum_{j=1}^Ve^{\theta_j^Te_c}}$$ notice here the bias term is ignored, where $\theta_k$ is the weight parameter associated with word $w_k$ for i $\in$ [1\text{-}V]. so instead the hierarchical SOFTMAX sorts the context words in tree, and uses a binary-search-like algorithms to narrow down the search to closest word region.
-                %thus summing over smaller range
-                \item
+              \item concretely, the words are arranged as the leaves of a binary tree and each internal node holds its own logistic classifier; the probability of a word is the product of the left/right decisions along the root-to-leaf path, so evaluating (and normalizing) one word costs $O(\log_2 V)$ classifiers instead of the full $O(V)$ sum. a Huffman tree (frequent words nearer the root) makes the average path even shorter.
               \item secondly in the random sampling, the heuristic is not to choice uniformly, ending up repeating the calculation for the most frequent words for example the STOP words ``the'', or ``of'' as context words.
                 \end{description}
             \end{description}
@@ -1355,15 +1486,10 @@
     \end{description}
     \section{Sequence To Sequence Model}
     \begin{description}
-      % TODO does beam search reduces the computational cost?!
-      % if the beam length=1, then it's a greedy search!
-      % it seams the it increase the cost, but
-      % a gready search is V^{sentence length}, while
-      % beam search is 3*V*{sentence length}, or i'm wrong?!
-      % if i'm right then 1*V*{sentence length} is the computational cost, and that is a contradiction, so something is wring in those assumptions 1,2.
     \item sequence to sequence model is a generative model, generating an output sequence $y^{<1>}\text{-}y^{<T_y>}$, or $$P(y^{<1>},\dots,y^{<Ty>}|x^{<1>},\dots,x^{<Tx>})$$ from input sequence $x^{<1>}\text{-}x^{<T_x>}$, an interesting example is image captioning, taking Alexnet network SOFTMAX output, can fit as a an input sequence, to be trained on captioning data-set. for example $T_x$ can be softmax of length 4096, and $T_x$ is the captioning length can be set to 10 words.
     \item a single input sequence \textbf{X} can map to different possible output sequence \textbf{Y}, sequence to sequence model aim for the maximum probability $$\underset{y^{<1>},\dots,y^{<T_Y>}}{\operatorname{argmax}}\prod_{t=1}^{T_y}P(y^{<t>}|X,y^{<1>},\dots,y^{<t-1>})$$.
-    \item to explain the complexity analysis, let's pick an example, for example in NLP machine translation, the greedy search approach for this argmax has complexity of $O(V^{T_y})$, where V is the vocabulary size, for example in a output as small as 10 sequence words, from a moderate vocabulary of length 100k, then the sample space is $100000^{10}$ ! which is infeasible for a moderate application, instead a non-optimal heuristic search algorithm is usually employed for example  \textbf{beam search}.
+    \item to explain the complexity analysis, let's pick an example, for example in NLP machine translation, the \textbf{exact} argmax (scoring every possible output sequence) has complexity $O(V^{T_y})$, where V is the vocabulary size, for example in a output as small as 10 sequence words, from a moderate vocabulary of length 100k, then the sample space is $100000^{10}$ ! which is infeasible for a moderate application, instead a non-optimal heuristic search algorithm is usually employed for example  \textbf{beam search}.
+    \item to settle the cost question directly: \textbf{greedy} decoding (keep the single best word at each step) costs $O(V\cdot T_y)$; \textbf{beam search} with width $B$ keeps the $B$ best partial sequences and at each step scores $B\cdot V$ extensions, so it costs $O(B\cdot V\cdot T_y)$ --- exactly $B$ times greedy, and greedy is the special case $B=1$. so beam search does \emph{not} reduce cost relative to greedy; it spends a constant factor $B$ more in exchange for a higher-probability sequence, while still being astronomically cheaper than the exact $O(V^{T_y})$ search.
       \subsection{Beam search}
       \begin{description}
       \item noticing in the previous example the in almost all cases, in machine translation example from a vocabulary of size V, only a small fraction of words can have reasonable probability, so it's possible to set a Window/Width \textbf{W} for example of $W=5$ words to search instead of the whole vocabulary at the initial step, so to instantiate the network N times, so at first sequence $Y^{<1>}$ there are only W possibilities are fit  $P(y^{<1>}|X)$, similarly at second step $Y^{<2>}$ there are equivalently maximum W words $P(y^{<1>},y^{<2>}|X)$, at the second step another instantiation of the network , leading to step 3, for sequence  $Y^{<3>}$, $P(y^{<1>},y^{<2>},y^{<3>}|X)$, and so on, this shrink down the complexity to $O(W\times{V}\times{T_y})$.
@@ -1514,7 +1640,19 @@
         \begin{description}
         \item X, and Y are d-separated in the graph G, if there is no flow of influence between them, and it's denoted by $d-sep_G(X,Y|Z)$, interpreted as X, and Y are separated on the graph G, or there is no flow of influence between them.
         \item to look for active trails, we search the graph from V-structures.
-        \item (TODO add illustrative graph)
+        \item the running example is the ``student'' network over Difficulty (D), Intelligence (I), Grade (G), SAT (S) and Letter (L):
+        \item \begin{tikzpicture}[>=Latex, var/.style={draw, circle, minimum size=2.4em, font=\small, fill=blue!6}]
+          \node[var] (D) at (0,2)   {D};
+          \node[var] (I) at (2.4,2) {I};
+          \node[var] (G) at (1.2,1) {G};
+          \node[var] (S) at (3.6,1) {S};
+          \node[var] (L) at (1.2,0) {L};
+          \draw[->] (D) -- (G);
+          \draw[->] (I) -- (G);
+          \draw[->] (I) -- (S);
+          \draw[->] (G) -- (L);
+        \end{tikzpicture}
+        \item here $D\rightarrow G\leftarrow I$ is a V-structure: D and I are marginally independent, but observing G (or its descendant L) opens the trail and makes them dependent; conversely D and S are d-separated given I.
         \item If P factorizes over G, and $d-sep_G(X,Y|Z)$ then P satisfies $(X \perp Y|Z)$. if there is d-separation between X, and Y given Z, then there is no flow of influence given Z, and from definition of independence $P(X \perp Y | Z) = P(X|Z)P(Y|Z)$.
         \item chain rule expansion of $P(D,I,G,S,L)=P(D)P(I|D)P(G|I,D)P(S|G,I,D)P(L|S,G,I,D)$ from flow of influences in G it reduces to $$P(D)P(I)P(G|D,I)P(S|I)P(L|G)$$
         \item $$P(D,S)=\sum_{G,L,I}P(D)P(I)P(G|D,I)P(S|I)P(L|G)$$
@@ -1585,7 +1723,22 @@
     \begin{description}
     \item \textbf{HMMs} are subclass of \textbf{DBNS} with hidden edges either from each state to itself, or from the state at time $t_i$ to arbitrary time $t_j$.
     \item HMM start from state X to X' through a transition state, and outputs an observation at X', through the HMM network, transition, and observation are wrapped in two matrices Transition, and Observation matrices. (we will elaborate more on that in following chapters)
-    \item (TODO add a graph)
+    \item unrolled over time the hidden states $X_t$ form a Markov chain (horizontal transition edges) while each emits its observation $O_t$ (vertical emission edges):
+    \item \begin{tikzpicture}[>=Latex, node distance=1.5cm,
+        st/.style={draw, circle, minimum size=2.3em, font=\small, fill=blue!6},
+        ob/.style={draw, minimum size=2.3em, font=\small, fill=gray!12}]
+      \node[st] (x1) {$X_1$};
+      \node[st, right=of x1] (x2) {$X_2$};
+      \node[st, right=of x2] (x3) {$X_3$};
+      \node[ob, below=of x1] (o1) {$O_1$};
+      \node[ob, below=of x2] (o2) {$O_2$};
+      \node[ob, below=of x3] (o3) {$O_3$};
+      \draw[->] (x1) -- (x2) node[midway, above, font=\scriptsize] {T};
+      \draw[->] (x2) -- (x3) node[midway, above, font=\scriptsize] {T};
+      \draw[->] (x1) -- (o1) node[midway, right, font=\scriptsize] {O};
+      \draw[->] (x2) -- (o2) node[midway, right, font=\scriptsize] {O};
+      \draw[->] (x3) -- (o3) node[midway, right, font=\scriptsize] {O};
+    \end{tikzpicture}
     \end{description}
 
   \end{description}
@@ -1605,8 +1758,7 @@
 
     \subsection{Tree CPD}
     \begin{description}
-      %TODO fix this graph weight!!
-      \tikzstyle{weight} = [font=\scriptsize]
+      \tikzstyle{weight} = [font=\scriptsize, midway, sloped]
       \tikzstyle{arrow} =[draw,thick,->]
     \item  \begin{tikzpicture}[node distance={30mm}, thick, main/.style = {draw, circle}, val/.style = {draw, rectangle}]
 
@@ -1952,7 +2104,7 @@ in the document.
 \item $$ hash = \sum_{i=0}^{N-1} \left( 2^{i} \times h_{i} \right) $$
 
 \end{description}
-\section{Probabilistic model of pronounciation and spelling}
+\section{Probabilistic model of pronunciation and spelling}
 \begin{description}
   \subsection{auto-correction}
 \item the misspelling is quite common in writing, and to transduct a word from the misspelled form to dictionary closest word, most relevant to the context for spelling, and pronunciation we utilize \textbf{Bayes Rule}, and \textbf{the noisy channel model}, and this problem can be divided into two categories:
@@ -2066,16 +2218,38 @@ in the document.
 
 \end{description}
 
-\citep{xyz2}
 \bibliographystyle{apalike}
 \bibliography{bib0}
 
 \begin{appendices}
   \chapter{Introduction to probabilities}
   \section{probabilities chain rule}
+  \begin{description}
+  \item the conditional probability of an event $A$ given $B$ is defined as $P(A|B)=\frac{P(A,B)}{P(B)}$, and therefore the joint probability is $P(A,B)=P(A|B)P(B)$.
+  \item applying this rule repeatedly to a set of random variables $X_1, X_2, ..., X_n$ gives the \textbf{chain rule} (general product rule): $$P(X_1, X_2, ..., X_n)=P(X_1)P(X_2|X_1)P(X_3|X_1,X_2)...P(X_n|X_1,...,X_{n-1}) = \prod_{i=1}^{n}P(X_i|X_1,...,X_{i-1}).$$
+  \item the chain rule is the basis of sequence and language models, where the probability of a sentence $w_1...w_n$ factorizes as $\prod_{i=1}^n P(w_i|w_1,...,w_{i-1})$.
+  \end{description}
   \section {Naive Bayes}
+  \begin{description}
+  \item Bayes rule inverts a conditional probability: $P(y|x)=\frac{P(x|y)P(y)}{P(x)}$, where $P(y)$ is the prior, $P(x|y)$ the likelihood, and $P(y|x)$ the posterior.
+  \item the \textbf{naive} assumption is that the features $x=(x_1,...,x_n)$ are conditionally independent given the class $y$, so by the chain rule $P(x_1,...,x_n|y)=\prod_{i=1}^{n}P(x_i|y)$.
+  \item the classifier picks the most probable class (MAP estimate), and since $P(x)$ is constant across classes: $$\hat{y}=\arg\max_{y}P(y)\prod_{i=1}^{n}P(x_i|y).$$
+  \item to avoid underflow from multiplying many small probabilities we work in log-space: $\hat{y}=\arg\max_{y}\left[\log P(y)+\sum_{i=1}^{n}\log P(x_i|y)\right]$.
+  \end{description}
   \chapter{Covariance}
+  \begin{description}
+  \item the covariance of two random variables measures how they vary together: $$\text{Cov}(X,Y)=E[(X-E[X])(Y-E[Y])]=E[XY]-E[X]E[Y].$$
+  \item for a random vector $X\in R^{n}$ with mean $\mu=E[X]$, the \textbf{covariance matrix} is $\Sigma=E[(X-\mu)(X-\mu)^T]$, with entries $\Sigma_{ij}=\text{Cov}(X_i,X_j)$; it is symmetric and positive semi-definite, and its diagonal holds the variances $\text{Var}(X_i)$.
+  \item the (Pearson) \textbf{correlation} normalizes covariance by the standard deviations, $\rho_{XY}=\frac{\text{Cov}(X,Y)}{\sigma_X\sigma_Y}\in[-1,1]$, removing the dependence on scale.
+  \item given a data matrix of $m$ samples, the \textbf{sample covariance} is $\hat{\Sigma}=\frac{1}{m-1}\sum_{i=1}^{m}(x^{(i)}-\bar{x})(x^{(i)}-\bar{x})^T$, where $\bar{x}$ is the sample mean (the $m-1$ denominator gives an unbiased estimate).
+  \end{description}
   \chapter{Single Value Decomposition}
+  \begin{description}
+  \item any real matrix $A\in R^{m\times n}$ can be factorized as $$A=U\Sigma V^T,$$ where $U\in R^{m\times m}$ and $V\in R^{n\times n}$ are orthogonal ($U^TU=I$, $V^TV=I$), and $\Sigma\in R^{m\times n}$ is diagonal with non-negative entries $\sigma_1\ge\sigma_2\ge...\ge0$ called the \textbf{singular values}.
+  \item the columns of $U$ (left singular vectors) are the eigenvectors of $AA^T$, the columns of $V$ (right singular vectors) are the eigenvectors of $A^TA$, and the singular values are the square roots of the shared eigenvalues, $\sigma_i=\sqrt{\lambda_i}$.
+  \item keeping the largest $k$ singular values gives the best rank-$k$ approximation $A_k=\sum_{i=1}^{k}\sigma_i u_i v_i^T$ in the least-squares sense (Eckart--Young theorem), which is the basis of dimensionality reduction and PCA (where SVD is applied to the mean-centered data / covariance matrix).
+  \item SVD also yields the Moore--Penrose \textbf{pseudo-inverse} $A^{+}=V\Sigma^{+}U^T$, used to solve least-squares problems $\min_x\|Ax-b\|$, where $\Sigma^{+}$ inverts the non-zero singular values.
+  \end{description}
   \chapter {Exponentially weighted averages}
   \begin{description}
   \item if we have a stochastic function over vector $\Theta$, to smooths it's overshoot a bit, we can take the averages over a window of size $k$, but for large sized vector $\Theta$, it's expensive to keep all values at memory, and repeatedly run the average function over a small window, instead we can keep just the previous value through weighted averages.
@@ -2092,11 +2266,17 @@ in the document.
   \end{description}
   \chapter{smoothing (add-k, and add-one Laplacian)}
   \begin{description}
-    \item .
+  \item the maximum-likelihood estimate of an n-gram probability, $P(w_i|w_{i-1})=\frac{count(w_{i-1},w_i)}{count(w_{i-1})}$, assigns zero probability to any n-gram that was never seen in training, which makes the probability of a whole sentence collapse to zero. smoothing moves a little probability mass from seen events to unseen ones.
+  \item \textbf{add-one (Laplace)} smoothing adds a count of one to every possible n-gram: $$P_{Laplace}(w_i|w_{i-1})=\frac{count(w_{i-1},w_i)+1}{count(w_{i-1})+V},$$ where $V$ is the vocabulary size (the number of possible words), added to the denominator so the distribution still sums to one.
+  \item \textbf{add-k} smoothing generalizes this to a fractional pseudo-count $k$ (typically $0<k<1$, tuned on a dev set): $$P_{add\text{-}k}(w_i|w_{i-1})=\frac{count(w_{i-1},w_i)+k}{count(w_{i-1})+kV}.$$
+  \item add-one is often too aggressive for large vocabularies (it steals too much mass from observed n-grams); back-off and interpolation are usually preferred in practice, but add-k remains a simple, useful baseline.
     \end{description}
   \chapter{Kernels, and Convolution functions}
   \begin{description}
-    \item .
+  \item the \textbf{convolution} of two functions is $(f*g)(t)=\int f(\tau)g(t-\tau)\,d\tau$, and in the discrete case $(f*g)[n]=\sum_{m}f[m]g[n-m]$; it slides one function over another, at each shift multiplying and summing the overlap.
+  \item in convolutional networks the operation applied is really 2D cross-correlation of an image $I$ with a kernel (filter) $K$: $$(I*K)[i,j]=\sum_{u}\sum_{v}I[i+u,\,j+v]\,K[u,v],$$ where the learned kernel weights $K$ detect local patterns (edges, textures) with parameter sharing across the whole image.
+  \item in the kernel-methods sense (e.g. SVMs) a \textbf{kernel function} $k(x,x')=\langle\phi(x),\phi(x')\rangle$ computes an inner product in some high-dimensional feature space $\phi$ without ever forming $\phi(x)$ explicitly --- the \textit{kernel trick}.
+  \item common kernels are the linear $k(x,x')=x^Tx'$, the polynomial $k(x,x')=(x^Tx'+c)^d$, and the Gaussian / RBF $k(x,x')=\exp\!\left(-\frac{\|x-x'\|^2}{2\sigma^2}\right)$. a valid kernel must satisfy Mercer's condition: its Gram matrix $K_{ij}=k(x^{(i)},x^{(j)})$ is symmetric positive semi-definite.
     \end{description}
 \end{appendices}
 \end{document}
